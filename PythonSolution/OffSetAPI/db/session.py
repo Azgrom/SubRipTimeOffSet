@@ -13,14 +13,15 @@ class InitializeSession:
 
 
 class GetMethods(InitializeSession):
-    def get_title_occurrence(self, title: str, db_field: str):
+    def get_title_occurrence(self, title: str):
+        field = model.Subtitles.file_name
         title_filter = db_field == title
         title_occurence = self.db.query(model.Subtitles).filter(title_filter)
         return title_occurence.offset(self.skip).limit(self.limit).all()
 
-    def list_db_by_title(self, title: str):
+    def list_filenames(self):
         field = model.Subtitles.file_name
-        return self.get_title_occurrence(title, field)
+        return self.db.query(field).offset(self.skip).limit(self.limit).all()
 
 
 class PostMethods(InitializeSession):

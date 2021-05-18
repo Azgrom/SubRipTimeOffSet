@@ -10,10 +10,6 @@ from datetime import datetime
 from pydantic import BaseModel, constr
 
 
-class SubtitleFileName(BaseModel):
-    file_name: constr(min_length = 1)
-
-
-class SubTitleSchema(SubtitleFileName):
+class SubTitleSchema(BaseModel):
     file_name: constr(min_length = 1)
     file_content: str

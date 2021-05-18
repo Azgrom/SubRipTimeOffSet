@@ -7,7 +7,7 @@ Created on Tue May 18 10:56:41 2021
 """
 
 import shutil
-from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, Query, HTTPException, UploadFile
 from fastapi.responses import HTMLResponse, FileResponse
 from pathlib import Path
 from sqlalchemy.orm import Session
@@ -60,8 +60,15 @@ class SubOffSetAPI(FastAPI):
             return GetMethods(db, skip, limit).list_filenames()
 
         @self.get("/download_subtitle/")
-        async def download_subtitle():
-            return FileResponse(self.temp_file_str)
+        async def download_subtitle(db: Session = Depends(get_db), id: int = Query(...)):
+            if id < 1:
+                raise HTTPException(status_code = 402,
+                                    detail = "ID must be equal or greater than 1")
+            entry = GetMethods(db).get_sub_data(id)
+            if entry == [] or entry is None:
+                raise HTTPException(status_code = 402,
+                                    detail = "There is no entry with this ID")
+            return entry
 
         @self.get("/")
         async def main():

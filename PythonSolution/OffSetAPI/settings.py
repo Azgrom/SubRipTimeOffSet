@@ -54,6 +54,11 @@ class SubOffSetAPI(FastAPI):
             dub_db = PostMethods(db).register_subtitle(sub)
             return file
 
+        @self.get("/list_files_in_db/")
+        async def list_files(db: Session = Depends(get_db), skip: int = 0,
+                             limit: int = 100):
+            return GetMethods(db, skip, limit).list_filenames()
+
         @self.get("/download_subtitle/")
         async def download_subtitle():
             return FileResponse(self.temp_file_str)

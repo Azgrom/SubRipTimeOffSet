@@ -7,15 +7,9 @@ Created on Tue May 18 11:37:52 2021
 """
 
 from datetime import datetime
-from pydantic import BaseModel, constr, conint
+from pydantic import BaseModel, constr
 
 
-class SubTitleFile(BaseModel):
+class SubTitleSchema(BaseModel):
     file_name: constr(min_length = 1)
-    description: constr(max_length = 100)
-
-class Subtitle(BaseModel):
-    sub_nmb: conint()
-    start_time: datetime
-    end_time: datetime
-    dialog: str
+    file_content: str

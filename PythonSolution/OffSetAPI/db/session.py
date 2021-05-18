@@ -14,7 +14,7 @@ class InitializeSession:
 
 class GetMethods(InitializeSession):
     def get_title_occurrence(self, title: str):
-        field = model.Subtitles.file_name
+        db_field = model.Subtitles.file_name
         title_filter = db_field == title
         title_occurence = self.db.query(model.Subtitles).filter(title_filter)
         return title_occurence.offset(self.skip).limit(self.limit).all()

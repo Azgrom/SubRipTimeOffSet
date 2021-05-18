@@ -59,7 +59,7 @@ class SubOffSetAPI(FastAPI):
                              limit: int = 100):
             return GetMethods(db, skip, limit).list_filenames()
 
-        @self.get("/download_subtitle/")
+        @self.get("/download_subtitle_by_id/")
         async def download_subtitle(db: Session = Depends(get_db), id: int = Query(...)):
             if id < 1:
                 raise HTTPException(status_code = 402,

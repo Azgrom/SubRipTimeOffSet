@@ -37,14 +37,14 @@ class SubOffSetAPI(FastAPI):
             finally:
                 db.close()
 
-        @self.post("/upload_subtitle/", tags = self.subs_rs)
+        @self.post("/upload_subtitle/", tags = self.subs_rs, description = 'This route saves the uploaded file to the temporary system directory')
         async def upload_temp_subtitle(file: UploadFile = File(...)):
             return save_upload_file_tmp(file)
 
         @self.post("/upload_to_db/")
         async def upload_to_db(db: Session = Depends(get_db),
                                file: UploadFile = File(...)):
-            check_db = GetMethods(db).list_db_by_title(title = file.filename)
+            check_db = GetMethods(db).get_title_occurrence(title = file.filename)
             if check_db:
                 raise HTTPException(status_code = 401,
                                     detail = "File already exists in database")

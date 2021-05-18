@@ -6,8 +6,7 @@ Created on Tue May 18 11:03:23 2021
 @author: Rafael Lúcio
 """
 
-from sqlalchemy import Column, ForeignKey, Integer, String, Text, Time
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, Text
 
 from .database import Base
 

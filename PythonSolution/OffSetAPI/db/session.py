@@ -23,6 +23,10 @@ class GetMethods(InitializeSession):
         field = model.Subtitles.file_name
         return self.db.query(field).offset(self.skip).limit(self.limit).all()
 
+    def get_sub_data(self, id: int):
+        id_db_data = self.db.query(model.Subtitles)
+        return id_db_data.get(id)
+
 
 class PostMethods(InitializeSession):
     def register_subtitle(self, sub_schema: schema.SubTitleSchema):

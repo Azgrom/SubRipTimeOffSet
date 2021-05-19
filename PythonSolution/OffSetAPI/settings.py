@@ -17,7 +17,8 @@ from .db import model, schema
 from .db.database import Engine, LocalSession
 from .db.session import PostMethods, GetMethods
 from .file_processing.offset_method import offset_sub
-from .file_processing.uploaded_files import save_upload_file_tmp, save_db_file_tmp
+from .file_processing.uploaded_files import (save_upload_file_tmp,
+                                            save_db_file_tmp)
 from .main_page import root_html_body
 
 
@@ -68,7 +69,9 @@ class SubOffSetAPI(FastAPI):
             if entry == [] or entry is None:
                 raise HTTPException(status_code = 402,
                                     detail = "There is no entry with this ID")
-            return FileResponse(path = save_db_file_tmp(entry),
+            created_file_from_db = save_db_file_tmp(entry)
+            offset_sub(created_file_from_db, offset)
+            return FileResponse(path = created_file_from_db,
                                 media_type='application/octet-stream',
                                 filename = entry.file_name)
 

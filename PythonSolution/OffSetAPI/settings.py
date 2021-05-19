@@ -8,7 +8,7 @@ Created on Tue May 18 10:56:41 2021
 
 import shutil
 from fastapi import Depends, FastAPI, File, Query, HTTPException, UploadFile
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse, FileResponse, RedirectResponse
 from pathlib import Path
 from sqlalchemy.orm import Session
 from tempfile import NamedTemporaryFile
@@ -26,7 +26,6 @@ class SubOffSetAPI(FastAPI):
     model.Base.metadata.create_all(bind = Engine)
 
     subs_rs = ['Subtitle History']
-    temp_file_str = '/tmp/tmpe6hf36lu.srt'
 
     def __init__(self, title: str = 'Subtitle Time OffSet API') -> None:
         super().__init__()
@@ -37,10 +36,6 @@ class SubOffSetAPI(FastAPI):
                 yield db
             finally:
                 db.close()
-
-        @self.post("/upload_subtitle/", tags = self.subs_rs, description = 'This route saves the uploaded file to the temporary system directory')
-        async def upload_temp_subtitle(file: UploadFile = File(...)):
-            return save_upload_file_tmp(file)
 
         @self.post("/upload_to_db/")
         async def upload_to_db(db: Session = Depends(get_db),
@@ -81,7 +76,10 @@ class SubOffSetAPI(FastAPI):
                                 media_type='application/octet-stream',
                                 filename = entry.file_name)
 
+        @self.post("/upload_subtitle/", tags = self.subs_rs, description = 'This route saves the uploaded file to the temporary system directory')
+        async def upload_temp_subtitle(file: UploadFile = File(...)):
+            return save_upload_file_tmp(file)
+
         @self.get("/")
         async def main():
-            content = root_html_body
-            return HTMLResponse(content=content)
+            return RedirectResponse('http://localhost:80/docs')

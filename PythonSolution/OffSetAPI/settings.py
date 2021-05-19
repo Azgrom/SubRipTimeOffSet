@@ -26,6 +26,7 @@ class SubOffSetAPI(FastAPI):
 
     subs_rs = ['Unfinished work']
     main_rs = ['Main Functionality']
+    dock_rs = ['Docker Redirector']
 
     def __init__(self, title: str = 'Subtitle Time OffSet API') -> None:
         super().__init__()
@@ -80,6 +81,6 @@ class SubOffSetAPI(FastAPI):
         async def upload_temp_subtitle(file: UploadFile = File(...)):
             return save_upload_file_tmp(file)
 
-        @self.get("/", description = 'This route works only if the app is on docker')
+        @self.get("/", tags = self.dock_rs, description = 'This route works only if the app is on docker')
         async def main():
             return RedirectResponse('http://localhost:80/docs')

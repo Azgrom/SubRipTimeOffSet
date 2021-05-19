@@ -1,6 +1,6 @@
 # Subtitle time offset
 
-API that Offsets SubRip (.srt) files.
+API that Offsets SubRip (.srt) dialog timestamps.
 
 ## How does it work?
 

@@ -19,13 +19,13 @@ from .db.session import PostMethods, GetMethods
 from .file_processing.offset_method import offset_sub
 from .file_processing.uploaded_files import (save_upload_file_tmp,
                                             save_db_file_tmp)
-from .main_page import root_html_body
 
 
 class SubOffSetAPI(FastAPI):
     model.Base.metadata.create_all(bind = Engine)
 
-    subs_rs = ['Subtitle History']
+    subs_rs = ['Unfinished work']
+    main_rs = ['Main Functionality']
 
     def __init__(self, title: str = 'Subtitle Time OffSet API') -> None:
         super().__init__()
@@ -37,7 +37,7 @@ class SubOffSetAPI(FastAPI):
             finally:
                 db.close()
 
-        @self.post("/upload_to_db/")
+        @self.post("/upload_to_db/", tags = self.main_rs, description = 'Uploads SubRip file')
         async def upload_to_db(db: Session = Depends(get_db),
                                file: UploadFile = File(...)):
             check_db = GetMethods(db).get_title_occurrence(title = file.filename)
@@ -50,7 +50,7 @@ class SubOffSetAPI(FastAPI):
             dub_db = PostMethods(db).register_subtitle(sub)
             return file
 
-        @self.get("/list_files_in_db/")
+        @self.get("/list_files_in_db/", tags = self.main_rs, description = 'Reads and prints all subtitle file names, in the order they were added.')
         async def list_files(db: Session = Depends(get_db), skip: int = 0,
                              limit: int = 100):
             fields = GetMethods(db, skip, limit).list_filenames()
@@ -59,7 +59,7 @@ class SubOffSetAPI(FastAPI):
                                     detail = "Database is empty.")
             return fields
 
-        @self.get("/download_subtitle_by_id/{id}")
+        @self.get("/download_subtitle_by_id/{id}", tags = self.main_rs)
         async def download_subtitle_with_offset(db: Session = Depends(get_db),
                                                 id: int = Query(...),
                                                 offset: float = Query(...)):
@@ -76,10 +76,10 @@ class SubOffSetAPI(FastAPI):
                                 media_type='application/octet-stream',
                                 filename = entry.file_name)
 
-        @self.post("/upload_subtitle/", tags = self.subs_rs, description = 'This route saves the uploaded file to the temporary system directory')
+        @self.post("/upload_subtitle/", tags = self.subs_rs, description = ' Do not use it!. This route saves the uploaded file to the temporary system directory.')
         async def upload_temp_subtitle(file: UploadFile = File(...)):
             return save_upload_file_tmp(file)
 
-        @self.get("/")
+        @self.get("/", description = 'This route works only if the app is on docker')
         async def main():
             return RedirectResponse('http://localhost:80/docs')

@@ -58,17 +58,21 @@ class SubOffSetAPI(FastAPI):
         @self.get("/list_files_in_db/")
         async def list_files(db: Session = Depends(get_db), skip: int = 0,
                              limit: int = 100):
-            return GetMethods(db, skip, limit).list_filenames()
+            fields = GetMethods(db, skip, limit).list_filenames()
+            if fields == [] or fields == None:
+                raise HTTPException(status_code = 403,
+                                    detail = "Database is empty.")
+            return fields
 
         @self.get("/download_subtitle_by_id/{id}")
         async def download_subtitle_with_offset(db: Session = Depends(get_db),
                                                 id: int = Query(...),
                                                 offset: float = Query(...)):
+            entry = GetMethods(db).get_sub_data(id)
             if id < 1:
                 raise HTTPException(status_code = 402,
                                     detail = "ID must be equal or greater than 1")
-            entry = GetMethods(db).get_sub_data(id)
-            if entry == [] or entry is None:
+            elif entry == [] or entry is None:
                 raise HTTPException(status_code = 402,
                                     detail = "There is no entry with this ID")
             created_file_from_db = save_db_file_tmp(entry)

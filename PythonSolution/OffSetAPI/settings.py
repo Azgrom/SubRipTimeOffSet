@@ -61,7 +61,9 @@ class SubOffSetAPI(FastAPI):
             return GetMethods(db, skip, limit).list_filenames()
 
         @self.get("/download_subtitle_by_id/{id}")
-        async def download_subtitle(db: Session = Depends(get_db), id: int = Query(...)):
+        async def download_subtitle_with_offset(db: Session = Depends(get_db),
+                                                id: int = Query(...),
+                                                offset: float = Query(...)):
             if id < 1:
                 raise HTTPException(status_code = 402,
                                     detail = "ID must be equal or greater than 1")

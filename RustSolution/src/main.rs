@@ -85,8 +85,7 @@ mod tests {
     #[test]
     fn time_splitter_tester() {
         let input = "00:01:20,439".to_string();
-        let expected_result = (0, 1, 20, 439);
-
+        let expected_result = (00, 01, 20, 439);
         let aux_var = time_splitter(&input);
         let obtained_result = (
             aux_var.hours,
@@ -94,7 +93,28 @@ mod tests {
             aux_var.seconds,
             aux_var.milliseconds,
         );
+        assert_eq!(obtained_result, expected_result);
 
+        let input = "00:01:22,479".to_string();
+        let expected_result = (00, 01, 22, 479);
+        let aux_var = time_splitter(&input);
+        let obtained_result = (
+            aux_var.hours,
+            aux_var.minutes,
+            aux_var.seconds,
+            aux_var.milliseconds,
+        );
+        assert_eq!(obtained_result, expected_result);
+
+        let input = "00:02:22,501".to_string();
+        let expected_result = (00, 02, 22, 501);
+        let aux_var = time_splitter(&input);
+        let obtained_result = (
+            aux_var.hours,
+            aux_var.minutes,
+            aux_var.seconds,
+            aux_var.milliseconds,
+        );
         assert_eq!(obtained_result, expected_result);
     }
 }

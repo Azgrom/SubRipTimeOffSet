@@ -28,10 +28,12 @@ fn main() {
 
     let example = file.contents.lines();
 
-    println!("{:?}", file.contents);
+    println!("{:?}", file.filename);
     for line in example {
         if line.len() == 29 && line.contains(" --> ") {
-            println!("{:?}", timestamp_splitter(line));
+            for timestamp in timestamp_splitter(line) {
+                println!("{:?}", time_splitter(timestamp));
+            }
         }
     }
 }

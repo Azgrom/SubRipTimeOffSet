@@ -21,6 +21,12 @@ fn main() {
     let example = file.contents.lines();
 }
 
+fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
+    let timestamp_indicator = " --> ";
+
+    timestamp_line.split(timestamp_indicator).collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

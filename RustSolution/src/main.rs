@@ -5,6 +5,7 @@ struct SubRipFile {
     contents: String,
 }
 
+#[derive(Debug)]
 pub struct Time {
     pub hours: u8,
     pub minutes: u8,

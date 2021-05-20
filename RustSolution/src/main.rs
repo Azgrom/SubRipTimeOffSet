@@ -5,6 +5,13 @@ struct SubRipFile {
     contents: String,
 }
 
+pub struct Time {
+    pub hours: u8,
+    pub minutes: u8,
+    pub seconds: u8,
+    pub milliseconds: u16,
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let file = SubRipFile {

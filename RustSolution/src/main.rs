@@ -81,18 +81,20 @@ mod tests {
         let expected_result: Vec<&str> = ["00:01:20,439", "00:01:22,479"].to_vec();
         timestamp_splitter_asserter(timestamp_string, expected_result);
     }
-    //     #[test]
-    //     fn count_indexes() {
-    //         let amount: u8 = 2;
-    //         let example = "\
-    // 1
-    // 00:02:17,440 --> 00:02:20,375
-    // Senator, we're making
-    // our final approach into Coruscant.
-    //
-    // 2
-    // 00:02:20,476 --> 00:02:22,501
-    // Very good, Lieutenant.";
-    //         assert_eq!(amount, index_counter(example));
-    //     }
+
+    #[test]
+    fn time_splitter_tester() {
+        let input = "00:01:20,439".to_string();
+        let expected_result = (0, 1, 20, 439);
+
+        let aux_var = time_splitter(&input);
+        let obtained_result = (
+            aux_var.hours,
+            aux_var.minutes,
+            aux_var.seconds,
+            aux_var.milliseconds,
+        );
+
+        assert_eq!(obtained_result, expected_result);
+    }
 }

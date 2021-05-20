@@ -8,6 +8,7 @@ struct Time {
     milliseconds: u16,
 }
 
+#[derive(Debug)]
 struct Timestamp {
     start: Time,
     end: Time,
@@ -36,9 +37,13 @@ fn main() {
     println!("{:?}", file.filename);
     for line in example {
         if line.len() == 29 && line.contains(" --> ") {
-            for timestamp in timestamp_splitter(line) {
-                println!("{:?}", time_splitter(timestamp));
-            }
+            let start_end_times = timestamp_splitter(line);
+
+            let start_end_times = Timestamp {
+                start: time_splitter(start_end_times[0]),
+                end: time_splitter(start_end_times[1]),
+            };
+            println!("{:?}", start_end_times);
         }
     }
 }

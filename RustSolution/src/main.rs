@@ -53,7 +53,7 @@ fn time_splitter<'a>(time_str: &'a str) -> Time {
         hours: time_vec[0].parse::<u8>().unwrap(),
         minutes: time_vec[1].parse::<u8>().unwrap(),
         seconds: time_vec[2].parse::<u8>().unwrap(),
-        milliseconds: time_vec[3].parse::<u16>().unwrap()
+        milliseconds: time_vec[3].parse::<u16>().unwrap(),
     }
 }
 

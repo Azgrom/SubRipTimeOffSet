@@ -19,6 +19,13 @@ fn main() {
     };
 
     let example = file.contents.lines();
+
+    println!("{:?}", file.contents);
+    for line in example {
+        if line.len() == 29 && line.contains(" --> ") {
+            println!("{:?}", timestamp_splitter(line));
+        }
+    }
 }
 
 fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {

@@ -1,16 +1,21 @@
 use std::{env, fs, process};
 
+#[derive(Debug)]
+struct Time {
+    hours: u8,
+    minutes: u8,
+    seconds: u8,
+    milliseconds: u16,
+}
+
+struct Timestamp {
+    start: Time,
+    end: Time,
+}
+
 struct SubRipFile {
     filename: String,
     contents: String,
-}
-
-#[derive(Debug)]
-pub struct Time {
-    pub hours: u8,
-    pub minutes: u8,
-    pub seconds: u8,
-    pub milliseconds: u16,
 }
 
 fn main() {

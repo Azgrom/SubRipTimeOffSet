@@ -100,10 +100,13 @@ fn subrip_parser<'a>(file_stream: std::str::Lines<'a>) -> (SubRipContent, Option
     let dialog_timing = subrib_timestamp_parser(&subrip_pattern_obtect.0);
     let dialog_string = subrip_dialog_parser(&subrip_pattern_obtect.0);
 
-    (SubRipContent {
-        dialog_timing: dialog_timing,
-        dialog_string: dialog_string,
-    }, subrip_pattern_obtect.1)
+    (
+        SubRipContent {
+            dialog_timing: dialog_timing,
+            dialog_string: dialog_string,
+        },
+        subrip_pattern_obtect.1,
+    )
 }
 
 #[cfg(test)]

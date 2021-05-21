@@ -29,7 +29,10 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     println!("{:?}", args[1]);
-    println!("{:?}", subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str()));
+    println!(
+        "{:?}",
+        subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str())
+    );
 }
 
 fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
@@ -51,7 +54,7 @@ fn time_splitter<'a>(time_str: &'a str) -> Time {
     }
 }
 
-fn subrip_sintax_pattern_identifier<'a>(subrip_textfile_content: &'a str) -> Vec<&'a str>{
+fn subrip_sintax_pattern_identifier<'a>(subrip_textfile_content: &'a str) -> Vec<&'a str> {
     let mut subrip_textfile_content = subrip_textfile_content.lines();
     let mut pattern_strings_wrapper = Vec::new();
 
@@ -68,7 +71,7 @@ fn subrip_sintax_pattern_identifier<'a>(subrip_textfile_content: &'a str) -> Vec
 
 fn subrib_timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
     let start_end_times = timestamp_splitter(pattern_strings_wrapper[1]);
-    
+
     Timestamp {
         start: time_splitter(start_end_times[0]),
         end: time_splitter(start_end_times[1]),
@@ -76,7 +79,6 @@ fn subrib_timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
 }
 
 fn subrip_parser(example: &str) -> SubRipContent {
-
     let v = subrip_sintax_pattern_identifier(example);
 
     let start_end_times = timestamp_splitter(v[1]);
@@ -94,7 +96,6 @@ fn subrip_parser(example: &str) -> SubRipContent {
         dialog_timing: dialog_timing,
         dialog_string: dialog_string,
     }
-
 }
 
 #[cfg(test)]

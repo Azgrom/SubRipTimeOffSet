@@ -14,38 +14,55 @@ struct Timestamp {
     end: Time,
 }
 
+#[derive(Debug)]
+struct SubRipContent {
+    dialog_timing: Timestamp,
+    dialog_string: String,
+}
+
 struct SubRipFile {
     filename: String,
-    contents: String,
+    contents: Vec<SubRipContent>,
 }
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let file = SubRipFile {
-        filename: args[1].clone(),
-        contents: match fs::read_to_string(&args[1]) {
-            Ok(contents) => contents,
-            Err(_err) => {
-                println!("Fucking problems...");
-                process::exit(1);
-            }
-        },
-    };
 
-    let example = file.contents.lines();
+    println!("{:?}", args[1]);
+    println!("{:?}", subrip_parser(fs::read_to_string(&args[1]).unwrap()));
+}
 
-    println!("{:?}", file.filename);
-    for line in example {
-        if line.len() == 29 && line.contains(" --> ") {
-            let start_end_times = timestamp_splitter(line);
+fn subrip_parser(example: String) -> SubRipContent {
+    let mut example = example.lines();
+    let mut v = Vec::new();
 
-            let start_end_times = Timestamp {
-                start: time_splitter(start_end_times[0]),
-                end: time_splitter(start_end_times[1]),
-            };
-            println!("{:?}", start_end_times);
+    loop {
+        let subrip_file_line = example.next().unwrap();
+        v.push(subrip_file_line);
+        if subrip_file_line == "" {
+            break;
         }
     }
+
+    let start_end_times = timestamp_splitter(v[1]);
+    let dialog_timing = Timestamp {
+        start: time_splitter(start_end_times[0]),
+        end: time_splitter(start_end_times[1]),
+    };
+
+    let mut dialog_string = String::new();
+
+    for dialog_line in &v[2..] {
+        if *dialog_line != "" {
+            dialog_string.push_str(&format!("{}\n", dialog_line));
+        }
+    }
+
+    SubRipContent {
+        dialog_timing: dialog_timing,
+        dialog_string: dialog_string,
+    }
+
 }
 
 fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {

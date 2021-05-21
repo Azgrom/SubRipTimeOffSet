@@ -53,17 +53,17 @@ fn time_splitter<'a>(time_str: &'a str) -> Time {
 
 fn subrip_sintax_pattern_identifier<'a>(subrip_textfile_content: &'a str) -> Vec<&'a str>{
     let mut subrip_textfile_content = subrip_textfile_content.lines();
-    let mut v = Vec::new();
+    let mut pattern_strings_wrapper = Vec::new();
 
     loop {
         let subrip_file_line = subrip_textfile_content.next().unwrap();
-        v.push(subrip_file_line);
+        pattern_strings_wrapper.push(subrip_file_line);
         if subrip_file_line == "" {
             break;
         }
     }
 
-    v
+    pattern_strings_wrapper
 }
 
 fn subrip_parser(example: &str) -> SubRipContent {

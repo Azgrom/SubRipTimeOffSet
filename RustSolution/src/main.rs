@@ -32,6 +32,25 @@ fn main() {
     println!("{:?}", subrip_parser(fs::read_to_string(&args[1]).unwrap()));
 }
 
+fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
+    let timestamp_indicator = " --> ";
+
+    timestamp_line.split(timestamp_indicator).collect()
+}
+
+fn time_splitter<'a>(time_str: &'a str) -> Time {
+    let split_parameter = [':', ','];
+
+    let time_vec = time_str.split(&split_parameter[..]).collect::<Vec<&str>>();
+
+    Time {
+        hours: time_vec[0].parse::<u8>().unwrap(),
+        minutes: time_vec[1].parse::<u8>().unwrap(),
+        seconds: time_vec[2].parse::<u8>().unwrap(),
+        milliseconds: time_vec[3].parse::<u16>().unwrap(),
+    }
+}
+
 fn subrip_parser(example: String) -> SubRipContent {
     let mut example = example.lines();
     let mut v = Vec::new();
@@ -63,25 +82,6 @@ fn subrip_parser(example: String) -> SubRipContent {
         dialog_string: dialog_string,
     }
 
-}
-
-fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
-    let timestamp_indicator = " --> ";
-
-    timestamp_line.split(timestamp_indicator).collect()
-}
-
-fn time_splitter<'a>(time_str: &'a str) -> Time {
-    let split_parameter = [':', ','];
-
-    let time_vec = time_str.split(&split_parameter[..]).collect::<Vec<&str>>();
-
-    Time {
-        hours: time_vec[0].parse::<u8>().unwrap(),
-        minutes: time_vec[1].parse::<u8>().unwrap(),
-        seconds: time_vec[2].parse::<u8>().unwrap(),
-        milliseconds: time_vec[3].parse::<u16>().unwrap(),
-    }
 }
 
 #[cfg(test)]

@@ -66,15 +66,21 @@ fn subrip_sintax_pattern_identifier<'a>(subrip_textfile_content: &'a str) -> Vec
     pattern_strings_wrapper
 }
 
+fn subrib_timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
+    let start_end_times = timestamp_splitter(pattern_strings_wrapper[1]);
+    
+    Timestamp {
+        start: time_splitter(start_end_times[0]),
+        end: time_splitter(start_end_times[1]),
+    }
+}
+
 fn subrip_parser(example: &str) -> SubRipContent {
 
     let v = subrip_sintax_pattern_identifier(example);
 
     let start_end_times = timestamp_splitter(v[1]);
-    let dialog_timing = Timestamp {
-        start: time_splitter(start_end_times[0]),
-        end: time_splitter(start_end_times[1]),
-    };
+    let dialog_timing = subrib_timestamp_parser(&v);
 
     let mut dialog_string = String::new();
 

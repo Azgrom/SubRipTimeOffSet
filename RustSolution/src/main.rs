@@ -31,7 +31,7 @@ fn main() {
     println!("{:?}", args[1]);
     println!(
         "{:?}",
-        subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str())
+        subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str().lines())
     );
 }
 
@@ -55,12 +55,11 @@ fn time_splitter<'a>(time_str: &'a str) -> Time {
 }
 
 fn subrip_sintax_pattern_identifier<'a>(
-    subrip_textfile_content: &'a str,
+    mut subrip_textfile_content: std::str::Lines<'a>,
 ) -> (Vec<&'a str>, Option<&'a str>) {
-    let mut subrip_content = subrip_textfile_content.lines();
+    let mut subrip_content = subrip_textfile_content.clone();
+    let mut current_position = subrip_textfile_content.next();
     let mut pattern_strings_wrapper = Vec::new();
-
-    let mut current_position = subrip_textfile_content.lines().next();
 
     loop {
         let subrip_file_line = subrip_content.next().unwrap();
@@ -95,16 +94,16 @@ fn subrip_dialog_parser(pattern_strings_wrapper: &Vec<&str>) -> String {
     dialog_string
 }
 
-fn subrip_parser(file_stream: &str) -> SubRipContent {
+fn subrip_parser<'a>(file_stream: std::str::Lines<'a>) -> (SubRipContent, Option<&'a str>) {
     let subrip_pattern_obtect = subrip_sintax_pattern_identifier(file_stream);
 
     let dialog_timing = subrib_timestamp_parser(&subrip_pattern_obtect.0);
     let dialog_string = subrip_dialog_parser(&subrip_pattern_obtect.0);
 
-    SubRipContent {
+    (SubRipContent {
         dialog_timing: dialog_timing,
         dialog_string: dialog_string,
-    }
+    }, subrip_pattern_obtect.1)
 }
 
 #[cfg(test)]

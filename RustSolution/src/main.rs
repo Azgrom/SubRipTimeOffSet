@@ -54,19 +54,24 @@ fn time_splitter<'a>(time_str: &'a str) -> Time {
     }
 }
 
-fn subrip_sintax_pattern_identifier<'a>(subrip_textfile_content: &'a str) -> Vec<&'a str> {
-    let mut subrip_textfile_content = subrip_textfile_content.lines();
+fn subrip_sintax_pattern_identifier<'a>(
+    subrip_textfile_content: &'a str,
+) -> (Vec<&'a str>, Option<&'a str>) {
+    let mut subrip_content = subrip_textfile_content.lines();
     let mut pattern_strings_wrapper = Vec::new();
 
+    let mut current_position = subrip_textfile_content.lines().next();
+
     loop {
-        let subrip_file_line = subrip_textfile_content.next().unwrap();
+        let subrip_file_line = subrip_content.next().unwrap();
         pattern_strings_wrapper.push(subrip_file_line);
         if subrip_file_line == "" {
+            current_position = subrip_content.next();
             break;
         }
     }
 
-    pattern_strings_wrapper
+    (pattern_strings_wrapper, current_position)
 }
 
 fn subrib_timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {

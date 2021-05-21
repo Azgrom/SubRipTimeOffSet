@@ -78,19 +78,23 @@ fn subrib_timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
     }
 }
 
-fn subrip_parser(example: &str) -> SubRipContent {
-    let v = subrip_sintax_pattern_identifier(example);
-
-    let start_end_times = timestamp_splitter(v[1]);
-    let dialog_timing = subrib_timestamp_parser(&v);
-
+fn subrip_dialog_parser(pattern_strings_wrapper: &Vec<&str>) -> String {
     let mut dialog_string = String::new();
 
-    for dialog_line in &v[2..] {
+    for dialog_line in &pattern_strings_wrapper[2..] {
         if *dialog_line != "" {
             dialog_string.push_str(&format!("{}\n", dialog_line));
         }
     }
+
+    dialog_string
+}
+
+fn subrip_parser(example: &str) -> SubRipContent {
+    let v = subrip_sintax_pattern_identifier(example);
+
+    let dialog_timing = subrib_timestamp_parser(&v);
+    let dialog_string = subrip_dialog_parser(&v);
 
     SubRipContent {
         dialog_timing: dialog_timing,

@@ -90,11 +90,11 @@ fn subrip_dialog_parser(pattern_strings_wrapper: &Vec<&str>) -> String {
     dialog_string
 }
 
-fn subrip_parser(example: &str) -> SubRipContent {
-    let subrip_pattern_obtect = subrip_sintax_pattern_identifier(example);
+fn subrip_parser(file_stream: &str) -> SubRipContent {
+    let subrip_pattern_obtect = subrip_sintax_pattern_identifier(file_stream);
 
-    let dialog_timing = subrib_timestamp_parser(&subrip_pattern_obtect);
-    let dialog_string = subrip_dialog_parser(&subrip_pattern_obtect);
+    let dialog_timing = subrib_timestamp_parser(&subrip_pattern_obtect.0);
+    let dialog_string = subrip_dialog_parser(&subrip_pattern_obtect.0);
 
     SubRipContent {
         dialog_timing: dialog_timing,

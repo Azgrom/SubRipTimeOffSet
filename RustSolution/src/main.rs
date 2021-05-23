@@ -54,21 +54,6 @@ fn time_splitter<'a>(time_str: &'a str) -> Time {
     }
 }
 
-fn subrip_sintax_pattern_identifier<'a>(subrip_textfile_content: &'a str) -> Vec<&'a str> {
-    let mut subrip_textfile_content = subrip_textfile_content.lines();
-    let mut pattern_strings_wrapper = Vec::new();
-
-    loop {
-        let subrip_file_line = subrip_textfile_content.next().unwrap();
-        pattern_strings_wrapper.push(subrip_file_line);
-        if subrip_file_line == "" {
-            break;
-        }
-    }
-
-    pattern_strings_wrapper
-}
-
 fn subrib_timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
     let start_end_times = timestamp_splitter(pattern_strings_wrapper[1]);
 
@@ -90,16 +75,29 @@ fn subrip_dialog_parser(pattern_strings_wrapper: &Vec<&str>) -> String {
     dialog_string
 }
 
-fn subrip_parser(example: &str) -> SubRipContent {
-    let subrip_pattern_obtect = subrip_sintax_pattern_identifier(example);
+fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
+    let mut pattern_strings_wrapper: Vec<&str> = Vec::new();
+    let mut subrip_content_vector: Vec<SubRipContent> = Vec::new();
 
-    let dialog_timing = subrib_timestamp_parser(&subrip_pattern_obtect);
-    let dialog_string = subrip_dialog_parser(&subrip_pattern_obtect);
+    // println!("{:?}", subrip_textfile_content.next().unwrap());
 
-    SubRipContent {
-        dialog_timing: dialog_timing,
-        dialog_string: dialog_string,
+    for subrip_file_line in subrip_textfile_content.lines() {
+        pattern_strings_wrapper.push(subrip_file_line);
+
+        if subrip_file_line == "" {
+            let dialog_timing = subrib_timestamp_parser(&pattern_strings_wrapper);
+            let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
+
+            pattern_strings_wrapper.clear();
+
+            subrip_content_vector.push(SubRipContent {
+                dialog_timing: dialog_timing,
+                dialog_string: dialog_string,
+            });
+        }
     }
+
+    subrip_content_vector
 }
 
 #[cfg(test)]

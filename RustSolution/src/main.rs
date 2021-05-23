@@ -80,8 +80,6 @@ fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
     let mut pattern_strings_wrapper: Vec<&str> = Vec::new();
     let mut subrip_content_vector: Vec<SubRipContent> = Vec::new();
 
-    // println!("{:?}", subrip_textfile_content.next().unwrap());
-
     for subrip_file_line in subrip_textfile_content.lines() {
         pattern_strings_wrapper.push(subrip_file_line);
 
@@ -97,6 +95,16 @@ fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
             });
         }
     }
+
+    let dialog_timing = subrib_timestamp_parser(&pattern_strings_wrapper);
+    let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
+
+    pattern_strings_wrapper.clear();
+
+    subrip_content_vector.push(SubRipContent {
+        dialog_timing: dialog_timing,
+        dialog_string: dialog_string,
+    });
 
     subrip_content_vector
 }

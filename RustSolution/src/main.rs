@@ -33,7 +33,7 @@ fn main() {
         contents: subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str()),
     };
 
-    println!{"{:?}", parsed_file_content};
+    println!("{:?}", parsed_file_content);
 }
 
 fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {

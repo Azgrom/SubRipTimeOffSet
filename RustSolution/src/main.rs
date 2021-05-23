@@ -20,6 +20,7 @@ struct SubRipContent {
     dialog_string: String,
 }
 
+#[derive(Debug)]
 struct SubRipFile {
     filename: String,
     contents: Vec<SubRipContent>,
@@ -27,12 +28,12 @@ struct SubRipFile {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
+    let parsed_file_content = SubRipFile {
+        filename: args[1].clone(),
+        contents: subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str()),
+    };
 
-    println!("{:?}", args[1]);
-    println!(
-        "{:?}",
-        subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str().lines())
-    );
+    println!{"{:?}", parsed_file_content};
 }
 
 fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {

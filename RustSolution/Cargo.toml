@@ -1,0 +1,15 @@
+[package]
+name = "subrip_offset_api"
+version = "0.1.0"
+authors = ["Rafael Lúcio <rafaellucio@pm.me>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

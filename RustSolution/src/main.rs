@@ -31,7 +31,7 @@ fn main() {
     println!("{:?}", args[1]);
     println!(
         "{:?}",
-        subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str())
+        subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str().lines())
     );
 }
 

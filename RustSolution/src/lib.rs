@@ -113,27 +113,6 @@ impl SubRipFile {
 mod tests {
     use super::*;
 
-    fn timestamp_splitter_asserter(timestamp_string: String, expected_result: Vec<&str>) {
-        let obtained_result: Vec<&str> = timestamp_splitter(&timestamp_string);
-
-        assert_eq!(expected_result, obtained_result);
-    }
-
-    #[test]
-    fn timestamp_splitter_tester() {
-        let timestamp_string: String = "00:02:17,440 --> 00:02:20,375".to_string();
-        let expected_result: Vec<&str> = ["00:02:17,440", "00:02:20,375"].to_vec();
-        timestamp_splitter_asserter(timestamp_string, expected_result);
-
-        let timestamp_string: String = "00:02:20,476 --> 00:02:22,501".to_string();
-        let expected_result: Vec<&str> = ["00:02:20,476", "00:02:22,501"].to_vec();
-        timestamp_splitter_asserter(timestamp_string, expected_result);
-
-        let timestamp_string: String = "00:01:20,439 --> 00:01:22,479".to_string();
-        let expected_result: Vec<&str> = ["00:01:20,439", "00:01:22,479"].to_vec();
-        timestamp_splitter_asserter(timestamp_string, expected_result);
-    }
-
     #[test]
     fn time_splitter_tester() {
         let mut input = "00:01:20,439".to_string();
@@ -168,5 +147,26 @@ mod tests {
             aux_var.milliseconds,
         );
         assert_eq!(obtained_result, expected_result);
+    }
+
+    fn timestamp_splitter_asserter(timestamp_string: String, expected_result: Vec<&str>) {
+        let obtained_result: Vec<&str> = timestamp_splitter(&timestamp_string);
+
+        assert_eq!(expected_result, obtained_result);
+    }
+
+    #[test]
+    fn timestamp_splitter_tester() {
+        let timestamp_string: String = "00:02:17,440 --> 00:02:20,375".to_string();
+        let expected_result: Vec<&str> = ["00:02:17,440", "00:02:20,375"].to_vec();
+        timestamp_splitter_asserter(timestamp_string, expected_result);
+
+        let timestamp_string: String = "00:02:20,476 --> 00:02:22,501".to_string();
+        let expected_result: Vec<&str> = ["00:02:20,476", "00:02:22,501"].to_vec();
+        timestamp_splitter_asserter(timestamp_string, expected_result);
+
+        let timestamp_string: String = "00:01:20,439 --> 00:01:22,479".to_string();
+        let expected_result: Vec<&str> = ["00:01:20,439", "00:01:22,479"].to_vec();
+        timestamp_splitter_asserter(timestamp_string, expected_result);
     }
 }

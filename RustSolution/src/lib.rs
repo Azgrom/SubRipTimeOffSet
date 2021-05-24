@@ -150,7 +150,7 @@ mod tests {
     fn time_splitter_tester() {
         let mut input = "00:01:20,439".to_string();
         let mut expected_result = (00, 01, 20, 439);
-        let mut aux_var: Time = time_splitter(&input);
+        let mut aux_var = Time::time_splitter(&input);
         let mut obtained_result = (
             aux_var.hours,
             aux_var.minutes,
@@ -161,7 +161,7 @@ mod tests {
 
         input = "00:01:22,479".to_string();
         expected_result = (00, 01, 22, 479);
-        aux_var = time_splitter(&input);
+        aux_var = Time::time_splitter(&input);
         obtained_result = (
             aux_var.hours,
             aux_var.minutes,
@@ -172,7 +172,7 @@ mod tests {
 
         input = "00:02:22,501".to_string();
         expected_result = (00, 02, 22, 501);
-        aux_var = time_splitter(&input);
+        aux_var = Time::time_splitter(&input);
         obtained_result = (
             aux_var.hours,
             aux_var.minutes,

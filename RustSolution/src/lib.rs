@@ -32,7 +32,7 @@ fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
     timestamp_line.split(timestamp_indicator).collect()
 }
 
-fn subrib_timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
+fn timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
     let start_end_times = timestamp_splitter(pattern_strings_wrapper[1]);
 
     Timestamp {
@@ -61,7 +61,7 @@ fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
         pattern_strings_wrapper.push(subrip_file_line);
 
         if *pattern_strings_wrapper.last().unwrap() == "" {
-            let dialog_timing = subrib_timestamp_parser(&pattern_strings_wrapper);
+            let dialog_timing = timestamp_parser(&pattern_strings_wrapper);
             let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
 
             pattern_strings_wrapper.clear();
@@ -73,7 +73,7 @@ fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
         }
     }
 
-    let dialog_timing = subrib_timestamp_parser(&pattern_strings_wrapper);
+    let dialog_timing = timestamp_parser(&pattern_strings_wrapper);
     let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
 
     subrip_content_vector.push(SubRipContent {

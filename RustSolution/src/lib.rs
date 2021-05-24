@@ -26,21 +26,6 @@ pub struct SubRipFile {
     contents: Vec<SubRipContent>,
 }
 
-fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
-    let timestamp_indicator = " --> ";
-
-    timestamp_line.split(timestamp_indicator).collect()
-}
-
-fn timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
-    let start_end_times = timestamp_splitter(pattern_strings_wrapper[1]);
-
-    Timestamp {
-        start: time_splitter(start_end_times[0]),
-        end: time_splitter(start_end_times[1]),
-    }
-}
-
 fn subrip_dialog_parser(pattern_strings_wrapper: &Vec<&str>) -> String {
     let mut dialog_string = String::new();
 
@@ -95,6 +80,23 @@ impl Time {
             minutes: time_vec[1].parse::<u8>().unwrap(),
             seconds: time_vec[2].parse::<u8>().unwrap(),
             milliseconds: time_vec[3].parse::<u16>().unwrap(),
+        }
+    }
+}
+
+impl Timestamp {
+    fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
+        let timestamp_indicator = " --> ";
+
+        timestamp_line.split(timestamp_indicator).collect()
+    }
+
+    fn timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
+        let start_end_times = Timestamp::timestamp_splitter(pattern_strings_wrapper[1]);
+
+        Timestamp {
+            start: Time::time_splitter(start_end_times[0]),
+            end: Time::time_splitter(start_end_times[1]),
         }
     }
 }

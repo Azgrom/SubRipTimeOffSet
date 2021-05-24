@@ -1,4 +1,4 @@
-use std::{env, fs, process};
+use std::{env, process};
 use subrip_offset_api::SubRipFile;
 
 fn main() {

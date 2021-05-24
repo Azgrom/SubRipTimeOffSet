@@ -26,49 +26,6 @@ pub struct SubRipFile {
     contents: Vec<SubRipContent>,
 }
 
-fn subrip_dialog_parser(pattern_strings_wrapper: &Vec<&str>) -> String {
-    let mut dialog_string = String::new();
-
-    for dialog_line in &pattern_strings_wrapper[2..] {
-        if *dialog_line != "" {
-            dialog_string.push_str(&format!("{}\n", dialog_line));
-        }
-    }
-
-    dialog_string
-}
-
-fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
-    let mut pattern_strings_wrapper: Vec<&str> = Vec::new();
-    let mut subrip_content_vector: Vec<SubRipContent> = Vec::new();
-
-    for subrip_file_line in subrip_textfile_content.lines() {
-        pattern_strings_wrapper.push(subrip_file_line);
-
-        if *pattern_strings_wrapper.last().unwrap() == "" {
-            let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
-            let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
-
-            pattern_strings_wrapper.clear();
-
-            subrip_content_vector.push(SubRipContent {
-                dialog_timing: dialog_timing,
-                dialog_string: dialog_string,
-            });
-        }
-    }
-
-    let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
-    let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
-
-    subrip_content_vector.push(SubRipContent {
-        dialog_timing: dialog_timing,
-        dialog_string: dialog_string,
-    });
-
-    subrip_content_vector
-}
-
 impl Time {
     fn time_splitter<'a>(time_str: &'a str) -> Time {
         let split_parameter = [':', ','];
@@ -109,6 +66,48 @@ impl SubRipFile {
         }
     }
 
+    fn subrip_dialog_parser(pattern_strings_wrapper: &Vec<&str>) -> String {
+        let mut dialog_string = String::new();
+
+        for dialog_line in &pattern_strings_wrapper[2..] {
+            if *dialog_line != "" {
+                dialog_string.push_str(&format!("{}\n", dialog_line));
+            }
+        }
+
+        dialog_string
+    }
+
+    fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
+        let mut pattern_strings_wrapper: Vec<&str> = Vec::new();
+        let mut subrip_content_vector: Vec<SubRipContent> = Vec::new();
+
+        for subrip_file_line in subrip_textfile_content.lines() {
+            pattern_strings_wrapper.push(subrip_file_line);
+
+            if *pattern_strings_wrapper.last().unwrap() == "" {
+                let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
+                let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
+
+                pattern_strings_wrapper.clear();
+
+                subrip_content_vector.push(SubRipContent {
+                    dialog_timing: dialog_timing,
+                    dialog_string: dialog_string,
+                });
+            }
+        }
+
+        let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
+        let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
+
+        subrip_content_vector.push(SubRipContent {
+            dialog_timing: dialog_timing,
+            dialog_string: dialog_string,
+        });
+
+        subrip_content_vector
+    }
 }
 
 #[cfg(test)]

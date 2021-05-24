@@ -138,7 +138,7 @@ mod tests {
     fn time_splitter_tester() {
         let input = "00:01:20,439".to_string();
         let expected_result = (00, 01, 20, 439);
-        let aux_var = time_splitter(&input);
+        let aux_var: Time = time_splitter(&input);
         let obtained_result = (
             aux_var.hours,
             aux_var.minutes,

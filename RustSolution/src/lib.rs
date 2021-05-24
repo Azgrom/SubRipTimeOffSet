@@ -46,7 +46,7 @@ fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
         pattern_strings_wrapper.push(subrip_file_line);
 
         if *pattern_strings_wrapper.last().unwrap() == "" {
-            let dialog_timing = timestamp_parser(&pattern_strings_wrapper);
+            let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
             let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
 
             pattern_strings_wrapper.clear();
@@ -58,7 +58,7 @@ fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
         }
     }
 
-    let dialog_timing = timestamp_parser(&pattern_strings_wrapper);
+    let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
     let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
 
     subrip_content_vector.push(SubRipContent {
@@ -152,7 +152,7 @@ mod tests {
     }
 
     fn timestamp_splitter_asserter(timestamp_string: String, expected_result: Vec<&str>) {
-        let obtained_result: Vec<&str> = timestamp_splitter(&timestamp_string);
+        let obtained_result: Vec<&str> = Timestamp::timestamp_splitter(&timestamp_string);
 
         assert_eq!(expected_result, obtained_result);
     }

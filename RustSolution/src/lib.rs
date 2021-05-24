@@ -97,6 +97,21 @@ fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
     subrip_content_vector
 }
 
+impl Time {
+    fn time_splitter<'a>(time_str: &'a str) -> Time {
+        let split_parameter = [':', ','];
+
+        let time_vec = time_str.split(&split_parameter[..]).collect::<Vec<&str>>();
+
+        Time {
+            hours: time_vec[0].parse::<u8>().unwrap(),
+            minutes: time_vec[1].parse::<u8>().unwrap(),
+            seconds: time_vec[2].parse::<u8>().unwrap(),
+            milliseconds: time_vec[3].parse::<u16>().unwrap(),
+        }
+    }
+}
+
 impl SubRipFile {
     pub fn new(args: Vec<String>) -> SubRipFile {
         SubRipFile {

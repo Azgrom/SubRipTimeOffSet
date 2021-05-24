@@ -62,7 +62,7 @@ impl SubRipFile {
     pub fn new(args: Vec<String>) -> SubRipFile {
         SubRipFile {
             filename: args[1].clone(),
-            contents: subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str()),
+            contents: SubRipFile::subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str()),
         }
     }
 
@@ -87,7 +87,7 @@ impl SubRipFile {
 
             if *pattern_strings_wrapper.last().unwrap() == "" {
                 let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
-                let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
+                let dialog_string = SubRipFile::subrip_dialog_parser(&pattern_strings_wrapper);
 
                 pattern_strings_wrapper.clear();
 
@@ -99,7 +99,7 @@ impl SubRipFile {
         }
 
         let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
-        let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
+        let dialog_string = SubRipFile::subrip_dialog_parser(&pattern_strings_wrapper);
 
         subrip_content_vector.push(SubRipContent {
             dialog_timing: dialog_timing,

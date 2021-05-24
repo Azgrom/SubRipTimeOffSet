@@ -32,19 +32,6 @@ fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
     timestamp_line.split(timestamp_indicator).collect()
 }
 
-fn time_splitter<'a>(time_str: &'a str) -> Time {
-    let split_parameter = [':', ','];
-
-    let time_vec = time_str.split(&split_parameter[..]).collect::<Vec<&str>>();
-
-    Time {
-        hours: time_vec[0].parse::<u8>().unwrap(),
-        minutes: time_vec[1].parse::<u8>().unwrap(),
-        seconds: time_vec[2].parse::<u8>().unwrap(),
-        milliseconds: time_vec[3].parse::<u16>().unwrap(),
-    }
-}
-
 fn subrib_timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
     let start_end_times = timestamp_splitter(pattern_strings_wrapper[1]);
 

@@ -89,8 +89,6 @@ fn subrip_parser(subrip_textfile_content: &str) -> Vec<SubRipContent> {
     let dialog_timing = subrib_timestamp_parser(&pattern_strings_wrapper);
     let dialog_string = subrip_dialog_parser(&pattern_strings_wrapper);
 
-    pattern_strings_wrapper.clear();
-
     subrip_content_vector.push(SubRipContent {
         dialog_timing: dialog_timing,
         dialog_string: dialog_string,

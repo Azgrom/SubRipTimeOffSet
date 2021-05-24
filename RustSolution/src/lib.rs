@@ -106,7 +106,6 @@ impl SubRipFile {
             contents: subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str()),
         }
     }
-
 }
 
 #[cfg(test)]
@@ -136,10 +135,10 @@ mod tests {
 
     #[test]
     fn time_splitter_tester() {
-        let input = "00:01:20,439".to_string();
-        let expected_result = (00, 01, 20, 439);
-        let aux_var: Time = time_splitter(&input);
-        let obtained_result = (
+        let mut input = "00:01:20,439".to_string();
+        let mut expected_result = (00, 01, 20, 439);
+        let mut aux_var: Time = time_splitter(&input);
+        let mut obtained_result = (
             aux_var.hours,
             aux_var.minutes,
             aux_var.seconds,
@@ -147,10 +146,10 @@ mod tests {
         );
         assert_eq!(obtained_result, expected_result);
 
-        let input = "00:01:22,479".to_string();
-        let expected_result = (00, 01, 22, 479);
-        let aux_var = time_splitter(&input);
-        let obtained_result = (
+        input = "00:01:22,479".to_string();
+        expected_result = (00, 01, 22, 479);
+        aux_var = time_splitter(&input);
+        obtained_result = (
             aux_var.hours,
             aux_var.minutes,
             aux_var.seconds,
@@ -158,10 +157,10 @@ mod tests {
         );
         assert_eq!(obtained_result, expected_result);
 
-        let input = "00:02:22,501".to_string();
-        let expected_result = (00, 02, 22, 501);
-        let aux_var = time_splitter(&input);
-        let obtained_result = (
+        input = "00:02:22,501".to_string();
+        expected_result = (00, 02, 22, 501);
+        aux_var = time_splitter(&input);
+        obtained_result = (
             aux_var.hours,
             aux_var.minutes,
             aux_var.seconds,

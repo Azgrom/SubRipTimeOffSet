@@ -106,6 +106,7 @@ impl SubRipFile {
             contents: subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str()),
         }
     }
+
 }
 
 #[cfg(test)]

@@ -1,11 +1,11 @@
 use std::fs;
 
 #[derive(Debug)]
-struct Time {
-    hours: u8,
-    minutes: u8,
-    seconds: u8,
-    milliseconds: u16,
+pub struct Time {
+    pub hours: u8,
+    pub minutes: u8,
+    pub seconds: u8,
+    pub milliseconds: u16,
 }
 
 #[derive(Debug)]

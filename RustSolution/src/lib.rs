@@ -39,6 +39,17 @@ impl Time {
             milliseconds: time_vec[3].parse::<u16>().unwrap(),
         }
     }
+
+    pub fn subtraction_offset(&mut self, offset: u16) {
+        let milliseconds_module: u16 = 1000;
+        // let sec_min_module: u8 = 60;
+
+        if self.milliseconds.checked_sub(offset) == None {
+            self.milliseconds += milliseconds_module - offset;
+        } else {
+            self.milliseconds -= offset;
+        }
+    }
 }
 
 impl Timestamp {

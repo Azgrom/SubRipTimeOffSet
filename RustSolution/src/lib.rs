@@ -43,12 +43,18 @@ impl Time {
         }
     }
 
-    fn subtract_milliseconds_offset(&mut self, offset: u16) {
-        let milliseconds_module: u16 = 1000;
-        // let sec_min_module: u8 = 60;
+    fn sum_milliseconds_offset(&mut self, offset: u16) {
+        if (self.milliseconds + offset) > Time::MILLISECONDS_MODULE {
+            self.milliseconds += offset - Time::MILLISECONDS_MODULE;
+            self.seconds += 1;
+        } else {
+            self.milliseconds += offset;
+        }
+    }
 
+    fn sub_milliseconds_offset(&mut self, offset: u16) {
         if self.milliseconds.checked_sub(offset) == None {
-            self.milliseconds += milliseconds_module - offset;
+            self.milliseconds += Time::MILLISECONDS_MODULE - offset;
         } else {
             self.milliseconds -= offset;
         }

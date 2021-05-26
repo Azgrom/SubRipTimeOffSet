@@ -181,4 +181,33 @@ mod tests {
         let expected_result: Vec<&str> = ["00:01:20,439", "00:01:22,479"].to_vec();
         timestamp_splitter_asserter(timestamp_string, expected_result);
     }
+
+    #[test]
+    fn time_module_subtractions() {
+        let mut time_example = Time {
+            hours: 2,
+            minutes: 17,
+            seconds: 58,
+            milliseconds: 584,
+        };
+        time_example.subtract_milliseconds_offset(10);
+
+        let mut expected_result = Time {
+            hours: 2,
+            minutes: 17,
+            seconds: 58,
+            milliseconds: 574,
+        };
+        assert_eq!(time_example, expected_result);
+
+        time_example.subtract_milliseconds_offset(580);
+
+        expected_result = Time {
+            hours: 2,
+            minutes: 17,
+            seconds: 58,
+            milliseconds: 994,
+        };
+        assert_eq!(time_example, expected_result);
+    }
 }

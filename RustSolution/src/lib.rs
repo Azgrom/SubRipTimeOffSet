@@ -61,6 +61,34 @@ impl Time {
     }
 }
 
+impl Sub for Time {
+    type Output = Time;
+
+    fn sub(mut self, other: Time) -> Time {
+        if self.milliseconds.checked_sub(other.milliseconds) == None {
+            self.milliseconds += Time::MILLISECONDS_MODULE - other.milliseconds;
+        } else {
+            self.milliseconds -= other.milliseconds;
+        }
+
+        self
+    }
+}
+
+impl Add for Time {
+    type Output = Time;
+
+    fn add(mut self, other: Time) -> Time {
+        if self.milliseconds.checked_sub(other.milliseconds) == None {
+            self.milliseconds += Time::MILLISECONDS_MODULE - other.milliseconds;
+        } else {
+            self.milliseconds -= other.milliseconds;
+        }
+
+        self
+    }
+}
+
 impl Timestamp {
     fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
         let timestamp_indicator = " --> ";

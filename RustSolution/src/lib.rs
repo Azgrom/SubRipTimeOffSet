@@ -40,7 +40,7 @@ impl Time {
         }
     }
 
-    pub fn subtraction_offset(&mut self, offset: u16) {
+    fn subtract_milliseconds_offset(&mut self, offset: u16) {
         let milliseconds_module: u16 = 1000;
         // let sec_min_module: u8 = 60;
 

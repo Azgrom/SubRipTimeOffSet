@@ -47,13 +47,28 @@ impl Time {
         value.checked_sub(diff)
     }
 
-    fn overflow_module_offset(f: fn(u16, u16) -> Option<u16>, diff: u16, value: u16, module: u16) {
+    fn overflow_module_offset(
+        f: fn(u16, u16) -> Option<u16>,
+        mut diff: u16,
+        mut value: u16,
+        module: u16,
+    ) -> u16 {
         match f(value, diff) {
-            Some(i) => value -= diff,
-            None => match f(module, diff) {
-                Some(i) => value += module - diff,
-                None => panic!("Test")
+            Some(i) => {
+                value -= diff;
+                return value;
             }
+            None => match f(module, diff) {
+                Some(i) => {
+                    value += module - diff;
+                    return value;
+                }
+                None => {
+                    let next_offset = diff / module;
+                    diff -= (next_offset * module);
+                    return Time::overflow_module_offset(f, diff, value, module);
+                }
+            },
         }
     }
 

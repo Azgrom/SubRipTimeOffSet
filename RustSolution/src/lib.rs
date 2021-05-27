@@ -43,6 +43,20 @@ impl Time {
         }
     }
 
+    fn module_offset(value: u16, diff: u16) -> Option<u16> {
+        value.checked_sub(diff)
+    }
+
+    fn overflow_module_offset(f: fn(u16, u16) -> Option<u16>, diff: u16, value: u16, module: u16) {
+        match f(value, diff) {
+            Some(i) => value -= diff,
+            None => match f(module, diff) {
+                Some(i) => value += module - diff,
+                None => panic!("Test")
+            }
+        }
+    }
+
     fn sum_milliseconds_offset(&mut self, offset: u16) {
         if (self.milliseconds + offset) > Time::MILLISECONDS_MODULE {
             self.milliseconds += offset - Time::MILLISECONDS_MODULE;

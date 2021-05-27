@@ -256,7 +256,7 @@ mod tests {
             seconds: 58,
             milliseconds: 584,
         };
-        time_example.subtract_milliseconds_offset(10);
+        time_example.sub_milliseconds_offset(10);
 
         let mut expected_result = Time {
             hours: 2,
@@ -266,7 +266,9 @@ mod tests {
         };
         assert_eq!(time_example, expected_result);
 
-        time_example.subtract_milliseconds_offset(580);
+        time_example.sub_milliseconds_offset(2000);
+
+        println!("{:?}", time_example);
 
         expected_result = Time {
             hours: 2,

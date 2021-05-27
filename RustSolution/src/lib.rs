@@ -82,39 +82,12 @@ impl Time {
     }
 
     fn sub_milliseconds_offset(&mut self, offset: u16) {
-        if self.milliseconds.checked_sub(offset) == None {
-            self.milliseconds += Time::MILLISECONDS_MODULE - offset;
-        } else {
-            self.milliseconds -= offset;
-        }
-    }
-}
-
-impl Sub for Time {
-    type Output = Time;
-
-    fn sub(mut self, other: Time) -> Time {
-        if self.milliseconds.checked_sub(other.milliseconds) == None {
-            self.milliseconds += Time::MILLISECONDS_MODULE - other.milliseconds;
-        } else {
-            self.milliseconds -= other.milliseconds;
-        }
-
-        self
-    }
-}
-
-impl Add for Time {
-    type Output = Time;
-
-    fn add(mut self, other: Time) -> Time {
-        if self.milliseconds.checked_sub(other.milliseconds) == None {
-            self.milliseconds += Time::MILLISECONDS_MODULE - other.milliseconds;
-        } else {
-            self.milliseconds -= other.milliseconds;
-        }
-
-        self
+        Time::overflow_module_offset(
+            Time::module_offset,
+            offset,
+            self.milliseconds,
+            Time::MILLISECONDS_MODULE,
+        );
     }
 }
 

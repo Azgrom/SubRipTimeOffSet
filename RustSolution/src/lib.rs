@@ -256,24 +256,28 @@ mod tests {
         };
         time_example.sub_milliseconds_offset(10);
 
-        let mut expected_result = Time {
-            hours: 2,
-            minutes: 17,
-            seconds: 58,
-            milliseconds: 574,
-        };
-        assert_eq!(time_example, expected_result);
+        assert_eq!(
+            time_example,
+            Time {
+                hours: 2,
+                minutes: 17,
+                seconds: 58,
+                milliseconds: 574,
+            }
+        );
 
         time_example.sub_milliseconds_offset(2000);
 
         println!("{:?}", time_example);
 
-        expected_result = Time {
-            hours: 2,
-            minutes: 17,
-            seconds: 58,
-            milliseconds: 994,
-        };
-        assert_eq!(time_example, expected_result);
+        assert_eq!(
+            time_example,
+            Time {
+                hours: 2,
+                minutes: 17,
+                seconds: 58,
+                milliseconds: 994,
+            }
+        );
     }
 }

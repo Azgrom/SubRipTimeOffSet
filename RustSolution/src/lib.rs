@@ -47,11 +47,7 @@ impl Time {
         value.checked_sub(diff)
     }
 
-    fn overflow_module_offset(
-        &mut self,
-        f: fn(u16, u16) -> Option<u16>,
-        mut diff: u16,
-    ) {
+    fn overflow_module_offset(&mut self, f: fn(u16, u16) -> Option<u16>, mut diff: u16) {
         let time_modules = (Time::MILLISECONDS_MODULE, Time::SEC_MIN_MODULE);
         let mut value = self.milliseconds;
         let module = time_modules.0;

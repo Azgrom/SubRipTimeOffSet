@@ -7,5 +7,9 @@ fn main() {
 
     println!("{:?}", parsed_file_content);
 
-    parsed_file_content.contents[0].dialog_timing.start.sub_milliseconds_offset(2);
+    parsed_file_content.contents[0]
+        .dialog_timing
+        .start
+        .sub_milliseconds_offset(20_589);
+    println!("{:?}", parsed_file_content);
 }

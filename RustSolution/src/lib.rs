@@ -48,28 +48,58 @@ impl Time {
     }
 
     fn overflow_module_offset(
+        &mut self,
         f: fn(u16, u16) -> Option<u16>,
         mut diff: u16,
-        mut value: u16,
-        module: u16,
-    ) -> u16 {
-        match f(value, diff) {
-            Some(i) => {
-                value -= diff;
-                return value;
-            }
-            None => match f(module, diff) {
-                Some(i) => {
-                    value += module - diff;
-                    return value;
-                }
-                None => {
-                    let next_offset = diff / module;
-                    diff -= (next_offset * module);
-                    return Time::overflow_module_offset(f, diff, value, module);
-                }
+    ) {
+        let time_modules = (Time::MILLISECONDS_MODULE, Time::SEC_MIN_MODULE);
+        let mut value = self.milliseconds;
+        let module = time_modules.0;
+        let mut sec_offset: u16 = 0;
+
+        match f(module, diff) {
+            Some(i) => match f(value, diff) {
+                Some(j) => value = j,
+                None => value += i,
             },
+            None => {
+                sec_offset = diff / module;
+                diff -= sec_offset * module;
+                match f(value, diff) {
+                    Some(k) => value = k,
+                    None => {
+                        println!("Doing nothing. Sub module milliseconds subtraction error");
+                        return ();
+                    }
+                }
+            }
         }
+
+        self.milliseconds = value;
+
+        let mut value = self.seconds as u16;
+        let module = time_modules.1 as u16;
+        let mut min_offset: u16 = 0;
+
+        match f(module, sec_offset) {
+            Some(i) => match f(value, sec_offset) {
+                Some(j) => value = j,
+                None => value += i,
+            },
+            None => {
+                min_offset = sec_offset / module;
+                sec_offset -= min_offset * module;
+                match f(value, sec_offset) {
+                    Some(k) => value = k,
+                    None => {
+                        println!("Doing nothing. Sub module seconds subtraction error");
+                        return ();
+                    }
+                }
+            }
+        }
+
+        self.seconds = value as u8;
     }
 
     fn sum_milliseconds_offset(&mut self, offset: u16) {

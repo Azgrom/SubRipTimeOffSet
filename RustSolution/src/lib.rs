@@ -112,12 +112,7 @@ impl Time {
     }
 
     fn sub_milliseconds_offset(&mut self, offset: u16) {
-        Time::overflow_module_offset(
-            Time::module_offset,
-            offset,
-            self.milliseconds,
-            Time::MILLISECONDS_MODULE,
-        );
+        self.overflow_module_offset(Time::module_offset, offset);
     }
 }
 

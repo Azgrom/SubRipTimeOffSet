@@ -1,29 +1,29 @@
 use std::fs;
 
 #[derive(Debug, PartialEq)]
-struct Time {
-    hours: u8,
-    minutes: u8,
-    seconds: u8,
-    milliseconds: u16,
+pub struct Time {
+    pub hours: u8,
+    pub minutes: u8,
+    pub seconds: u8,
+    pub milliseconds: u16,
 }
 
 #[derive(Debug)]
-struct Timestamp {
-    start: Time,
-    end: Time,
+pub struct Timestamp {
+    pub start: Time,
+    pub end: Time,
 }
 
 #[derive(Debug)]
-struct SubRipContent {
-    dialog_timing: Timestamp,
-    dialog_string: String,
+pub struct SubRipContent {
+    pub dialog_timing: Timestamp,
+    pub dialog_string: String,
 }
 
 #[derive(Debug)]
 pub struct SubRipFile {
     filename: String,
-    contents: Vec<SubRipContent>,
+    pub contents: Vec<SubRipContent>,
 }
 
 impl Time {
@@ -107,7 +107,7 @@ impl Time {
         }
     }
 
-    fn sub_milliseconds_offset(&mut self, offset: u16) {
+    pub fn sub_milliseconds_offset(&mut self, offset: u16) {
         self.overflow_module_offset(Time::module_offset, offset);
     }
 }

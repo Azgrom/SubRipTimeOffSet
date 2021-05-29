@@ -56,21 +56,22 @@ impl Time {
         match f(module, diff) {
             Some(i) => match f(value, diff) {
                 Some(j) => value = j,
-                None => value += i,
+                None => {
+                    value += i;
+                    sec_offset += 1;
+                }
             },
             None => {
                 sec_offset = diff / module;
                 diff -= sec_offset * module;
                 match f(value, diff) {
                     Some(k) => value = k,
-                    None => {
-                        println!("Doing nothing. Sub module milliseconds subtraction error");
-                        return ();
-                    }
+                    None => value += f(module, diff).unwrap(),
                 }
             }
         }
 
+        println!("Attributing new millisecods value: {}", value);
         self.milliseconds = value;
 
         let mut value = self.seconds as u16;
@@ -80,22 +81,48 @@ impl Time {
         match f(module, sec_offset) {
             Some(i) => match f(value, sec_offset) {
                 Some(j) => value = j,
-                None => value += i,
+                None => {
+                    value += i;
+                    min_offset += 1;
+                }
             },
             None => {
                 min_offset = sec_offset / module;
                 sec_offset -= min_offset * module;
                 match f(value, sec_offset) {
                     Some(k) => value = k,
-                    None => {
-                        println!("Doing nothing. Sub module seconds subtraction error");
-                        return ();
-                    }
+                    None => value += f(module, diff).unwrap(),
                 }
             }
         }
 
+        println!("Attributing new seconds value: {}", value);
         self.seconds = value as u8;
+
+        let mut value = self.minutes as u16;
+        let module = time_modules.1 as u16;
+        let mut hour_offset: u16 = 0;
+
+        match f(module, min_offset) {
+            Some(i) => match f(value, min_offset) {
+                Some(j) => value = j,
+                None => {
+                    value += i;
+                    hour_offset += 1;
+                }
+            },
+            None => {
+                min_offset = min_offset / module;
+                min_offset -= min_offset * module;
+                match f(value, min_offset) {
+                    Some(k) => value = k,
+                    None => value += f(module, diff).unwrap(),
+                }
+            }
+        }
+
+        println!("Attributing new minutes value: {}", value);
+        self.minutes = value as u8;
     }
 
     fn sum_milliseconds_offset(&mut self, offset: u16) {

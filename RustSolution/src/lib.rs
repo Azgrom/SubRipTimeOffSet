@@ -77,8 +77,24 @@ impl Time {
         }
     }
 
-    pub fn sub_milliseconds_offset(&mut self, offset: u16) {
-        self.overflow_module_offset(Time::module_offset, offset);
+    pub fn sub_milliseconds_offset(&mut self, mut offset: u16) {
+
+        let mut module = Time::MILLISECONDS_MODULE;
+        let mut test_vec: Vec<u16> = [self.milliseconds, (self.seconds as u16), (self.minutes as u16)].to_vec();
+
+        let mut tuple_result: (u16, u16) = (0, 0);
+
+        for value in test_vec.iter_mut() {
+
+            tuple_result = Time::match_offset(module, &mut *value, &mut offset);
+
+            println!("Attributing new millisecods value: {}", tuple_result.0);
+            *value = tuple_result.0;
+            offset = tuple_result.1;
+            module = Time::SEC_MIN_MODULE;
+
+            if offset == 0 { break };
+        }
     }
 }
 

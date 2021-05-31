@@ -27,7 +27,7 @@ pub struct SubRipFile {
 }
 
 impl Time {
-    const SEC_MIN_MODULE: u8 = 60;
+    const SEC_MIN_MODULE: u16 = 60;
     const MILLISECONDS_MODULE: u16 = 1000;
 
     fn time_splitter<'a>(time_str: &'a str) -> Time {

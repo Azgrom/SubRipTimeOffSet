@@ -82,22 +82,15 @@ impl Time {
     }
 
     pub fn sub_milliseconds_offset(&mut self, mut offset: u16) {
+        let test_vec: Vec<u16> = [(self.seconds as u16), (self.minutes as u16)].to_vec();
+        let mut test_vec = it::into_iter(test_vec);
 
-        let mut module = Time::MILLISECONDS_MODULE;
-        let mut test_vec: Vec<u16> = [self.milliseconds, (self.seconds as u16), (self.minutes as u16)].to_vec();
+        let mut next_offset: u16 = 0;
 
-        let mut tuple_result: (u16, u16) = (0, 0);
+        next_offset = Time::match_offset(Time::MILLISECONDS_MODULE, &Some(&mut self.milliseconds), &mut offset);
 
-        for value in test_vec.iter_mut() {
-
-            tuple_result = Time::match_offset(module, &mut *value, &mut offset);
-
-            println!("Attributing new millisecods value: {}", tuple_result.0);
-            *value = tuple_result.0;
-            offset = tuple_result.1;
-            module = Time::SEC_MIN_MODULE;
-
-            if offset == 0 { break };
+        while next_offset > 0 {
+            next_offset = Time::match_offset(Time::SEC_MIN_MODULE, &Some(&mut test_vec.next()), &mut offset);
         }
     }
 }

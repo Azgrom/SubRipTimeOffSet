@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, iter::IntoIterator as it};
 
 #[derive(Debug, PartialEq)]
 pub struct Time {

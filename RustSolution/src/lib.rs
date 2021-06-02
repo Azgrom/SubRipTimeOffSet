@@ -43,33 +43,29 @@ impl Time {
         }
     }
 
-    fn match_offset(module: u16, value: &Option<&mut u16>, offset: &mut u16) -> u16 {
-        if *value == None {
-            return 0;
-        }
-
+    fn match_offset(module: u16, mut value: u16, mut offset: u16) -> (u16, u16) {
         let mut next_offset:u16 = 0;
-        let module_offset = |value: u16, offset: u16| value.checked_sub(offset);
+        let module_offset = |num: u16, diff: u16| num.checked_sub(diff);
 
-        match module_offset(module, *offset) {
-            Some(i) => match module_offset(*value.unwrap(), *offset) {
-                Some(j) => *value.unwrap() = j,
+        match module_offset(module, offset) {
+            Some(i) => match module_offset(value, offset) {
+                Some(j) => value = j,
                 None => {
-                    *value.unwrap() += i;
+                    value += i;
                     next_offset += 1;
                 }
             },
             None => {
-                next_offset = *offset / module;
-                *offset -= next_offset * module;
-                match module_offset(*value.unwrap(), *offset) {
-                    Some(k) => *value.unwrap() = k,
-                    None => *value.unwrap() += module_offset(module, *offset).unwrap(),
+                next_offset = offset / module;
+                offset -= next_offset * module;
+                match module_offset(value, offset) {
+                    Some(k) => value = k,
+                    None => value += module_offset(module, offset).unwrap(),
                 }
             }
         }
 
-        next_offset
+        (next_offset, value)
     }
 
     fn sum_milliseconds_offset(&mut self, offset: u16) {

@@ -1,6 +1,6 @@
 table! {
     posts (id) {
-        id -> Nullable<Binary>,
+        id -> Integer,
         title -> Text,
         body -> Text,
         published -> Bool,

@@ -259,8 +259,8 @@ mod tests {
             seconds: 58,
             milliseconds: 584,
         };
-        time_example.sub_milliseconds_offset(10);
 
+        time_example.sub_milliseconds_offset(10);
         assert_eq!(
             time_example,
             Time {

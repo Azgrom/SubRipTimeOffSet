@@ -33,3 +33,17 @@ pub fn create_post<'a>(conn: &SqliteConnection, title: &'a str, body: &'a str) -
         .execute(conn)
         .expect("Error saving new post")
 }
+
+pub fn delete_post() {
+    use diesel_demo::schema::posts::dsl::*;
+
+    let target = env::args().nth(1).expect("Expected a targed to match against");
+    let pattern = format!("%{}%", target);
+
+    let connection = establish_connection();
+    let num_deleted = diesel::delete(posts.filter(title.like(pattern)))
+        .execute(&connection)
+        .expect("Error deleting posts");
+
+    println!("Deleted {} posts", num_deleted);
+}

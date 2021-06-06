@@ -1,5 +1,5 @@
 [package]
-name = "diesel_demo"
+name = "subrip_sqlite3_parser"
 version = "0.1.0"
 edition = "2018"
 

@@ -9,7 +9,8 @@ use diesel::{prelude::*, sqlite::SqliteConnection};
 use dotenv::dotenv;
 use std::env;
 
-use self::models::{NewPost, Post};
+use self::{models::{NewPost, Post},
+           schema::posts::dsl::*};
 
 fn establish_connection() -> SqliteConnection {
     dotenv().ok();
@@ -34,8 +35,10 @@ fn create_post<'a>(conn: &SqliteConnection, post_title: &'a str, post_body: &'a 
         .expect("Error saving new post")
 }
 
-mod Crud {
+mod crud {
     use super::*;
+    use std::io::{stdin, Read};
+
 
     #[cfg(not(windows))]
     const EOF: &'static str = "CTRL+D";
@@ -44,8 +47,6 @@ mod Crud {
     const EOF: &'static str = "CTRL+Z";
 
     pub fn show_posts() {
-        use diesel_demo::schema::posts::dsl::*;
-
         let connection = establish_connection();
         let results = posts
         .filter(published.eq(true))

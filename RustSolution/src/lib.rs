@@ -20,12 +20,12 @@ fn establish_connection() -> SqliteConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-fn create_post<'a>(conn: &SqliteConnection, title: &'a str, body: &'a str) -> usize {
+fn create_post<'a>(conn: &SqliteConnection, post_title: &'a str, post_body: &'a str) -> usize {
     use schema::posts;
 
     let new_post = NewPost {
-        title: title,
-        body: body,
+        title: post_title,
+        body: post_body,
     };
 
     diesel::insert_into(posts::table)
@@ -66,25 +66,23 @@ mod Crud {
         let connection = establish_connection();
 
         println!("What would you like your title to be?");
-        let mut title = String::new();
-        stdin().read_line(&mut title).unwrap();
+        let mut post_title = String::new();
+        stdin().read_line(&mut post_title).unwrap();
 
-        let title = &title[..(title.len() - 1)]; // Drop the newline character
+        let post_title = &post_title[..(post_title.len() - 1)]; // Drop the newline character
         println!(
             "\nOk! Let's write '{}' (Press {} when finished)\n",
-            title, EOF
+            post_title, EOF
         );
 
-        let mut body = String::new();
-        stdin().read_to_string(&mut body).unwrap();
+        let mut post_body = String::new();
+        stdin().read_to_string(&mut post_body).unwrap();
 
-        let post = create_post(&connection, title, &body);
-        println!("\nSaved draft '{}' with id {}", title, post);
+        let post = create_post(&connection, post_title, &post_body);
+        println!("\nSaved draft '{}' with id {}", post_title, post);
     }
 
     pub fn delete_post() {
-        use diesel_demo::schema::posts::dsl::*;
-
         let target = env::args().nth(1).expect("Expected a targed to match against");
         let pattern = format!("%{}%", target);
 
@@ -97,24 +95,22 @@ mod Crud {
     }
 
     pub fn publish_post() {
-        use diesel_demo::schema::posts::dsl::{posts, published};
-
-        let id = env::args()
+        let post_id = env::args()
             .nth(1)
             .expect("publish_post requires a post id")
             .parse::<i32>()
             .expect("Invalid ID");
         let connection = establish_connection();
 
-        let _ = diesel::update(posts.find(id))
+        let _ = diesel::update(posts.find(post_id))
             .set(published.eq(true))
             .execute(&connection)
-            .unwrap_or_else(|_| panic!("Unable to find post {}", id));
+            .unwrap_or_else(|_| panic!("Unable to find post {}", post_id));
 
         let post: Post = posts
-            .find(id)
+            .find(post_id)
             .first(&connection)
-            .unwrap_or_else(|_| panic!("Unable to find post {}", id));
+            .unwrap_or_else(|_| panic!("Unable to find post {}", post_id));
 
         println!("Published post {}", post.title);
     }

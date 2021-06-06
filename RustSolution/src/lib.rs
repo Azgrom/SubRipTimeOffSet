@@ -36,7 +36,7 @@ fn create_post<'a>(conn: &SqliteConnection, title: &'a str, body: &'a str) -> us
 
 mod Crud {
     use super::*;
-    
+
     #[cfg(not(windows))]
     const EOF: &'static str = "CTRL+D";
 
@@ -94,5 +94,28 @@ mod Crud {
         .expect("Error deleting posts");
 
         println!("Deleted {} posts", num_deleted);
+    }
+
+    pub fn publish_post() {
+        use diesel_demo::schema::posts::dsl::{posts, published};
+
+        let id = env::args()
+            .nth(1)
+            .expect("publish_post requires a post id")
+            .parse::<i32>()
+            .expect("Invalid ID");
+        let connection = establish_connection();
+
+        let _ = diesel::update(posts.find(id))
+            .set(published.eq(true))
+            .execute(&connection)
+            .unwrap_or_else(|_| panic!("Unable to find post {}", id));
+
+        let post: Post = posts
+            .find(id)
+            .first(&connection)
+            .unwrap_or_else(|_| panic!("Unable to find post {}", id));
+
+        println!("Published post {}", post.title);
     }
 }

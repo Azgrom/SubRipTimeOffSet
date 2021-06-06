@@ -34,35 +34,39 @@ fn create_post<'a>(conn: &SqliteConnection, title: &'a str, body: &'a str) -> us
         .expect("Error saving new post")
 }
 
-pub fn show_posts() {
-    use diesel_demo::schema::posts::dsl::*;
+mod Crud {
+    use super::*;
 
-    let connection = establish_connection();
-    let results = posts
+    pub fn show_posts() {
+        use diesel_demo::schema::posts::dsl::*;
+
+        let connection = establish_connection();
+        let results = posts
         .filter(published.eq(true))
         .limit(5)
         .load::<Post>(&connection)
         .expect("Error loading posts");
 
-    println!("Displaying {} posts", results.len());
+        println!("Displaying {} posts", results.len());
 
-    for post in results {
-        println!("{}", post.title);
-        println!("----------\n");
-        println!("{}", post.body);
+        for post in results {
+            println!("{}", post.title);
+            println!("----------\n");
+            println!("{}", post.body);
+        }
     }
-}
 
-pub fn delete_post() {
-    use diesel_demo::schema::posts::dsl::*;
+    pub fn delete_post() {
+        use diesel_demo::schema::posts::dsl::*;
 
-    let target = env::args().nth(1).expect("Expected a targed to match against");
-    let pattern = format!("%{}%", target);
+        let target = env::args().nth(1).expect("Expected a targed to match against");
+        let pattern = format!("%{}%", target);
 
-    let connection = establish_connection();
-    let num_deleted = diesel::delete(posts.filter(title.like(pattern)))
+        let connection = establish_connection();
+        let num_deleted = diesel::delete(posts.filter(title.like(pattern)))
         .execute(&connection)
         .expect("Error deleting posts");
 
-    println!("Deleted {} posts", num_deleted);
+        println!("Deleted {} posts", num_deleted);
+    }
 }

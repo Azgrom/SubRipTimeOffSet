@@ -272,17 +272,23 @@ mod tests {
         );
 
         time_example.sub_milliseconds_offset(2000);
-
-        println!("{:?}", time_example);
-
         assert_eq!(
             time_example,
             Time {
                 hours: 2,
                 minutes: 17,
-                seconds: 58,
-                milliseconds: 994,
+                seconds: 56,
+                milliseconds: 574,
             }
         );
+
+        time_example.sub_milliseconds_offset(1_044_074);
+        assert_eq!(time_example,
+                   Time {
+                       hours: 1,
+                       minutes: 59,
+                       seconds: 0,
+                       milliseconds: 574
+                   })
     }
 }

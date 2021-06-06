@@ -5,7 +5,7 @@ pub struct Time {
     pub hours: u8,
     pub minutes: u8,
     pub seconds: u8,
-    pub milliseconds: u16,
+    pub milliseconds: u32,
 }
 
 #[derive(Debug)]
@@ -27,8 +27,8 @@ pub struct SubRipFile {
 }
 
 impl Time {
-    const SEC_MIN_MODULE: u16 = 60;
-    const MILLISECONDS_MODULE: u16 = 1000;
+    const SEC_MIN_MODULE: u32 = 60;
+    const MILLISECONDS_MODULE: u32 = 1000;
 
     fn time_splitter<'a>(time_str: &'a str) -> Time {
         let split_parameter = [':', ','];
@@ -39,13 +39,13 @@ impl Time {
             hours: time_vec[0].parse::<u8>().unwrap(),
             minutes: time_vec[1].parse::<u8>().unwrap(),
             seconds: time_vec[2].parse::<u8>().unwrap(),
-            milliseconds: time_vec[3].parse::<u16>().unwrap(),
+            milliseconds: time_vec[3].parse::<u32>().unwrap(),
         }
     }
 
-    fn match_offset(module: u16, mut value: u16, mut offset: u16) -> (u16, u16) {
-        let mut next_offset:u16 = 0;
-        let module_offset = |num: u16, diff: u16| num.checked_sub(diff);
+    fn match_offset(module: u32, mut value: u32, mut offset: u32) -> (u32, u32) {
+        let mut next_offset:u32 = 0;
+        let module_offset = |num: u32, diff: u32| num.checked_sub(diff);
 
         match module_offset(module, offset) {
             Some(i) => match module_offset(value, offset) {
@@ -68,7 +68,7 @@ impl Time {
         (next_offset, value)
     }
 
-    fn sum_milliseconds_offset(&mut self, offset: u16) {
+    fn sum_milliseconds_offset(&mut self, offset: u32) {
         if (self.milliseconds + offset) > Time::MILLISECONDS_MODULE {
             self.milliseconds += offset - Time::MILLISECONDS_MODULE;
             self.seconds += 1;
@@ -77,20 +77,20 @@ impl Time {
         }
     }
 
-    pub fn sub_milliseconds_offset(&mut self, mut offset: u16) {
+    pub fn sub_milliseconds_offset(&mut self, mut offset: u32) {
         let mut test_tup = (0, 0);
-        let mut next_offset: u16 = 0;
+        let mut next_offset: u32 = 0;
 
         test_tup = Time::match_offset(Time::MILLISECONDS_MODULE, self.milliseconds, offset);
 
         next_offset = test_tup.0;
         self.milliseconds = test_tup.1;
 
-        let test_vec = [(self.seconds as u16), (self.minutes as u16)];
+        let test_vec = [(self.seconds as u32), (self.minutes as u32)];
         let mut value = test_vec.iter();
-        let mut sec_min_vec: Vec<u16> = Vec::new();
+        let mut sec_min_vec: Vec<u32> = Vec::new();
 
-        let mut iterated_value: Option<&u16> = Some(&1);
+        let mut iterated_value: Option<&u32> = Some(&1);
 
         while (next_offset != 0) && (iterated_value != None) {
 
@@ -111,15 +111,13 @@ impl Time {
         }
 
         if next_offset != 0 {
-            let module_offset = |num: u16, diff: u16| num.checked_sub(diff);
+            let module_offset = |num: u32, diff: u32| num.checked_sub(diff);
 
-            match module_offset(self.hours as u16, next_offset) {
+            match module_offset(self.hours as u32, next_offset) {
                 Some(j) => self.hours = j as u8,
                 None => println!("Cannot have a negative hours, not subtracting it."),
             }
         }
-
-        println!("{:?}", sec_min_vec);
     }
 }
 

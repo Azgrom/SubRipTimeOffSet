@@ -271,24 +271,22 @@ mod tests {
             }
         );
 
-        time_example.sub_milliseconds_offset(2000);
-        assert_eq!(
-            time_example,
-            Time {
-                hours: 2,
-                minutes: 17,
-                seconds: 56,
-                milliseconds: 574,
-            }
-        );
-
-        time_example.sub_milliseconds_offset(1_044_074);
+        time_example.sub_milliseconds_offset(44_074);
         assert_eq!(time_example,
                    Time {
-                       hours: 1,
-                       minutes: 59,
-                       seconds: 0,
-                       milliseconds: 574
-                   })
+                       hours: 2,
+                       minutes: 17,
+                       seconds: 12,
+                       milliseconds: 500
+                   });
+
+        time_example.sub_milliseconds_offset(1_032_500);
+        assert_eq!(time_example,
+                   Time {
+                       hours: 2,
+                       minutes: 17,
+                       seconds: 12,
+                       milliseconds: 500
+                   });
     }
 }

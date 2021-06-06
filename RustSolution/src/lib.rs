@@ -36,6 +36,12 @@ fn create_post<'a>(conn: &SqliteConnection, title: &'a str, body: &'a str) -> us
 
 mod Crud {
     use super::*;
+    
+    #[cfg(not(windows))]
+    const EOF: &'static str = "CTRL+D";
+
+    #[cfg(windows)]
+    const EOF: &'static str = "CTRL+Z";
 
     pub fn show_posts() {
         use diesel_demo::schema::posts::dsl::*;

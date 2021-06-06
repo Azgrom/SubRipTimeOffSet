@@ -190,6 +190,20 @@ impl SubRipFile {
     }
 }
 
+// Incomplete implementation
+impl std::fmt::Display for SubRipFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let filename_str = String::from("Filename: {}\n");
+        let dialogs_number = String::from("Dialogs Number: {}\n\n");
+        let timing_str = String::from("{} --> {}\n");
+        let dialog_str = String::from("{}");
+
+        let print_output = format!("{}{}{}{}", filename_str, dialogs_number, timing_str, dialog_str);
+
+        write!(f, "{}", self.contents.iter().map::<B, F>(|x| Ok(x)).collect())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

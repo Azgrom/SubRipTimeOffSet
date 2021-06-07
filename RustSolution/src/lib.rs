@@ -8,7 +8,6 @@ pub struct Time {
     pub milliseconds: u32,
 }
 
-#[derive(Debug)]
 pub struct Timestamp {
     pub start: Time,
     pub end: Time,
@@ -187,6 +186,12 @@ impl SubRipFile {
         });
 
         subrip_content_vector
+    }
+}
+
+impl Display for Time {
+    fn fmt(&self, f: &mut Formatter) -> FMTResult {
+        write!(f, "{}:{}:{},{}", self.hours, self.minutes, self.seconds, self.milliseconds)
     }
 }
 

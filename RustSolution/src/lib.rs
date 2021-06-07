@@ -4,7 +4,7 @@ use std::{
     iter::IntoIterator as it,
 };
 
-#[derive(PartialEq)]
+#[derive(Clone, Copy)]
 pub struct Time {
     pub hours: u8,
     pub minutes: u8,
@@ -12,6 +12,7 @@ pub struct Time {
     pub milliseconds: u32,
 }
 
+#[derive(Clone, Copy)]
 pub struct TimeStamp {
     pub start: Time,
     pub end: Time,

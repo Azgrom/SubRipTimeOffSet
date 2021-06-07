@@ -15,6 +15,12 @@ impl SubRipFile {
 
         content_string
     }
+
+    pub fn register_subtitle(&self) {
+        let content_string = self.content_string_parser();
+
+        sql::write_reg(&self.filename, content_string);
+    }
 }
 
 mod stdout_implementation {

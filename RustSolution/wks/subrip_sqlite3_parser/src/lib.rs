@@ -37,7 +37,7 @@ fn create_post<'a>(conn: &SqliteConnection, reg_filename: &'a str, reg_content: 
         .expect("Error saving new post")
 }
 
-mod crud {
+pub mod crud {
     use super::*;
     use std::io::{stdin, Read};
 

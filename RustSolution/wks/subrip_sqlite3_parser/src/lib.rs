@@ -9,8 +9,10 @@ use diesel::{prelude::*, sqlite::SqliteConnection};
 use dotenv::dotenv;
 use std::env;
 
-use self::{models::{NewPost, Post},
-           schema::posts::dsl::*};
+use self::{
+    models::{NewPost, Post},
+    schema::posts::dsl::*,
+};
 
 fn establish_connection() -> SqliteConnection {
     dotenv().ok();
@@ -39,7 +41,6 @@ mod crud {
     use super::*;
     use std::io::{stdin, Read};
 
-
     #[cfg(not(windows))]
     const EOF: &'static str = "CTRL+D";
 
@@ -49,10 +50,10 @@ mod crud {
     pub fn show_posts() {
         let connection = establish_connection();
         let results = posts
-        .filter(published.eq(true))
-        .limit(5)
-        .load::<Post>(&connection)
-        .expect("Error loading posts");
+            .filter(published.eq(true))
+            .limit(5)
+            .load::<Post>(&connection)
+            .expect("Error loading posts");
 
         println!("Displaying {} posts", results.len());
 
@@ -84,13 +85,15 @@ mod crud {
     }
 
     pub fn delete_post() {
-        let target = env::args().nth(1).expect("Expected a targed to match against");
+        let target = env::args()
+            .nth(1)
+            .expect("Expected a targed to match against");
         let pattern = format!("%{}%", target);
 
         let connection = establish_connection();
         let num_deleted = diesel::delete(posts.filter(title.like(pattern)))
-        .execute(&connection)
-        .expect("Error deleting posts");
+            .execute(&connection)
+            .expect("Error deleting posts");
 
         println!("Deleted {} posts", num_deleted);
     }

@@ -1,4 +1,8 @@
-use std::{fmt::{Display, Formatter, Result as FMTResult}, fs, iter::IntoIterator as it};
+use std::{
+    fmt::{Display, Formatter, Result as FMTResult},
+    fs,
+    iter::IntoIterator as it,
+};
 
 #[derive(PartialEq)]
 pub struct Time {
@@ -19,7 +23,7 @@ pub struct SubRipContent {
 }
 
 pub struct SubRipFile {
-    filename: String,
+    pub filename: String,
     pub contents: Vec<SubRipContent>,
 }
 
@@ -41,7 +45,7 @@ impl Time {
     }
 
     fn match_offset(module: u32, mut value: u32, mut offset: u32) -> (u32, u32) {
-        let mut next_offset:u32 = 0;
+        let mut next_offset: u32 = 0;
         let module_offset = |num: u32, diff: u32| num.checked_sub(diff);
 
         match module_offset(module, offset) {
@@ -90,9 +94,9 @@ impl Time {
         let mut iterated_value: Option<&u32> = Some(&1);
 
         while (next_offset != 0) && (iterated_value != None) {
-
             iterated_value = value.next();
-            test_tup = Time::match_offset(Time::SEC_MIN_MODULE, *iterated_value.unwrap(), next_offset);
+            test_tup =
+                Time::match_offset(Time::SEC_MIN_MODULE, *iterated_value.unwrap(), next_offset);
             next_offset = test_tup.0;
             sec_min_vec.push(test_tup.1);
         }
@@ -103,8 +107,8 @@ impl Time {
             2 => {
                 self.seconds = sec_min_vec[0] as u8;
                 self.minutes = sec_min_vec[1] as u8;
-            },
-            _ => println!("'sec_min_vec' parse error")
+            }
+            _ => println!("'sec_min_vec' parse error"),
         }
 
         if next_offset != 0 {
@@ -189,7 +193,11 @@ impl SubRipFile {
 
 impl Display for Time {
     fn fmt(&self, f: &mut Formatter) -> FMTResult {
-        write!(f, "{:02}:{:02}:{:02},{:03}", self.hours, self.minutes, self.seconds, self.milliseconds)
+        write!(
+            f,
+            "{:02}:{:02}:{:02},{:03}",
+            self.hours, self.minutes, self.seconds, self.milliseconds
+        )
     }
 }
 
@@ -215,10 +223,15 @@ impl Display for SubRipFile {
             content_string.push_str(&content.1.to_string());
         }
 
-        write!(f, "Filename: {}\nNumber of dialogs: {}\n\n\nDialogs:\n----------\n{}", self.filename, self.contents.len(), content_string)
+        write!(
+            f,
+            "Filename: {}\nNumber of dialogs: {}\n\n\nDialogs:\n----------\n{}",
+            self.filename,
+            self.contents.len(),
+            content_string
+        )
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -302,21 +315,25 @@ mod tests {
         );
 
         time_example.sub_milliseconds_offset(44_074);
-        assert_eq!(time_example,
-                   Time {
-                       hours: 2,
-                       minutes: 17,
-                       seconds: 12,
-                       milliseconds: 500
-                   });
+        assert_eq!(
+            time_example,
+            Time {
+                hours: 2,
+                minutes: 17,
+                seconds: 12,
+                milliseconds: 500
+            }
+        );
 
         time_example.sub_milliseconds_offset(1_032_500);
-        assert_eq!(time_example,
-                   Time {
-                       hours: 2,
-                       minutes: 17,
-                       seconds: 12,
-                       milliseconds: 500
-                   });
+        assert_eq!(
+            time_example,
+            Time {
+                hours: 2,
+                minutes: 17,
+                seconds: 12,
+                milliseconds: 500
+            }
+        );
     }
 }

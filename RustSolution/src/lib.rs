@@ -128,11 +128,15 @@ impl TimeStamp {
 }
 
 impl SubRipFile {
-    pub fn new(args: Vec<String>) -> SubRipFile {
-        SubRipFile {
+    pub fn new(args: Vec<String>) -> Result<SubRipFile, &'static str> {
+        if args.len() < 2 {
+            return Err("Not enough arguments");
+        }
+
+        Ok(SubRipFile {
             filename: args[1].clone(),
             contents: SubRipFile::subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str()),
-        }
+        })
     }
 
     fn subrip_dialog_parser(pattern_strings_wrapper: &Vec<&str>) -> String {

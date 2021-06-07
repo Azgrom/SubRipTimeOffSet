@@ -11,7 +11,7 @@ use std::env;
 
 use self::{
     models::{NewPSubRipRegistry, SubRipRegistry},
-    schema::posts::dsl::*,
+    schema::subrip_reg::dsl::*,
 };
 
 fn establish_connection() -> SqliteConnection {
@@ -24,14 +24,14 @@ fn establish_connection() -> SqliteConnection {
 }
 
 fn create_post<'a>(conn: &SqliteConnection, reg_filename: &'a str, reg_content: &'a str) -> usize {
-    use schema::posts;
+    use schema::subrip_reg;
 
     let new_post = NewPSubRipRegistry {
         filename: reg_filename,
         content: reg_content,
     };
 
-    diesel::insert_into(posts::table)
+    diesel::insert_into(subrip_reg::table)
         .values(&new_post)
         .execute(conn)
         .expect("Error saving new post")
@@ -49,7 +49,7 @@ pub mod crud {
 
     pub fn show_regs() {
         let connection = establish_connection();
-        let results = posts
+        let results = subrip_reg
             .filter(published.eq(true))
             .limit(5)
             .load::<SubRipRegistry>(&connection)
@@ -91,7 +91,7 @@ pub mod crud {
         let pattern = format!("%{}%", target);
 
         let connection = establish_connection();
-        let num_deleted = diesel::delete(posts.filter(filename.like(pattern)))
+        let num_deleted = diesel::delete(subrip_reg.filter(filename.like(pattern)))
             .execute(&connection)
             .expect("Error deleting posts");
 
@@ -106,12 +106,12 @@ pub mod crud {
             .expect("Invalid ID");
         let connection = establish_connection();
 
-        let _ = diesel::update(posts.find(post_id))
+        let _ = diesel::update(subrip_reg.find(post_id))
             .set(published.eq(true))
             .execute(&connection)
             .unwrap_or_else(|_| panic!("Unable to find post {}", post_id));
 
-        let post: SubRipRegistry = posts
+        let post: SubRipRegistry = subrip_reg
             .find(post_id)
             .first(&connection)
             .unwrap_or_else(|_| panic!("Unable to find post {}", post_id));

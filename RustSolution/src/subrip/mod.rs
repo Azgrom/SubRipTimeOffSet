@@ -216,26 +216,6 @@ mod stdout_implementation {
             write!(f, "{}\n{}\n", self.dialog_timing, self.dialog_string)
         }
     }
-
-    impl Display for SubRipFile {
-        fn fmt(&self, f: &mut Formatter) -> FMTResult {
-            let mut content_string = String::new();
-
-            for content in self.contents.iter().enumerate() {
-                content_string.push_str(&(content.0 + 1).to_string());
-                content_string.push('\n');
-                content_string.push_str(&content.1.to_string());
-            }
-
-            write!(
-                f,
-                "Filename: {}\nNumber of dialogs: {}\n\n\nDialogs:\n----------\n{}",
-                self.filename,
-                self.contents.len(),
-                content_string
-            )
-        }
-    }
 }
 
 #[cfg(test)]

@@ -101,8 +101,8 @@ impl TimeStamp {
     }
 
     fn subtract_fixed_offset(self, offset: u32) -> TimeStamp {
-        let mut start_in_milliseconds = start.convert_units_to_milliseconds();
-        let mut end_in_milliseconds = end.convert_units_to_milliseconds();
+        let mut start_in_milliseconds = self.start.convert_units_to_milliseconds();
+        let mut end_in_milliseconds = self.end.convert_units_to_milliseconds();
 
         start_in_milliseconds -= offset;
         end_in_milliseconds -= offset;
@@ -114,8 +114,8 @@ impl TimeStamp {
     }
 
     fn sum_fixed_offset(self, offset: u32) -> TimeStamp {
-        let mut start_in_milliseconds = start.convert_units_to_milliseconds();
-        let mut end_in_milliseconds = end.convert_units_to_milliseconds();
+        let mut start_in_milliseconds = self.start.convert_units_to_milliseconds();
+        let mut end_in_milliseconds = self.end.convert_units_to_milliseconds();
 
         start_in_milliseconds += offset;
         end_in_milliseconds += offset;

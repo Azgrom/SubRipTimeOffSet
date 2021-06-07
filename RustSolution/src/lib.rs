@@ -13,13 +13,11 @@ pub struct TimeStamp {
     pub end: Time,
 }
 
-#[derive(Debug)]
 pub struct SubRipContent {
     pub dialog_timing: TimeStamp,
     pub dialog_string: String,
 }
 
-#[derive(Debug)]
 pub struct SubRipFile {
     filename: String,
     pub contents: Vec<SubRipContent>,

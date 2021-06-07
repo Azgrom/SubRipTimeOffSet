@@ -8,14 +8,14 @@ pub struct Time {
     pub milliseconds: u32,
 }
 
-pub struct Timestamp {
+pub struct TimeStamp {
     pub start: Time,
     pub end: Time,
 }
 
 #[derive(Debug)]
 pub struct SubRipContent {
-    pub dialog_timing: Timestamp,
+    pub dialog_timing: TimeStamp,
     pub dialog_string: String,
 }
 
@@ -120,17 +120,17 @@ impl Time {
     }
 }
 
-impl Timestamp {
+impl TimeStamp {
     fn timestamp_splitter<'a>(timestamp_line: &'a str) -> Vec<&'a str> {
         let timestamp_indicator = " --> ";
 
         timestamp_line.split(timestamp_indicator).collect()
     }
 
-    fn timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> Timestamp {
-        let start_end_times = Timestamp::timestamp_splitter(pattern_strings_wrapper[1]);
+    fn timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> TimeStamp {
+        let start_end_times = TimeStamp::timestamp_splitter(pattern_strings_wrapper[1]);
 
-        Timestamp {
+        TimeStamp {
             start: Time::time_splitter(start_end_times[0]),
             end: Time::time_splitter(start_end_times[1]),
         }
@@ -165,7 +165,7 @@ impl SubRipFile {
             pattern_strings_wrapper.push(subrip_file_line);
 
             if *pattern_strings_wrapper.last().unwrap() == "" {
-                let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
+                let dialog_timing = TimeStamp::timestamp_parser(&pattern_strings_wrapper);
                 let dialog_string = SubRipFile::subrip_dialog_parser(&pattern_strings_wrapper);
 
                 pattern_strings_wrapper.clear();
@@ -177,7 +177,7 @@ impl SubRipFile {
             }
         }
 
-        let dialog_timing = Timestamp::timestamp_parser(&pattern_strings_wrapper);
+        let dialog_timing = TimeStamp::timestamp_parser(&pattern_strings_wrapper);
         let dialog_string = SubRipFile::subrip_dialog_parser(&pattern_strings_wrapper);
 
         subrip_content_vector.push(SubRipContent {
@@ -195,7 +195,7 @@ impl Display for Time {
     }
 }
 
-impl Display for Timestamp {
+impl Display for TimeStamp {
     fn fmt(&self, f: &mut Formatter) -> FMTResult {
         write!(f, "{} --> {}", self.start, self.end)
     }
@@ -256,7 +256,7 @@ mod tests {
     }
 
     fn timestamp_splitter_asserter(timestamp_string: String, expected_result: Vec<&str>) {
-        let obtained_result: Vec<&str> = Timestamp::timestamp_splitter(&timestamp_string);
+        let obtained_result: Vec<&str> = TimeStamp::timestamp_splitter(&timestamp_string);
 
         assert_eq!(expected_result, obtained_result);
     }

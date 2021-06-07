@@ -186,45 +186,49 @@ impl SubRipFile {
     }
 }
 
-impl Display for Time {
-    fn fmt(&self, f: &mut Formatter) -> FMTResult {
-        write!(
-            f,
-            "{:02}:{:02}:{:02},{:03}",
-            self.hours, self.minutes, self.seconds, self.milliseconds
-        )
-    }
-}
+mod stdout_implementation {
+    use super::*;
 
-impl Display for TimeStamp {
-    fn fmt(&self, f: &mut Formatter) -> FMTResult {
-        write!(f, "{} --> {}", self.start, self.end)
-    }
-}
-
-impl Display for SubRipContent {
-    fn fmt(&self, f: &mut Formatter) -> FMTResult {
-        write!(f, "{}\n{}\n", self.dialog_timing, self.dialog_string)
-    }
-}
-
-impl Display for SubRipFile {
-    fn fmt(&self, f: &mut Formatter) -> FMTResult {
-        let mut content_string = String::new();
-
-        for content in self.contents.iter().enumerate() {
-            content_string.push_str(&(content.0 + 1).to_string());
-            content_string.push('\n');
-            content_string.push_str(&content.1.to_string());
+    impl Display for Time {
+        fn fmt(&self, f: &mut Formatter) -> FMTResult {
+            write!(
+                f,
+                "{:02}:{:02}:{:02},{:03}",
+                self.hours, self.minutes, self.seconds, self.milliseconds
+            )
         }
+    }
 
-        write!(
-            f,
-            "Filename: {}\nNumber of dialogs: {}\n\n\nDialogs:\n----------\n{}",
-            self.filename,
-            self.contents.len(),
-            content_string
-        )
+    impl Display for TimeStamp {
+        fn fmt(&self, f: &mut Formatter) -> FMTResult {
+            write!(f, "{} --> {}", self.start, self.end)
+        }
+    }
+
+    impl Display for SubRipContent {
+        fn fmt(&self, f: &mut Formatter) -> FMTResult {
+            write!(f, "{}\n{}\n", self.dialog_timing, self.dialog_string)
+        }
+    }
+
+    impl Display for SubRipFile {
+        fn fmt(&self, f: &mut Formatter) -> FMTResult {
+            let mut content_string = String::new();
+
+            for content in self.contents.iter().enumerate() {
+                content_string.push_str(&(content.0 + 1).to_string());
+                content_string.push('\n');
+                content_string.push_str(&content.1.to_string());
+            }
+
+            write!(
+                f,
+                "Filename: {}\nNumber of dialogs: {}\n\n\nDialogs:\n----------\n{}",
+                self.filename,
+                self.contents.len(),
+                content_string
+            )
+        }
     }
 }
 

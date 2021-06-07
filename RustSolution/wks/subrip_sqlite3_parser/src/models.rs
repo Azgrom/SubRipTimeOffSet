@@ -6,10 +6,10 @@ pub struct SubRipRegistry {
     pub published: bool,
 }
 
-use super::schema::posts;
+use super::schema::subrip_reg;
 
 #[derive(Insertable)]
-#[table_name = "posts"]
+#[table_name = "subrip_reg"]
 pub struct NewPSubRipRegistry<'a> {
     pub filename: &'a str,
     pub content: &'a str,

@@ -78,6 +78,31 @@ impl Time {
         }
     }
 
+    fn convert_unit_to_milliseconds(&self) -> u32 {
+        let time_fields: Vec<u32> = [
+            (self.milliseconds as u32),
+            (self.seconds as u32),
+            (self.minutes as u32),
+            (self.hours as u32),
+        ].to_vec();
+
+        let mut total_time_milliseconds: u32 = 0;
+
+        for i in time_fields.iter().enumerate() {
+            if *i.1 != 0 {
+                match i {
+                    (0, y) => total_time_milliseconds += y,
+                    (1, y) => total_time_milliseconds += 1_000 * y,
+                    (2, y) => total_time_milliseconds += 60_000 * y,
+                    (3, y) => total_time_milliseconds += 3_600_000 * y,
+                    (_, _) => println!("Invalid Time field iterated element"),
+                }
+            }
+        }
+
+        total_time_milliseconds
+    }
+
     pub fn sub_milliseconds_offset(&mut self, mut offset: u32) {
         let mut test_tup = (0, 0);
         let mut next_offset: u32 = 0;

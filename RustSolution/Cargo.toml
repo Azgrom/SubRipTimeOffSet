@@ -12,7 +12,7 @@ members = [
 ]
 
 [dependencies]
-
+sqlite_diesel = { path = "wks/subrip_sqlite3_parser", package = 'subrip_sqlite3_parser' }
 
 [profile.release]
 opt-level = 3

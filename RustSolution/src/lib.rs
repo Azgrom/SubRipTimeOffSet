@@ -3,7 +3,8 @@ use std::fmt::{Display, Formatter, Result as FMTResult};
 mod subrip;
 
 pub use subrip::SubRipFile;
-pub use sqlite_diesel::crud;
+pub use sqlite_diesel::crud as sql;
+
 
 impl SubRipFile {
     fn content_string_parser(&self) -> String {

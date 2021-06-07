@@ -201,17 +201,9 @@ impl Display for TimeStamp {
     }
 }
 
-// Incomplete implementation
-impl Display for SubRipFile {
+impl Display for SubRipContent {
     fn fmt(&self, f: &mut Formatter) -> FMTResult {
-        let filename_str = String::from("Filename: {}\n");
-        let dialogs_number = String::from("Dialogs Number: {}\n\n");
-        let timing_str = String::from("{} --> {}\n");
-        let dialog_str = String::from("{}");
-
-        let print_output = format!("{}{}{}{}", filename_str, dialogs_number, timing_str, dialog_str);
-
-        write!(f, "{}", self.contents.iter().map::<B, F>(|x| Ok(x)).collect())
+        write!(f, "{}\n{}\n", self.dialog_timing, self.dialog_string)
     }
 }
 

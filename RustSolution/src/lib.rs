@@ -66,17 +66,20 @@ impl Time {
         total_time_milliseconds
     }
 
-    fn convert_milliseconds_to_time_units(milliseconds_time_stamp: u32) -> Time {
-        let milliseconds = milliseconds_time_stamp % 1_000;
-        let seconds = (((milliseconds_time_stamp - (milliseconds as u32)) % 60_000) / 1_000) as u8;
-        let minutes = (((milliseconds_time_stamp - (((seconds as u32) * 1_000) + (milliseconds as u32))) % 3_600_000) / 1000) as u8;
-        let hours = (milliseconds_time_stamp - ((minutes as u32) + (seconds as u32) + (milliseconds as u32))) as u8;
+    pub fn convert_milliseconds_to_time_units(milliseconds_time_stamp: u32) -> Time {
+        let module = |n: u32, d: u32| n - (d * ((n / d)) as u32);
+
+        let milliseconds = module(milliseconds_time_stamp, 1_000);
+        let seconds = module(milliseconds_time_stamp - milliseconds,  60_000);
+        let minutes = module(milliseconds_time_stamp - (seconds + milliseconds),  3_600_000);
+        let hours = milliseconds_time_stamp - (minutes + seconds + milliseconds);
+
 
         Time {
             milliseconds: milliseconds,
-            seconds: seconds,
-            minutes: minutes,
-            hours: hours,
+            seconds: (seconds / 1000) as u8,
+            minutes: (minutes / 60_000) as u8,
+            hours: (hours / 3_600_000) as u8,
         }
     }
 }

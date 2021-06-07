@@ -10,7 +10,7 @@ use dotenv::dotenv;
 use std::env;
 
 use self::{
-    models::{NewPost, Post},
+    models::{NewPSubRipRegistry, SubRipRegistry},
     schema::posts::dsl::*,
 };
 
@@ -23,12 +23,12 @@ fn establish_connection() -> SqliteConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-fn create_post<'a>(conn: &SqliteConnection, post_title: &'a str, post_body: &'a str) -> usize {
+fn create_post<'a>(conn: &SqliteConnection, reg_filename: &'a str, reg_content: &'a str) -> usize {
     use schema::posts;
 
-    let new_post = NewPost {
-        title: post_title,
-        body: post_body,
+    let new_post = NewPSubRipRegistry {
+        filename: reg_filename,
+        content: reg_content,
     };
 
     diesel::insert_into(posts::table)
@@ -52,15 +52,15 @@ mod crud {
         let results = posts
             .filter(published.eq(true))
             .limit(5)
-            .load::<Post>(&connection)
+            .load::<SubRipRegistry>(&connection)
             .expect("Error loading posts");
 
         println!("Displaying {} posts", results.len());
 
         for post in results {
-            println!("{}", post.title);
+            println!("{}", post.filename);
             println!("----------\n");
-            println!("{}", post.body);
+            println!("{}", post.content);
         }
     }
 
@@ -91,7 +91,7 @@ mod crud {
         let pattern = format!("%{}%", target);
 
         let connection = establish_connection();
-        let num_deleted = diesel::delete(posts.filter(title.like(pattern)))
+        let num_deleted = diesel::delete(posts.filter(filename.like(pattern)))
             .execute(&connection)
             .expect("Error deleting posts");
 
@@ -111,11 +111,11 @@ mod crud {
             .execute(&connection)
             .unwrap_or_else(|_| panic!("Unable to find post {}", post_id));
 
-        let post: Post = posts
+        let post: SubRipRegistry = posts
             .find(post_id)
             .first(&connection)
             .unwrap_or_else(|_| panic!("Unable to find post {}", post_id));
 
-        println!("Published post {}", post.title);
+        println!("Published post {}", post.filename);
     }
 }

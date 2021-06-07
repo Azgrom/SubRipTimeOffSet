@@ -1,8 +1,8 @@
 table! {
     posts (id) {
         id -> Integer,
-        title -> Text,
-        body -> Text,
+        filename -> Text,
+        content -> Text,
         published -> Bool,
     }
 }

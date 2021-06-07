@@ -3,7 +3,7 @@ use std::{
     fs
 };
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Debug)]
 pub struct Time {
     pub hours: u8,
     pub minutes: u8,

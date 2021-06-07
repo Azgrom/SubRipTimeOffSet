@@ -300,7 +300,6 @@ mod tests {
             seconds: 17,
             milliseconds: 440,
         };
-
         let expected_result: u32 = 137_440;
         let result = time.convert_units_to_milliseconds();
 
@@ -313,9 +312,34 @@ mod tests {
             seconds: 17,
             milliseconds: 440,
         };
-
         let expected_result: u32 = 25_337_440;
         let result = time.convert_units_to_milliseconds();
+
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn milliseconds_to_time() {
+        let milliseconds_timeframe: u32 = 137_440;
+        let expected_result = Time {
+            hours: 0,
+            minutes: 2,
+            seconds: 17,
+            milliseconds: 440,
+        };
+        let result = Time::convert_milliseconds_to_time_units(milliseconds_timeframe);
+
+        assert_eq!(result, expected_result);
+
+
+        let milliseconds_timeframe: u32 = 25_337_440;
+        let expected_result = Time {
+            hours: 7,
+            minutes: 2,
+            seconds: 17,
+            milliseconds: 440,
+        };
+        let result = Time::convert_milliseconds_to_time_units(milliseconds_timeframe);
 
         assert_eq!(result, expected_result);
     }

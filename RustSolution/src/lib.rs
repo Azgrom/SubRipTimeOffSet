@@ -215,7 +215,7 @@ impl Display for SubRipFile {
             content_string.push_str(&content.1.to_string());
         }
 
-        write!(f, "{}\n{}\n\nDialogs:\n----------\n{}", self.filename, self.contents.len(), content_string)
+        write!(f, "Filename: {}\nNumber of dialogs: {}\n\n\nDialogs:\n----------\n{}", self.filename, self.contents.len(), content_string)
     }
 }
 

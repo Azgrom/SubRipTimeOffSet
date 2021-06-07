@@ -82,49 +82,6 @@ impl Time {
             hours: hours,
         }
     }
-
-    pub fn sub_milliseconds_offset(&mut self, mut offset: u32) {
-        let mut test_tup = (0, 0);
-        let mut next_offset: u32 = 0;
-
-        test_tup = Time::match_offset(Time::MILLISECONDS_MODULE, self.milliseconds, offset);
-
-        next_offset = test_tup.0;
-        self.milliseconds = test_tup.1;
-
-        let test_vec = [(self.seconds as u32), (self.minutes as u32)];
-        let mut value = test_vec.iter();
-        let mut sec_min_vec: Vec<u32> = Vec::new();
-
-        let mut iterated_value: Option<&u32> = Some(&1);
-
-        while (next_offset != 0) && (iterated_value != None) {
-            iterated_value = value.next();
-            test_tup =
-                Time::match_offset(Time::SEC_MIN_MODULE, *iterated_value.unwrap(), next_offset);
-            next_offset = test_tup.0;
-            sec_min_vec.push(test_tup.1);
-        }
-
-        match sec_min_vec.len() {
-            0 => println!("No seconds and/or minutes subtraction"),
-            1 => self.seconds = sec_min_vec[0] as u8,
-            2 => {
-                self.seconds = sec_min_vec[0] as u8;
-                self.minutes = sec_min_vec[1] as u8;
-            }
-            _ => println!("'sec_min_vec' parse error"),
-        }
-
-        if next_offset != 0 {
-            let module_offset = |num: u32, diff: u32| num.checked_sub(diff);
-
-            match module_offset(self.hours as u32, next_offset) {
-                Some(j) => self.hours = j as u8,
-                None => println!("Cannot have a negative hours, not subtracting it."),
-            }
-        }
-    }
 }
 
 impl TimeStamp {

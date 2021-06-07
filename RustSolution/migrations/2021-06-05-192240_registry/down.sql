@@ -1,1 +1,1 @@
-DROP TABLE registry
+DROP TABLE subrip_reg

@@ -1,4 +1,4 @@
-CREATE TABLE posts (
+CREATE TABLE registry (
   id INTEGER PRIMARY KEY,
   filename VARCHAR NOT NULL,
   content TEXT NOT NULL,

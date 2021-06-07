@@ -44,7 +44,7 @@ impl Time {
         }
     }
 
-    fn convert_unit_to_milliseconds(&self) -> u32 {
+    fn convert_units_to_milliseconds(&self) -> u32 {
         let time_fields: Vec<u32> = [
             (self.milliseconds as u32),
             (self.seconds as u32),

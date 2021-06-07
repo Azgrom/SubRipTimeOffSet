@@ -105,8 +105,8 @@ impl TimeStamp {
         end_in_milliseconds -= offset;
 
         TimeStamp {
-            start: Time::convert_milliseconds_to_Time_units(start_in_milliseconds),
-            end: Time::convert_milliseconds_to_Time_units(end_in_milliseconds),
+            start: Time::convert_milliseconds_to_time_units(start_in_milliseconds),
+            end: Time::convert_milliseconds_to_time_units(end_in_milliseconds),
         }
     }
 
@@ -118,8 +118,8 @@ impl TimeStamp {
         end_in_milliseconds += offset;
 
         TimeStamp {
-            start: Time::convert_milliseconds_to_Time_units(start_in_milliseconds),
-            end: Time::convert_milliseconds_to_Time_units(end_in_milliseconds),
+            start: Time::convert_milliseconds_to_time_units(start_in_milliseconds),
+            end: Time::convert_milliseconds_to_time_units(end_in_milliseconds),
         }
     }
 }

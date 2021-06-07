@@ -1,7 +1,6 @@
 use std::{
     fmt::{Display, Formatter, Result as FMTResult},
-    fs,
-    iter::IntoIterator as it,
+    fs
 };
 
 #[derive(Clone, Copy)]

@@ -99,6 +99,19 @@ impl TimeStamp {
             end: Time::time_splitter(start_end_times[1]),
         }
     }
+
+    fn subtract_fixed_offset(self, offset: u32) -> TimeStamp {
+        let mut start_in_milliseconds = start.convert_units_to_milliseconds();
+        let mut end_in_milliseconds = end.convert_units_to_milliseconds();
+
+        start_in_milliseconds -= offset;
+        end_in_milliseconds -= offset;
+
+        TimeStamp {
+            start: Time::convert_milliseconds_to_Time_units(start_in_milliseconds),
+            end: Time::convert_milliseconds_to_Time_units(end_in_milliseconds),
+        }
+    }
 }
 
 impl SubRipFile {

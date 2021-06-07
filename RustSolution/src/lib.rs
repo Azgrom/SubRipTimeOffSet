@@ -1,6 +1,6 @@
-use std::{fs, iter::IntoIterator as it};
+use std::{fmt::{Display, Formatter, Result as FMTResult}, fs, iter::IntoIterator as it};
 
-#[derive(Debug, PartialEq)]
+#[derive(PartialEq)]
 pub struct Time {
     pub hours: u8,
     pub minutes: u8,
@@ -191,8 +191,8 @@ impl SubRipFile {
 }
 
 // Incomplete implementation
-impl std::fmt::Display for SubRipFile {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+impl Display for SubRipFile {
+    fn fmt(&self, f: &mut Formatter) -> FMTResult {
         let filename_str = String::from("Filename: {}\n");
         let dialogs_number = String::from("Dialogs Number: {}\n\n");
         let timing_str = String::from("{} --> {}\n");

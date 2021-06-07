@@ -302,5 +302,18 @@ mod tests {
         let result = time.convert_units_to_milliseconds();
 
         assert_eq!(result, expected_result);
+
+
+        let time = Time {
+            hours: 7,
+            minutes: 2,
+            seconds: 17,
+            milliseconds: 440,
+        };
+
+        let expected_result: u32 = 25_337_440;
+        let result = time.convert_units_to_milliseconds();
+
+        assert_eq!(result, expected_result);
     }
 }

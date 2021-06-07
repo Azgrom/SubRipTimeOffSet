@@ -177,6 +177,12 @@ impl SubRipFile {
 
         subrip_content_vector
     }
+
+    pub fn offset_subrip_timestamps(&mut self, offset: u32) {
+        for content in self.contents.iter_mut() {
+            content.dialog_timing = content.dialog_timing.subtract_fixed_offset(offset).clone();
+        }
+    }
 }
 
 impl Display for Time {

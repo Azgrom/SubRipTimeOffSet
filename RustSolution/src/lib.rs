@@ -189,7 +189,7 @@ impl SubRipFile {
 
 impl Display for Time {
     fn fmt(&self, f: &mut Formatter) -> FMTResult {
-        write!(f, "{}:{}:{},{}", self.hours, self.minutes, self.seconds, self.milliseconds)
+        write!(f, "{:02}:{:02}:{:02},{:03}", self.hours, self.minutes, self.seconds, self.milliseconds)
     }
 }
 

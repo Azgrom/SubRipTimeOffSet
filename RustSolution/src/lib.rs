@@ -294,45 +294,17 @@ mod tests {
     }
 
     #[test]
-    fn time_module_subtractions() {
-        let mut time_example = Time {
-            hours: 2,
-            minutes: 17,
-            seconds: 58,
-            milliseconds: 584,
+    fn time_to_milliseconds() {
+        let time = Time {
+            hours: 0,
+            minutes: 2,
+            seconds: 17,
+            milliseconds: 440,
         };
 
-        time_example.sub_milliseconds_offset(10);
-        assert_eq!(
-            time_example,
-            Time {
-                hours: 2,
-                minutes: 17,
-                seconds: 58,
-                milliseconds: 574,
-            }
-        );
+        let expected_result: u32 = 137_440;
+        let result = time.convert_units_to_milliseconds();
 
-        time_example.sub_milliseconds_offset(44_074);
-        assert_eq!(
-            time_example,
-            Time {
-                hours: 2,
-                minutes: 17,
-                seconds: 12,
-                milliseconds: 500
-            }
-        );
-
-        time_example.sub_milliseconds_offset(1_032_500);
-        assert_eq!(
-            time_example,
-            Time {
-                hours: 2,
-                minutes: 17,
-                seconds: 12,
-                milliseconds: 500
-            }
-        );
+        assert_eq!(result, expected_result);
     }
 }

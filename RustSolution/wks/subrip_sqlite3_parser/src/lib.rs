@@ -47,7 +47,7 @@ mod crud {
     #[cfg(windows)]
     const EOF: &'static str = "CTRL+Z";
 
-    pub fn show_posts() {
+    pub fn show_regs() {
         let connection = establish_connection();
         let results = posts
             .filter(published.eq(true))
@@ -64,7 +64,7 @@ mod crud {
         }
     }
 
-    pub fn write_post() {
+    pub fn write_reg() {
         let connection = establish_connection();
 
         println!("What would you like your title to be?");
@@ -84,7 +84,7 @@ mod crud {
         println!("\nSaved draft '{}' with id {}", post_title, post);
     }
 
-    pub fn delete_post() {
+    pub fn delete_reg() {
         let target = env::args()
             .nth(1)
             .expect("Expected a targed to match against");
@@ -98,7 +98,7 @@ mod crud {
         println!("Deleted {} posts", num_deleted);
     }
 
-    pub fn publish_post() {
+    pub fn publish_reg() {
         let post_id = env::args()
             .nth(1)
             .expect("publish_post requires a post id")

@@ -195,6 +195,12 @@ impl Display for Time {
     }
 }
 
+impl Display for Timestamp {
+    fn fmt(&self, f: &mut Formatter) -> FMTResult {
+        write!(f, "{} --> {}", self.start, self.end)
+    }
+}
+
 // Incomplete implementation
 impl Display for SubRipFile {
     fn fmt(&self, f: &mut Formatter) -> FMTResult {

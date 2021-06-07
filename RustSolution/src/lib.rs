@@ -59,9 +59,9 @@ impl Time {
             if *i.1 != 0 {
                 match i {
                     (0, y) => total_time_milliseconds += y,
-                    (1, y) => total_time_milliseconds += 1_000 * y,
-                    (2, y) => total_time_milliseconds += 60_000 * y,
-                    (3, y) => total_time_milliseconds += 3_600_000 * y,
+                    (1, y) => total_time_milliseconds += y * 1_000,
+                    (2, y) => total_time_milliseconds += y * 60_000,
+                    (3, y) => total_time_milliseconds += y * 3_600_000,
                     (_, _) => println!("Invalid Time field iterated element"),
                 }
             }

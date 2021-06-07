@@ -64,24 +64,13 @@ pub mod crud {
         }
     }
 
-    pub fn write_reg() {
+    pub fn write_reg(reg_filename: &str, reg_content: String) {
         let connection = establish_connection();
 
-        println!("What would you like your title to be?");
-        let mut post_title = String::new();
-        stdin().read_line(&mut post_title).unwrap();
+        let reg_filename = &reg_filename[..(reg_filename.len() - 1)]; // Drop the newline character
 
-        let post_title = &post_title[..(post_title.len() - 1)]; // Drop the newline character
-        println!(
-            "\nOk! Let's write '{}' (Press {} when finished)\n",
-            post_title, EOF
-        );
-
-        let mut post_body = String::new();
-        stdin().read_to_string(&mut post_body).unwrap();
-
-        let post = create_post(&connection, post_title, &post_body);
-        println!("\nSaved draft '{}' with id {}", post_title, post);
+        let post = create_post(&connection, reg_filename, &reg_content);
+        println!("\nSaved draft '{}' with id {}", reg_filename, post);
     }
 
     pub fn delete_reg() {

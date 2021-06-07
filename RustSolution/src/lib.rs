@@ -44,40 +44,6 @@ impl Time {
         }
     }
 
-    fn match_offset(module: u32, mut value: u32, mut offset: u32) -> (u32, u32) {
-        let mut next_offset: u32 = 0;
-        let module_offset = |num: u32, diff: u32| num.checked_sub(diff);
-
-        match module_offset(module, offset) {
-            Some(i) => match module_offset(value, offset) {
-                Some(j) => value = j,
-                None => {
-                    value += i;
-                    next_offset += 1;
-                }
-            },
-            None => {
-                next_offset = offset / module;
-                offset -= next_offset * module;
-                match module_offset(value, offset) {
-                    Some(k) => value = k,
-                    None => value += module_offset(module, offset).unwrap(),
-                }
-            }
-        }
-
-        (next_offset, value)
-    }
-
-    fn sum_milliseconds_offset(&mut self, offset: u32) {
-        if (self.milliseconds + offset) > Time::MILLISECONDS_MODULE {
-            self.milliseconds += offset - Time::MILLISECONDS_MODULE;
-            self.seconds += 1;
-        } else {
-            self.milliseconds += offset;
-        }
-    }
-
     fn convert_unit_to_milliseconds(&self) -> u32 {
         let time_fields: Vec<u32> = [
             (self.milliseconds as u32),

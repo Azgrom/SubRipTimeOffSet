@@ -1,6 +1,6 @@
 use std::{
     fmt::{Display, Formatter, Result as FMTResult},
-    fs
+    fs,
 };
 
 #[derive(Clone, Copy, PartialEq, Debug)]
@@ -47,7 +47,8 @@ impl Time {
             (self.seconds as u32),
             (self.minutes as u32),
             (self.hours as u32),
-        ].to_vec();
+        ]
+        .to_vec();
 
         let mut total_time_milliseconds: u32 = 0;
 
@@ -67,13 +68,15 @@ impl Time {
     }
 
     pub fn convert_milliseconds_to_time_units(milliseconds_time_stamp: u32) -> Time {
-        let module = |n: u32, d: u32| n - (d * ((n / d)) as u32);
+        let module = |n: u32, d: u32| n - (d * (n / d) as u32);
 
         let milliseconds = module(milliseconds_time_stamp, 1_000);
-        let seconds = module(milliseconds_time_stamp - milliseconds,  60_000);
-        let minutes = module(milliseconds_time_stamp - (seconds + milliseconds),  3_600_000);
+        let seconds = module(milliseconds_time_stamp - milliseconds, 60_000);
+        let minutes = module(
+            milliseconds_time_stamp - (seconds + milliseconds),
+            3_600_000,
+        );
         let hours = milliseconds_time_stamp - (minutes + seconds + milliseconds);
-
 
         Time {
             milliseconds: milliseconds,
@@ -309,7 +312,6 @@ mod tests {
 
         assert_eq!(result, expected_result);
 
-
         let time = Time {
             hours: 7,
             minutes: 2,
@@ -334,7 +336,6 @@ mod tests {
         let result = Time::convert_milliseconds_to_time_units(milliseconds_timeframe);
 
         assert_eq!(result, expected_result);
-
 
         let milliseconds_timeframe: u32 = 25_337_440;
         let expected_result = Time {

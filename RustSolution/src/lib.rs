@@ -70,7 +70,7 @@ impl Time {
         total_time_milliseconds
     }
 
-    fn convert_milliseconds_to_Time_units(milliseconds_time_stamp: u32) -> Time {
+    fn convert_milliseconds_to_time_units(milliseconds_time_stamp: u32) -> Time {
         let milliseconds = milliseconds_time_stamp % 1_000;
         let seconds = (((milliseconds_time_stamp - (milliseconds as u32)) % 60_000) / 1_000) as u8;
         let minutes = (((milliseconds_time_stamp - (((seconds as u32) * 1_000) + (milliseconds as u32))) % 3_600_000) / 1000) as u8;

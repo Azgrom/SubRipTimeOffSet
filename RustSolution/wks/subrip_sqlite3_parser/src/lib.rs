@@ -67,8 +67,6 @@ pub mod crud {
     pub fn write_reg(reg_filename: &str, reg_content: String) {
         let connection = establish_connection();
 
-        let reg_filename = &reg_filename[..(reg_filename.len() - 1)]; // Drop the newline character
-
         let post = create_post(&connection, reg_filename, &reg_content);
         println!("\nSaved draft '{}' with id {}", reg_filename, post);
     }

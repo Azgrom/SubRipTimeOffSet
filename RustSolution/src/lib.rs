@@ -25,6 +25,9 @@ impl SubRipFile {
         sql::write_reg(&self.filename, content_string);
         sql::publish_reg();
     }
+
+    pub fn show_subtitle(&self) {
+        sql::show_regs();
     }
 }
 

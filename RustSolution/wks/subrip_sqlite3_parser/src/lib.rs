@@ -57,10 +57,10 @@ pub mod crud {
 
         println!("Displaying {} posts", results.len());
 
-        for post in results {
-            println!("{}", post.filename);
+        for reg in results {
+            println!("{}", reg.filename);
             println!("----------\n");
-            println!("{}", post.content);
+            println!("{}", reg.content);
         }
     }
 

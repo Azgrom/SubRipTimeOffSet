@@ -23,6 +23,8 @@ impl SubRipFile {
         let content_string = self.content_string_parser();
 
         sql::write_reg(&self.filename, content_string);
+        sql::publish_reg();
+    }
     }
 }
 

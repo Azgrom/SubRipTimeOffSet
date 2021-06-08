@@ -39,7 +39,6 @@ fn create_post<'a>(conn: &SqliteConnection, reg_filename: &'a str, reg_content: 
 
 pub mod crud {
     use super::*;
-    use std::io::{stdin, Read};
 
     #[cfg(not(windows))]
     const EOF: &'static str = "CTRL+D";

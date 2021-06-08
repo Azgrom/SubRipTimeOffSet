@@ -88,22 +88,18 @@ pub mod crud {
     }
 
     pub fn publish_reg() {
-        let post_id = env::args()
-            .nth(1)
-            .expect("publish_post requires a post id")
-            .parse::<i32>()
-            .expect("Invalid ID");
+        let reg_id: i32 = 1;
         let connection = establish_connection();
 
-        let _ = diesel::update(subrip_reg.find(post_id))
+        let _ = diesel::update(subrip_reg.find(reg_id))
             .set(published.eq(true))
             .execute(&connection)
-            .unwrap_or_else(|_| panic!("Unable to find post {}", post_id));
+            .unwrap_or_else(|_| panic!("Unable to find post {}", reg_id));
 
         let post: SubRipRegistry = subrip_reg
-            .find(post_id)
+            .find(reg_id)
             .first(&connection)
-            .unwrap_or_else(|_| panic!("Unable to find post {}", post_id));
+            .unwrap_or_else(|_| panic!("Unable to find post {}", reg_id));
 
         println!("Published post {}", post.filename);
     }

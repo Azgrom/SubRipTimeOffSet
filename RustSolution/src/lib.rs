@@ -29,6 +29,10 @@ impl SubRipFile {
     pub fn show_subtitle() {
         sql::show_regs();
     }
+
+    pub fn delete_registry(filename: String) {
+        sql::delete_reg(filename);
+    }
 }
 
 mod stdout_implementation {

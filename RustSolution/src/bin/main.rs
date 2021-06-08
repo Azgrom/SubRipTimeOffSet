@@ -11,8 +11,9 @@ fn main() {
         }
     };
 
-    println!("{}", parsed_file_content);
-
     parsed_file_content.offset_subrip_timestamps(20_589);
-    println!("{}", parsed_file_content);
+
+    parsed_file_content.register_subtitle();
+
+    SubRipFile::show_subtitle();
 }

@@ -70,10 +70,7 @@ pub mod crud {
         println!("\nSaved draft '{}' with id {}", reg_filename, post);
     }
 
-    pub fn delete_reg() {
-        let target = env::args()
-            .nth(1)
-            .expect("Expected a targed to match against");
+    pub fn delete_reg(target: String) {
         let pattern = format!("%{}%", target);
 
         let connection = establish_connection();

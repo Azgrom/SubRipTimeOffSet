@@ -18,21 +18,6 @@ impl SubRipFile {
 
         content_string
     }
-
-    pub fn register_subtitle(&self) {
-        let content_string = self.content_string_parser();
-
-        sql::write_reg(&self.filename, content_string);
-        sql::publish_reg();
-    }
-
-    pub fn show_subtitle() {
-        sql::show_regs();
-    }
-
-    pub fn delete_registry(filename: String) {
-        sql::delete_reg(filename);
-    }
 }
 
 mod stdout_implementation {

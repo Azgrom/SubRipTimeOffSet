@@ -12,3 +12,8 @@ members = [
 subrip = { path = "deps/subrip_offset_api", package = "subrip_offset_api" }
 rocket = "0.5.0-rc.1"
 tokio = "1.6.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

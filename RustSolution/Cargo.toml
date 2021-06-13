@@ -3,8 +3,12 @@ name = "paste_bin"
 version = "0.1.0"
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+members = [
+  "deps/subrip_offset_api",
+]
 
 [dependencies]
-tokio = "1.6.1"
+subrip = { path = "deps/subrip_offset_api", package = "subrip_offset_api" }
 rocket = "0.5.0-rc.1"
+tokio = "1.6.1"

@@ -187,7 +187,7 @@ impl SubRipFile {
         subrip_content_vector
     }
 
-    pub fn offset_subrip_timestamps(&mut self, offset: i64) {
+    pub fn offset_subrip_timestamps(&mut self, mut offset: i64) {
         if offset > 0 {
             for content in self.contents.iter_mut() {
                 content.dialog_timing = content
@@ -196,6 +196,7 @@ impl SubRipFile {
                     .clone();
             }
         } else {
+            offset = offset.wrapping_neg();
             for content in self.contents.iter_mut() {
                 content.dialog_timing = content
                     .dialog_timing

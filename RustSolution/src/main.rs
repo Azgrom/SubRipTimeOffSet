@@ -1,8 +1,8 @@
 #[macro_use] extern crate rocket;
 
-use std::{io, env};
-use rocket::data::Capped;
-use rocket::fs::TempFile;
+use std::{io, env, process};
+use subrip::SubRipFile;
+use rocket::{data::Capped, fs::TempFile};
 
 const FILE_NAME: &str = "rocket_tmp.srt";
 
@@ -18,7 +18,20 @@ async fn upload(mut file: Capped<TempFile<'_>>) -> io::Result<String> {
         file.persist_to(env::temp_dir().join(incomplete_path)).await?;
     }
 
-    Ok(format!("{} bytes at {}", file.n.written, file.path().unwrap().display()))
+    let temp_file_path = file.path().unwrap().display();
+
+    // println!("{} bytes at {}", file.n.written, temp_file_path);
+
+    // let test = match SubRipFile::new(temp_file_path.to_string()) {
+    //     Ok(file_content) => file_content,
+    //     Err(err) => {
+    //         println!("Problem parsing arguments: {}", err);
+    //         process::exit(1);
+    //     }
+    // };
+    // println!("{}", test);
+
+    Ok(format!("{} bytes at {}", file.n.written, temp_file_path))
 }
 
 #[launch]

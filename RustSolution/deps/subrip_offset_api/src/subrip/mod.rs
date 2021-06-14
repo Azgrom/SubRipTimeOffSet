@@ -131,14 +131,14 @@ impl TimeStamp {
 }
 
 impl SubRipFile {
-    pub fn new(args: Vec<String>) -> Result<SubRipFile, &'static str> {
+    pub fn new(args: String) -> Result<SubRipFile, &'static str> {
         if args.len() < 2 {
-            return Err("Not enough arguments");
+            return Err("Upload not realized");
         }
 
         Ok(SubRipFile {
-            filename: args[1].clone(),
-            contents: SubRipFile::subrip_parser(fs::read_to_string(&args[1]).unwrap().as_str()),
+            filename: "Offseted_subtitle.str".to_string(),
+            contents: SubRipFile::subrip_parser(fs::read_to_string(args).unwrap().as_str()),
         })
     }
 

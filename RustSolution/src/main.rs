@@ -30,6 +30,12 @@ async fn file(n: i64) -> Option<NamedFile> {
             process::exit(1);
         }
     };
+
+    subrip_content.offset_subrip_timestamps(n * 1000);
+    match subrip_content.export_to_file(file_path) {
+        Ok(()) => (),
+        Err(err) => println!("\t\t{}", err),
+    }
     NamedFile::open(env::temp_dir().join(FILE_NAME)).await.ok()
 }
 

@@ -131,14 +131,14 @@ impl TimeStamp {
 }
 
 impl SubRipFile {
-    pub fn new(args: String) -> Result<SubRipFile, &'static str> {
-        if args.len() < 2 {
+    pub fn new(temp_file_path: String) -> Result<SubRipFile, &'static str> {
+        if temp_file_path.len() < 2 {
             return Err("Upload not realized");
         }
 
         Ok(SubRipFile {
             filename: "Offseted_subtitle.str".to_string(),
-            contents: SubRipFile::subrip_parser(fs::read_to_string(args).unwrap().as_str()),
+            contents: SubRipFile::subrip_parser(fs::read_to_string(temp_file_path).unwrap().as_str()),
         })
     }
 

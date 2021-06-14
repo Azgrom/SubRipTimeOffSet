@@ -185,9 +185,21 @@ impl SubRipFile {
         subrip_content_vector
     }
 
-    pub fn offset_subrip_timestamps(&mut self, offset: u32) {
-        for content in self.contents.iter_mut() {
-            content.dialog_timing = content.dialog_timing.subtract_fixed_offset(offset).clone();
+    pub fn offset_subrip_timestamps(&mut self, offset: i64) {
+        if offset > 0 {
+            for content in self.contents.iter_mut() {
+                content.dialog_timing = content
+                    .dialog_timing
+                    .sum_fixed_offset(offset as u32)
+                    .clone();
+            }
+        } else {
+            for content in self.contents.iter_mut() {
+                content.dialog_timing = content
+                    .dialog_timing
+                    .subtract_fixed_offset(offset as u32)
+                    .clone();
+            }
         }
     }
 }

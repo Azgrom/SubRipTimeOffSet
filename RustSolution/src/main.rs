@@ -20,7 +20,6 @@ async fn upload(mut file: Capped<TempFile<'_>>) -> io::Result<String> {
     ))
 }
 
-#[get("/file")]
 async fn file() -> Option<NamedFile> {
     let mut subrip_content = match SubRipFile::new(
         env::temp_dir()
@@ -29,6 +28,7 @@ async fn file() -> Option<NamedFile> {
             .into_string()
             .unwrap(),
     ) {
+#[get("/file/offset/<n>")]
         Ok(file_content) => file_content,
         Err(err) => {
             println!("Problem parsing arguments: {}", err);

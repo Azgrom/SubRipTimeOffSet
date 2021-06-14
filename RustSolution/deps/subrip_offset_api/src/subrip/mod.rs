@@ -107,8 +107,8 @@ impl TimeStamp {
         let mut start_in_milliseconds = self.start.convert_units_to_milliseconds();
         let mut end_in_milliseconds = self.end.convert_units_to_milliseconds();
 
-        start_in_milliseconds -= offset;
-        end_in_milliseconds -= offset;
+        start_in_milliseconds = start_in_milliseconds.saturating_sub(offset);
+        end_in_milliseconds = end_in_milliseconds.saturating_sub(offset);
 
         TimeStamp {
             start: Time::convert_milliseconds_to_time_units(start_in_milliseconds),
@@ -120,8 +120,8 @@ impl TimeStamp {
         let mut start_in_milliseconds = self.start.convert_units_to_milliseconds();
         let mut end_in_milliseconds = self.end.convert_units_to_milliseconds();
 
-        start_in_milliseconds += offset;
-        end_in_milliseconds += offset;
+        start_in_milliseconds = start_in_milliseconds.saturating_add(offset);
+        end_in_milliseconds = end_in_milliseconds.saturating_add(offset);
 
         TimeStamp {
             start: Time::convert_milliseconds_to_time_units(start_in_milliseconds),

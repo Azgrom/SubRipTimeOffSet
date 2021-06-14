@@ -15,6 +15,13 @@ async fn upload(mut file: Capped<TempFile<'_>>) -> io::Result<String> {
 
 #[get("/file")]
 async fn file() -> Option<NamedFile> {
+    let mut subrip_content = match SubRipFile::new(env::temp_dir().join(FILE_NAME).into_os_string().into_string().unwrap()) {
+        Ok(file_content) => file_content,
+        Err(err) => {
+            println!("Problem parsing arguments: {}", err);
+            process::exit(1);
+        }
+    };
     NamedFile::open(env::temp_dir().join(FILE_NAME)).await.ok()
 }
 

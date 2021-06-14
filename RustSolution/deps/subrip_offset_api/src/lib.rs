@@ -1,4 +1,7 @@
-use std::{fmt::{Display, Formatter, Result as FMTResult}, fs};
+use std::{
+    fmt::{Display, Formatter, Result as FMTResult},
+    fs,
+};
 
 mod subrip;
 

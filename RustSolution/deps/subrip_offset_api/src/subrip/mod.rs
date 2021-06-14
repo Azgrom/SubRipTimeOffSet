@@ -132,8 +132,8 @@ impl TimeStamp {
 
 impl SubRipFile {
     pub fn new(temp_file_path: String) -> Result<SubRipFile, &'static str> {
-        if temp_file_path.len() < 2 {
-            return Err("Upload not realized");
+        if temp_file_path == "" {
+            return Err("File path cannot me empty");
         }
 
         Ok(SubRipFile {

@@ -138,7 +138,9 @@ impl SubRipFile {
 
         Ok(SubRipFile {
             filename: "Offseted_subtitle.str".to_string(),
-            contents: SubRipFile::subrip_parser(fs::read_to_string(temp_file_path).unwrap().as_str()),
+            contents: SubRipFile::subrip_parser(
+                fs::read_to_string(temp_file_path).unwrap().as_str(),
+            ),
         })
     }
 

@@ -1,4 +1,4 @@
-use std::fmt::{Display, Formatter, Result as FMTResult};
+use std::{fmt::{Display, Formatter, Result as FMTResult}, fs};
 
 mod subrip;
 
@@ -15,6 +15,11 @@ impl SubRipFile {
         }
 
         content_string
+    }
+
+    pub fn export_to_file(self, file_path: String) -> std::io::Result<()> {
+        fs::write(file_path, format!("{}", self.content_string_parser()))?;
+        Ok(())
     }
 }
 

@@ -1,23 +1,27 @@
 #[macro_use] extern crate rocket;
 
-use std::io;
-use rocket::data::{Data, ToByteUnit};
+use std::{io, env};
+use rocket::data::Capped;
+use rocket::fs::TempFile;
 
-#[post("/", data = "<data>")]
-async fn data_guard(mut data: Data<'_>) -> io::Result<Vec<u8>> {
-    println!("All of the data: {:?}", data.peek(512).await);
+const FILE_NAME: &str = "rocket_tmp.srt";
 
-    let bytes = data.open(200.kibibytes()).into_bytes().await?;
-    if !bytes.is_complete() {
-        println!("there are bytes remaining in the stream");
+
+#[post("/file", data = "<file>")]
+async fn upload(mut file: Capped<TempFile<'_>>) -> io::Result<String> {
+
+    if file.is_complete() {
+        let complete_path = format!("rocket-app/complete/{}", FILE_NAME);
+        file.persist_to(env::temp_dir().join(complete_path)).await?;
+    } else {
+        let incomplete_path = format!("rocket-app/incomplete/{}", FILE_NAME);
+        file.persist_to(env::temp_dir().join(incomplete_path)).await?;
     }
 
-    // println!("{:?}", std::str::from_utf8(&bytes.value));
-
-    Ok(bytes.into_inner())
+    Ok(format!("{} bytes at {}", file.n.written, file.path().unwrap().display()))
 }
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![data_guard])
+    rocket::build().mount("/", routes![upload])
 }

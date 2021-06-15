@@ -1,6 +1,6 @@
 #[macro_use]
 extern crate rocket;
-use subrip_web_api::{upload, file};
+use subrip_web_api::{file, upload};
 
 #[launch]
 fn rocket() -> _ {

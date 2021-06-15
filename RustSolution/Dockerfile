@@ -6,7 +6,6 @@ FROM rust:slim-buster AS builder
 
 WORKDIR /app
 COPY . .
-RUN cargo test
 RUN cargo build --release
 
 # 2. runtime stage

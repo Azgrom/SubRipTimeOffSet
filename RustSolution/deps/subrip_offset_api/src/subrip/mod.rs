@@ -95,13 +95,18 @@ impl TimeStamp {
     }
 
     fn timestamp_parser(pattern_strings_wrapper: &Vec<&str>) -> TimeStamp {
-        let start_end_times = TimeStamp::timestamp_splitter(pattern_strings_wrapper[1]);
+        if pattern_strings_wrapper.len() == 2 {
+            let start_end_times = TimeStamp::timestamp_splitter(pattern_strings_wrapper[1]);
 
-        TimeStamp {
-            start: Time::time_splitter(start_end_times[0]),
-            end: Time::time_splitter(start_end_times[1]),
+            return TimeStamp {
+                start: Time::time_splitter(start_end_times[0]),
+                end: Time::time_splitter(start_end_times[1]),
+            }
+            } else {
+                panic!("Undefined behavior. That should neve happen. Canceling thread.");
+            }
+
         }
-    }
 
     fn subtract_fixed_offset(self, offset: u32) -> TimeStamp {
         let mut start_in_milliseconds = self.start.convert_units_to_milliseconds();

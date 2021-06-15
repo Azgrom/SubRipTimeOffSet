@@ -1,5 +1,5 @@
 [package]
-name = "paste_bin"
+name = "subrip_web_api"
 version = "0.1.0"
 edition = "2018"
 

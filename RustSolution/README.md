@@ -19,3 +19,12 @@ By default `port_number` is `1111`, so all ports above become accessible via `lo
 ## How to use it?
 
 On terminal, run: `./build-docker.sh` to build a docker container image of this solution; `./run-docker.sh` to execute it and go to routes with your favorite API client.
+
+## Functionalities
+
+- [x] SubRip file upload;
+- [ ] Save to DataBase;
+  - [ ] Allow Database list visualization;
+- [x] Allow file download with fixed timestamp offset;
+  - [ ] Allow download based on Database list index;
+

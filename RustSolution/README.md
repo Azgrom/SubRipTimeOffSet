@@ -11,7 +11,7 @@ This code provides a container that accepts uploads of a `.srt` file, store its 
 
 - `localhost:<port_number>/file/offset/<offset_in_seconds>`
 
-  Allows the user to insert a fixed offset to displace all dialogs timings, in seconds. After this route is consumed, the temporary file is deleted.
+  Allows the user to insert a fixed offset to displace all dialogs timings, in seconds. After this route is consumed, the temporary file is deleted. `<offset_in_seconds>` must be a number.
 
 
 By default `port_number` is `1111`, so all ports above become accessible via `localhost:1111`

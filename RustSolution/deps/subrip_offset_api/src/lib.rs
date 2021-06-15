@@ -1,9 +1,9 @@
+mod subrip;
+
 use std::{
     fmt::{Display, Formatter, Result as FMTResult},
     fs,
 };
-
-mod subrip;
 
 pub use subrip::SubRipFile;
 

@@ -1,7 +1,11 @@
 ## How it works?
 
-This code provides a container that accepts uploads of a `.srt` file, store its content in the OS temporary directory and allow the user to download it with a given offset..
+This code provides a container that accepts uploads of a `.srt` file, store its content in the OS temporary directory and allow the user to download it with a given offset.
 
+##### This project is made using:
+
+- [Rocket](https://rocket.rs/);
+- [Tokio](https://tokio.rs/).
 
 ### The main routes are:
 

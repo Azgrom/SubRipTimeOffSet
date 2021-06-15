@@ -2,6 +2,10 @@
 
 This code provides a container that accepts uploads of a `.srt` file, store its content in a *sqlite3* database and allow the user to download a given subtitle, contained in the database, with a given offset.
 
+##### This project is made using:
+
+- [FastAPI](https://fastapi.tiangolo.com/);
+- [Python SubRip Package](https://pypi.org/project/srt/).
 
 ### The main routes are:
 

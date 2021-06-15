@@ -21,7 +21,7 @@ pub async fn upload(mut file: Capped<TempFile<'_>>) -> io::Result<String> {
 }
 
 #[get("/file/offset/<n>")]
-pub async fn file(n: i64) -> Option<NamedFile> {
+pub async fn file(n: f64) -> Option<NamedFile> {
     let file_path: String = env::temp_dir()
         .join(FILE_NAME)
         .into_os_string()
@@ -35,7 +35,7 @@ pub async fn file(n: i64) -> Option<NamedFile> {
         }
     };
 
-    subrip_content.offset_subrip_timestamps(n * 1000);
+    subrip_content.offset_subrip_timestamps((n * 1000.0) as i64);
     match subrip_content.export_to_file(file_path) {
         Ok(()) => (),
         Err(err) => println!("\t\t{}", err),

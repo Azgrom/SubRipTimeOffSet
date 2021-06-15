@@ -6,6 +6,10 @@ FROM rust:slim-buster AS builder
 
 WORKDIR /app
 COPY . .
+
+RUN cd deps/subrip_offset_api
+RUN cargo test
+RUN cd ../../
 RUN cargo build --release
 
 # 2. runtime stage

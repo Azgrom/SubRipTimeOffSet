@@ -1,4 +1,4 @@
-## How does it work?
+## How it works?
 
 This code provides a container that accepts uploads of a `.srt` file, store its content in a *sqlite3* database and allow the user to download a given subtitle, contained in the database, with a given offset.
 

@@ -27,3 +27,12 @@ On docker `port_number` is `80`, so all ports above become accessible via `local
 
 On terminal, run: `./build-docker.sh` to build a docker container image of this solution; `./run-docker.sh` to execute it and go to `localhost/docs` on your browser to use it.
 
+## Functionalities
+
+- [x] SubRip file upload;
+- [x] Save to DataBase;
+  - [x] Allow Database list visualization;
+- [x] Allow file download with fixed timestamp offset;
+  - [x] Allow download based on Database list index;
+
+S

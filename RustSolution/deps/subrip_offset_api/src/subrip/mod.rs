@@ -141,11 +141,25 @@ impl SubRipFile {
             return Err("File path cannot me empty");
         }
 
+        let temp_file_content = match fs::read_to_string(temp_file_path) {
+            Ok(content_string) => content_string,
+            Err(_) => String::from(
+                "1
+            00:02:17,440 --> 00:02:20,375
+            Senator, we had a problem
+            loading the legend.
+
+            2
+            00:02:20,476 --> 00:02:22,501
+            God dammit, Lieutenant!
+            Try uploading again!
+",
+            ),
+        };
+
         Ok(SubRipFile {
             filename: "Offseted_subtitle.str".to_string(),
-            contents: SubRipFile::subrip_parser(
-                fs::read_to_string(temp_file_path).unwrap().as_str(),
-            ),
+            contents: SubRipFile::subrip_parser(&temp_file_content),
         })
     }
 

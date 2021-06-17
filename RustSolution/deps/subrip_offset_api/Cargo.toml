@@ -1,0 +1,5 @@
+[package]
+name = "subrip_offset_api"
+version = "0.1.0"
+authors = ["Rafael Lúcio <rafaellucio@pm.me>"]
+edition = "2018"

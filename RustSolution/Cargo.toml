@@ -1,0 +1,19 @@
+[package]
+name = "subrip_web_api"
+version = "0.1.0"
+edition = "2018"
+
+[workspace]
+members = [
+  "deps/subrip_offset_api",
+]
+
+[dependencies]
+subrip = { path = "deps/subrip_offset_api", package = "subrip_offset_api" }
+rocket = { version = "0.5.0-rc.1", features = ["tls"] }
+tokio = "1.6.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

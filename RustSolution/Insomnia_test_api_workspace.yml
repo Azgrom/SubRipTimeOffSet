@@ -1,0 +1,110 @@
+_type: export
+__export_format: 4
+__export_date: 2021-06-15T02:52:36.932Z
+__export_source: insomnia.desktop.app:v2020.5.2
+resources:
+  - _id: req_97f8b175f79f44d09d5a433fb5361f07
+    parentId: fld_7ddae55a81a94b3b80d8f20f14fb2874
+    modified: 1623716116983
+    created: 1623704193330
+    url: "{{ _.base_url }}/file/offset/-1"
+    name: See File
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1623704193330
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_7ddae55a81a94b3b80d8f20f14fb2874
+    parentId: wrk_dee75f061e4a4154b0176aaca20bc514
+    modified: 1623704486647
+    created: 1623704455322
+    name: Raw File Upload
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623704455322
+    _type: request_group
+  - _id: wrk_dee75f061e4a4154b0176aaca20bc514
+    parentId: null
+    modified: 1623180731886
+    created: 1623180731886
+    name: Rocket
+    description: ""
+    scope: null
+    _type: workspace
+  - _id: req_044911ed580e45d0a15b666deb626cf1
+    parentId: fld_7ddae55a81a94b3b80d8f20f14fb2874
+    modified: 1623704460145
+    created: 1623180752388
+    url: "{{ _.base_url }}/file"
+    name: Upload File
+    description: ""
+    method: POST
+    body:
+      mimeType: application/octet-stream
+      fileName: /home/rafael/Documents/Repos/SubOffset/RustSolution/subtitle.srt
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/x-subrip
+        id: pair_139f224fd67f43248ed5d84de9d4fe20
+    authentication: {}
+    metaSortKey: -1623704193280
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_5a912e56dc8a55da177b581c522b8a97a8d849f1
+    parentId: wrk_dee75f061e4a4154b0176aaca20bc514
+    modified: 1623180731968
+    created: 1623180731968
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1623180731968
+    _type: environment
+  - _id: jar_5a912e56dc8a55da177b581c522b8a97a8d849f1
+    parentId: wrk_dee75f061e4a4154b0176aaca20bc514
+    modified: 1623180731969
+    created: 1623180731969
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_b952dbbbd5d7413d8cae6b735712d751
+    parentId: wrk_dee75f061e4a4154b0176aaca20bc514
+    modified: 1623180731906
+    created: 1623180731906
+    fileName: Rocket
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_c98dabcf999b4f6ea16ba22b34cc1d05
+    parentId: env_5a912e56dc8a55da177b581c522b8a97a8d849f1
+    modified: 1623725216758
+    created: 1623633321146
+    name: Dev. Environment
+    data:
+      base_url: http://0.0.0.0:1111
+    dataPropertyOrder:
+      "&":
+        - base_url
+    color: null
+    isPrivate: false
+    metaSortKey: 1623633321146
+    _type: environment

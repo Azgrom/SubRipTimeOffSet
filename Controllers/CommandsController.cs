@@ -38,7 +38,12 @@ namespace Commander.Controllers
         {
             var commandItem = _repo.GetCommandById(id);
 
-            return Ok(commandItem);
+            if(commandItem != null)
+            {
+                return Ok(commandItem);
+            }
+
+            return NotFound();
         }
     }
 }

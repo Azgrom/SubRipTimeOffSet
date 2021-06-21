@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using Commander.Data;
+using Commander.Dtobjs;
 using Commander.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,13 +35,13 @@ namespace Commander.Controllers
 
         // GET api/commands/{id}
         [HttpGet("{id}")]
-        public ActionResult<Command> GetCommandById(int id)
+        public ActionResult<CommandReadDtobj> GetCommandById(int id)
         {
             var commandItem = _repo.GetCommandById(id);
 
             if(commandItem != null)
             {
-                return Ok(commandItem);
+                return Ok(_mapper.Map<CommandReadDtobj>(commandItem));
             }
 
             return NotFound();

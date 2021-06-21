@@ -55,7 +55,8 @@ namespace Commander.Controllers
             _repo.CreateCommand(commandModel);
             _repo.SaveChanges();
 
-            return Ok(commandModel);
+            var commandReadDto = _mapper.Map<CommandReadDtobj>(commandModel);
+            return Ok(commandReadDto);
         }
     }
 }

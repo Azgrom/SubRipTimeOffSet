@@ -8,6 +8,6 @@ namespace Commander.Dtobjs
 
         public string Line { get; set; }
 
-        public string Platform { get; set; }
+        // public string Platform { get; set; }
     }
 }

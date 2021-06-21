@@ -46,5 +46,16 @@ namespace Commander.Controllers
 
             return NotFound();
         }
+
+        // POST api/commands
+        [HttpPost]
+        public ActionResult <CommandReadDtobj> CreateCommand(CommandCreateDtobj commandCreateDtobj)
+        {
+            var commandModel = _mapper.Map<Command>(commandCreateDtobj);
+            _repo.CreateCommand(commandModel);
+            _repo.SaveChanges();
+
+            return Ok(commandModel);
+        }
     }
 }

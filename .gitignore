@@ -6,3 +6,4 @@ cache
 *.lock
 *.srt
 diesel.toml
+.vs

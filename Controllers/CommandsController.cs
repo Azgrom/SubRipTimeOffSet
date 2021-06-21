@@ -26,11 +26,11 @@ namespace Commander.Controllers
         // private readonly MockCommanderRepo _repository = new MockCommanderRepo();
         // GET api/commands
         [HttpGet]
-        public ActionResult<IEnumerable<Command>> GetAllCommands()
+        public ActionResult<IEnumerable<CommandReadDtobj>> GetAllCommands()
         {
             var commandItems = _repo.GetAllCommands();
 
-            return Ok(commandItems);
+            return Ok(_mapper.Map<IEnumerable<CommandReadDtobj>>(commandItems));
         }
 
         // GET api/commands/{id}

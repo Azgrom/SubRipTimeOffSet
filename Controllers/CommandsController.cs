@@ -13,10 +13,12 @@ namespace Commander.Controllers
     {
 
         private readonly ICommanderRepo _repo;
+        private readonly IMapper _mapper;
 
-        public CommandsController(ICommanderRepo repository)
+        public CommandsController(ICommanderRepo repository, IMapper mapper)
         {
             _repo = repository;
+            _mapper = mapper;
         }
 
         // private readonly MockCommanderRepo _repository = new MockCommanderRepo();

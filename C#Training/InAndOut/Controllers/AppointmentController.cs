@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,6 @@ namespace InAndOut.Controllers
     {
         public IActionResult Index()
         {
-            return View();
             string todaysDate = DateTime.Now.ToShortDateString();
             return Ok(todaysDate);
         }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,11 @@ namespace InAndOut.Controllers
             return View();
             string todaysDate = DateTime.Now.ToShortDateString();
             return Ok(todaysDate);
+        }
+
+        public IActionResult Details(int id)
+        {
+            return Ok("You have entered id = {id}" + id);
         }
     }
 }

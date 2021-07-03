@@ -1,0 +1,133 @@
+_type: export
+__export_format: 4
+__export_date: 2021-06-18T01:52:17.428Z
+__export_source: insomnia.desktop.app:v2021.3.0
+resources:
+  - _id: req_0ef8ade8eb444f11a04b26d226d43d63
+    parentId: fld_5ce5b4efafdd4002a4c69245aa46d456
+    modified: 1623974680267
+    created: 1623974266087
+    url: "{{ _.base_url }}/api/commands/"
+    name: Command
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1623974266088
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_5ce5b4efafdd4002a4c69245aa46d456
+    parentId: wrk_10b255b8a9b344fd8fe6886ccdba0a04
+    modified: 1623974228891
+    created: 1623974228891
+    name: First 2 API Endpoints (GET / READ)
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623974228891
+    _type: request_group
+  - _id: wrk_10b255b8a9b344fd8fe6886ccdba0a04
+    parentId: null
+    modified: 1623974112531
+    created: 1623974112531
+    name: Commander Documentation
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: req_551d7ba3193d45fc8be2247b722bd490
+    parentId: fld_5ce5b4efafdd4002a4c69245aa46d456
+    modified: 1623979693216
+    created: 1623974295934
+    url: "{{ _.base_url }}/api/commands/2"
+    name: Command by Id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1623974266038
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_a24c47eb19b7a6a81b8dcb4d6afd8d2f68e3980e
+    parentId: wrk_10b255b8a9b344fd8fe6886ccdba0a04
+    modified: 1623974648143
+    created: 1623974112699
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1623974112699
+    _type: environment
+  - _id: jar_a24c47eb19b7a6a81b8dcb4d6afd8d2f68e3980e
+    parentId: wrk_10b255b8a9b344fd8fe6886ccdba0a04
+    modified: 1623974112714
+    created: 1623974112714
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_8c13098591c746e18ccd1d08300822e1
+    parentId: wrk_10b255b8a9b344fd8fe6886ccdba0a04
+    modified: 1623974112533
+    created: 1623974112533
+    fileName: Commander Documentation
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_0820560563f246428e653f29596724c0
+    parentId: env_a24c47eb19b7a6a81b8dcb4d6afd8d2f68e3980e
+    modified: 1623979625725
+    created: 1623974637847
+    name: Terminal dotnet run
+    data:
+      base_url: https://localhost:5001
+    dataPropertyOrder:
+      "&":
+        - base_url
+    color: null
+    isPrivate: false
+    metaSortKey: 1623974637847
+    _type: environment
+  - _id: env_776f64d4dca6440ba916ca4a2b64d408
+    parentId: env_a24c47eb19b7a6a81b8dcb4d6afd8d2f68e3980e
+    modified: 1623979670938
+    created: 1623979626529
+    name: VS docker run
+    data:
+      base_url: https://localhost:49159
+    dataPropertyOrder:
+      "&":
+        - base_url
+    color: null
+    isPrivate: false
+    metaSortKey: 1623979626529
+    _type: environment
+  - _id: env_2d9112b1ee874e4abdbc4ebb093818bc
+    parentId: env_a24c47eb19b7a6a81b8dcb4d6afd8d2f68e3980e
+    modified: 1623980384711
+    created: 1623980357182
+    name: ISS Express
+    data:
+      base_url: https://localhost:44387
+    dataPropertyOrder:
+      "&":
+        - base_url
+    color: null
+    isPrivate: false
+    metaSortKey: 1623980357182
+    _type: environment

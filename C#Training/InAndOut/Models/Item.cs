@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,5 +10,6 @@ namespace InAndOut.Models
     {
         [Key]
         public int Id { get; set; }
+        public string Borrower { get; set; }
     }
 }

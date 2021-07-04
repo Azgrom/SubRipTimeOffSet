@@ -21,6 +21,12 @@ namespace InAndOut.Controllers
         public IActionResult Index()
         {
             IEnumerable<Expense> objList = _db.Expenses;
+            return View(objList);
+        }
+
+        // GET
+        public IActionResult Create()
+        {
             return View();
         }
     }

@@ -16,6 +16,8 @@ namespace InAndOut.Controllers
         {
             _db = db;
         }
+
+        // GET
         public IActionResult Index()
         {
             IEnumerable<Expense> objList = _db.Expenses;

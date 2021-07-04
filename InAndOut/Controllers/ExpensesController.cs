@@ -45,18 +45,16 @@ namespace InAndOut.Controllers
         }
 
         // GET Delete
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Delete(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
             var obj = _db.Expenses.Find(id);
-            
-            if(obj == null)
+
+            if (obj == null)
             {
                 return NotFound();
             }
@@ -64,14 +62,14 @@ namespace InAndOut.Controllers
             return View(obj);
         }
 
-        // Post Delete
+        // POST Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
             var obj = _db.Expenses.Find(id);
-            
-            if(obj == null)
+
+            if (obj == null)
             {
                 return NotFound();
             }

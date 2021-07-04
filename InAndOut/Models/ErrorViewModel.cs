@@ -1,5 +1,3 @@
-using System;
-
 namespace InAndOut.Models
 {
     public class ErrorViewModel

@@ -63,5 +63,22 @@ namespace InAndOut.Controllers
 
             return View(obj);
         }
+
+        // Post Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id)
+        {
+            var obj = _db.Expenses.Find(id);
+            
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.Expenses.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

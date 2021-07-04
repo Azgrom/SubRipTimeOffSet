@@ -7,7 +7,7 @@ namespace InAndOut.Data
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Item> Items { get; set; }

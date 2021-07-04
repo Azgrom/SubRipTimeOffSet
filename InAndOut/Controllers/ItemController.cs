@@ -22,6 +22,8 @@ namespace InAndOut.Controllers
             IEnumerable<Item> objList = _db.Items;
             return View(objList);
         }
+        
+        // GET
         public IActionResult Create()
         {
             // IEnumerable<Item> objList = _db.Items;

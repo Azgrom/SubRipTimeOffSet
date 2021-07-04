@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InAndOut.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210703194009_addItemsToDatabase")]
-    partial class addItemsToDatabase
+    [Migration("20210704154026_addLender")]
+    partial class addLender
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,9 @@ namespace InAndOut.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Borrower")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lender")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

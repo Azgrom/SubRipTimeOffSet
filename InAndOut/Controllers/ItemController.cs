@@ -20,7 +20,7 @@ namespace InAndOut.Controllers
         public IActionResult Index()
         {
             IEnumerable<Item> objList = _db.Items;
-            return View();
+            return View(objList);
         }
     }
 }

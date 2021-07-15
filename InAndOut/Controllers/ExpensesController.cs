@@ -41,7 +41,17 @@ namespace InAndOut.Controllers
 
             // ViewBag.TypeDropDown = TypeDropDown;
 
-            return View();
+            ExpenseVM expenseVM = new ExpenseVM()
+            {
+                Expense = new Expense(),
+                TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                })
+            };
+
+            return View(expenseVM);
         }
 
         // POST

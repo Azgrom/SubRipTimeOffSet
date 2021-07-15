@@ -24,6 +24,11 @@
                         <input asp-for="Expense.Amount" class="form-control" />
                         <span asp-validation-for="Expense.Amount" class="text-danger"></span>
                     </div>
+                    <div class="col-4">
+                        <select asp-for="Expense.ExpenseIdType" asp-items="@Model.TypeDropDown" class="form-control">
+                            @* <option selected>--Select Expense Type</option> *@
+                        </select>
+                        <span asp-validation-for="Expense.ExpenseIdType" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">

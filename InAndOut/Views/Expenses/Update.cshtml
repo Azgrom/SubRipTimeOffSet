@@ -1,6 +1,7 @@
 ﻿@model InAndOut.Models.ViewModels.ExpenseVM
 
 <form method="post" asp-action="Update">
+    <input asp-for="Expense.Id" hidden>
     <div class="border p-3">
         <div class="form-group row">
             <h2 class="text-black-50 pl-3">Update Expense</h2>

@@ -112,14 +112,24 @@ namespace InAndOut.Controllers
                 return NotFound();
             }
 
-            var obj = _db.Expenses.Find(id);
+            ExpenseVM expenseVM = new ExpenseVM()
+            {
+                Expense = _db.Expenses.Find(id),
+                TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                })
+            };
 
-            if (obj == null)
+            // var obj = _db.Expenses.Find(id);
+
+            if (expenseVM == null)
             {
                 return NotFound();
             }
 
-            return View(obj);
+            return View(expenseVM);
         }
 
         // POST

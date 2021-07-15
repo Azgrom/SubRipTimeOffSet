@@ -135,11 +135,11 @@ namespace InAndOut.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(Expense obj)
+        public IActionResult Update(ExpenseVM obj)
         {
             if (ModelState.IsValid)
             {
-                _db.Expenses.Update(obj);
+                _db.Expenses.Update(obj.Expense);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }

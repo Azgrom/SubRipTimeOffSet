@@ -114,7 +114,6 @@ namespace InAndOut.Controllers
 
             ExpenseVM expenseVM = new ExpenseVM()
             {
-                Expense = _db.Expenses.Find(id),
                 TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
                 {
                     Text = i.Name,
@@ -122,7 +121,7 @@ namespace InAndOut.Controllers
                 })
             };
 
-            // var obj = _db.Expenses.Find(id);
+            expenseVM.Expense = _db.Expenses.Find(id);
 
             if (expenseVM == null)
             {

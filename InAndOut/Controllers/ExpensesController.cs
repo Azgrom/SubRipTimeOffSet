@@ -33,13 +33,13 @@ namespace InAndOut.Controllers
         // GET
         public IActionResult Create()
         {
-            IEnumerable<SelectListItem> TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
-            {
-                Text = i.Name,
-                Value = i.Id.ToString(),
-            });
+            // IEnumerable<SelectListItem> TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
+            // {
+            //     Text = i.Name,
+            //     Value = i.Id.ToString(),
+            // });
 
-            ViewBag.TypeDropDown = TypeDropDown;
+            // ViewBag.TypeDropDown = TypeDropDown;
 
             return View();
         }

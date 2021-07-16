@@ -26,4 +26,11 @@
             <span asp-validation="Password" class="text-danger"></span>
         </div>
     </div>
+    <div class="form-group row">
+        <label class="col-md-2" asp-for="ConfirmPassword"></label>
+        <div class="col-md-10">
+            <input asp-for="ConfirmPassword" class="form-control">
+            <span asp-validation="ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
 </form>

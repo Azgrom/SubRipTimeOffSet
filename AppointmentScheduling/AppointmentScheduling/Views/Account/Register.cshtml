@@ -33,4 +33,11 @@
             <span asp-validation="ConfirmPassword" class="text-danger"></span>
         </div>
     </div>
+    <div class="form-group row">
+        <label class="col-md-2" asp-for="RoleName"></label>
+        <div class="col-md-10">
+            <input asp-for="RoleName" asp-items="@AppointmentScheduling.Utility.Helper.GetRolesForDropDown()" class="form-control">
+            <span asp-validation="RoleName" class="text-danger"></span>
+        </div>
+    </div>
 </form>

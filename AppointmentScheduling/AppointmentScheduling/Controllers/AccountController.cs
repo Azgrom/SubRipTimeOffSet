@@ -29,13 +29,13 @@ namespace AppointmentScheduling.Controllers
             return View();
         }
 
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
             if(!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())
             {
-                _roleManager.CreateAsync(new IdentityRole(Helper.Admin));
-                _roleManager.CreateAsync(new IdentityRole(Helper.Doctor));
-                _roleManager.CreateAsync(new IdentityRole(Helper.Patient));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Admin));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Doctor));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Patient));
             }
             return View();
         }

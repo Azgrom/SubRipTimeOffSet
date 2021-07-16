@@ -1,9 +1,6 @@
 ﻿@model AppointmentScheduling.Models.ViewModels.LoginViewModel
 
 <h2>Sign In</h2>
-<div>
-    <div>
-        <section>
             <form id="account" method="post" asp-action="Login" asp-controller="Account"></form>
             <h4>Use your registered email id and password to login</h4>
             <hr>
@@ -12,6 +9,9 @@
                 <label class="col-md-2" asp-for="Email"></label>
                 <div class="col-md-10">
                     <input asp-for="Email" class="form-control">
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
                         <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>

@@ -12,9 +12,15 @@ namespace AppointmentScheduling.Controllers
         readonly SignInManager<ApplicationUser> _signInManager;
         readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(ApplicationDbContext db)
+        public AccountController(ApplicationDbContext db, 
+                                 UserManager<ApplicationUser> userManager, 
+                                 SignInManager<ApplicationUser> signInManager, 
+                                 RoleManager<IdentityRole> roleManager)
         {
             _db = db;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
         }
         public IActionResult Login()
         {

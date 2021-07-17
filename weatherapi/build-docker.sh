@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-docker build -t appointmentscheduler .
+docker build -t weatherapi:1.0 .

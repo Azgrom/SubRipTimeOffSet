@@ -9,7 +9,7 @@ COPY AppointmentScheduling/*.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY ../AppointmentScheduling ./
+COPY AppointmentScheduling/ ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

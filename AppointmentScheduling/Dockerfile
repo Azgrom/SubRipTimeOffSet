@@ -1,5 +1,6 @@
 # docker build script based on https://docs.docker.com/samples/dotnetcore/
 
+# dotnet 5.0 sdk found on https://github.com/dotnet/dotnet-docker/issues/2375
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 WORKDIR /app
 

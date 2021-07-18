@@ -1,0 +1,6 @@
+version: "3"
+services:
+    rust_solution:
+        build: .
+        ports:
+            - "1111:1111"

@@ -3,4 +3,4 @@ services:
     rust_solution:
         build: .
         ports:
-            - "1111:1111"
+            - "8000:5000"

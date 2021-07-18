@@ -5,8 +5,8 @@ use subrip_web_api::{file, upload};
 #[launch]
 fn rocket() -> _ {
     let figment = rocket::Config::figment()
-        .merge(("address", "0.0.0.0"))
-        .merge(("port", 1111));
+        .merge(("address", "127.0.0.1"))
+        .merge(("port", 5000));
 
     rocket::custom(figment).mount("/", routes![upload, file])
 }

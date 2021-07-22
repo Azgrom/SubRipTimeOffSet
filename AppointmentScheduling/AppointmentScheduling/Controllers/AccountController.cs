@@ -14,9 +14,9 @@ namespace AppointmentScheduling.Controllers
         readonly SignInManager<ApplicationUser> _signInManager;
         readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(ApplicationDbContext db, 
-                                 UserManager<ApplicationUser> userManager, 
-                                 SignInManager<ApplicationUser> signInManager, 
+        public AccountController(ApplicationDbContext db,
+                                 UserManager<ApplicationUser> userManager,
+                                 SignInManager<ApplicationUser> signInManager,
                                  RoleManager<IdentityRole> roleManager)
         {
             _db = db;
@@ -24,7 +24,7 @@ namespace AppointmentScheduling.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
-        
+
         public IActionResult Login()
         {
             return View();
@@ -42,7 +42,7 @@ namespace AppointmentScheduling.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                
+
                 // In case result is not successful
                 ModelState.AddModelError("", "Invalid login attempt");
             }

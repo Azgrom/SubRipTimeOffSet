@@ -29,6 +29,26 @@ namespace AppointmentScheduling.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                
+                // In case result is not successful
+                ModelState.AddModelError("", "Invalid login attempt");
+            }
+
+            return View(model);
+        }
+
         public async Task<IActionResult> Register()
         {
             if(!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())

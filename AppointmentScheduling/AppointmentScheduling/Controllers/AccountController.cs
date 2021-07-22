@@ -24,6 +24,7 @@ namespace AppointmentScheduling.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
+        
         public IActionResult Login()
         {
             return View();
@@ -86,6 +87,13 @@ namespace AppointmentScheduling.Controllers
                 }
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogOff()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

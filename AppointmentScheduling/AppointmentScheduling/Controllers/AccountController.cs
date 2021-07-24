@@ -40,7 +40,7 @@ namespace AppointmentScheduling.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Appointment");
                 }
 
                 // In case result is not successful

@@ -65,7 +65,7 @@ namespace AppointmentScheduling.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = new ApplicationUser {
                     UserName = model.Email,
@@ -74,13 +74,13 @@ namespace AppointmentScheduling.Controllers
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.RoleName);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     // model state error passer
                     ModelState.AddModelError("", error.Description);

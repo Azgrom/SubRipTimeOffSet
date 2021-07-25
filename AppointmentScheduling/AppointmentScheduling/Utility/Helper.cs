@@ -8,9 +8,13 @@ namespace AppointmentScheduling.Utility
 {
     public class Helper
     {
-        public static string Admin = "Admin";
-        public static string Patient = "Patient";
-        public static string Doctor = "Doctor";
+        private static string admin = "Admin";
+        private static string patient = "Patient";
+        private static string doctor = "Doctor";
+
+        public static string Admin { get => admin; set => admin = value; }
+        public static string Patient { get => patient; set => patient = value; }
+        public static string Doctor { get => doctor; set => doctor = value; }
 
         public static List<SelectListItem> GetRolesForDropDown()
         {

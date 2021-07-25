@@ -18,6 +18,11 @@
                         <label for="title">Select Patient</label>
                         <select id="patientId" asp-items="@(new SelectList(ViewBag.PatientList, "Id", "Name"))" class="form-control"></select>
                     </div>
+                    <div class="form-group">
+                        <label for="title">Duration</label>
+                        <select id="duration" asp-items="ViewBag.Duration" class="form-control"></select>
+                    </div>
+                    <input type="hidden" id="id" />
                 </div>
             </form>
         </div>

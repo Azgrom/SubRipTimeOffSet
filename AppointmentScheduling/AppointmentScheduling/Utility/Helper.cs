@@ -29,7 +29,7 @@ namespace AppointmentScheduling.Utility
         public static List<SelectListItem> GetTimeDropDown()
         { 
             int minute = 60;
-            List<SelectListItem> duration = new List<SelectListItem>();
+            List<SelectListItem> duration = new();
 
             for (int i = 1; i <= 12; i++)
             {

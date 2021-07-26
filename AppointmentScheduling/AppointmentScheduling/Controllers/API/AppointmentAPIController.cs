@@ -35,18 +35,12 @@ namespace AppointmentScheduling.Controllers
             {
                 common_response.Status = _appointment_service.AddUpdate(data).Result;
 
-                switch (common_response.Status)
+                common_response.Message = common_response.Status switch
                 {
-                    case 1:
-                        common_response.Message = Helper.Appointment_updated;
-                        break;
-                    case 2:
-                        common_response.Message = Helper.Appointment_added;
-                        break;
-                    default:
-                        common_response.Message = Helper.Something_went_wrong;
-                        break;
-                }
+                    1 => Helper.Appointment_updated,
+                    2 => Helper.Appointment_added,
+                    _ => Helper.Something_went_wrong,
+                };
             }
             catch (Exception e)
             {

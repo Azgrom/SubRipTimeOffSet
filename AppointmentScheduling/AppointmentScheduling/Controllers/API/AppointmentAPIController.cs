@@ -31,13 +31,18 @@ namespace AppointmentScheduling.Controllers
             try
             {
                 common_response.status = _appointment_service.AddUpdate(data).Result;
-                if (common_response.status == 1)
+
+                switch (common_response.status)
                 {
-                    common_response.message = Helper.appointment_updated;
-                }
-                if (common_response.status == 2)
-                {
-                    common_response.message = Helper.appointment_added;
+                    case 1:
+                        common_response.message = Helper.appointment_updated;
+                        break;
+                    case 2:
+                        common_response.message = Helper.appointment_added;
+                        break;
+                    default:
+                        common_response.message = Helper.something_went_wrong;
+                        break;
                 }
             }
             catch (Exception e)

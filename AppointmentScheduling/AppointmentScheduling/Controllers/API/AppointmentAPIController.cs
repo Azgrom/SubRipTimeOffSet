@@ -22,7 +22,10 @@ namespace AppointmentScheduling.Controllers
             login_user_id = _http_context_accessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             role = _http_context_accessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
         }
-        public IActionResult Index()
+
+        [HttpPost]
+        [Route("SaveCalendarData")]
+        public IActionResult SaveCalendarData()
         {
             return View();
         }

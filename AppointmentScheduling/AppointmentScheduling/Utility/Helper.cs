@@ -18,8 +18,8 @@ namespace AppointmentScheduling.Utility
         private static string appointment_not_exists = "Appointment not exists.";
 
         private static string something_went_wrong = "Sometring went wrong, please try again.";
-        public static int success_code = 1;
-        public static int failure_code = 0;
+        private static int success_code = 1;
+        private static int failure_code = 0;
 
         public static string Admin { get => admin; set => admin = value; }
         public static string Patient { get => patient; set => patient = value; }
@@ -32,6 +32,8 @@ namespace AppointmentScheduling.Utility
         public static string Appointment_add_error { get => something_went_wrong; set => something_went_wrong = value; }
         public static string Appointment_update_error { get => something_went_wrong; set => something_went_wrong = value; }
         public static string Something_went_wrong { get => something_went_wrong; set => something_went_wrong = value; }
+        public static int Success_code { get => success_code; set => success_code = value; }
+        public static int Failure_code { get => failure_code; set => failure_code = value; }
 
         public static List<SelectListItem> GetRolesForDropDown()
         {

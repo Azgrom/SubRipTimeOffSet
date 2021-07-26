@@ -17,6 +17,38 @@ namespace AppointmentScheduling.Services
             _db = db;
         }
 
+        public async Task<int> AddUpdate(AppointmentViewModel model)
+        {
+            var start_date = DateTime.Parse(model.StartDate);
+            var end_date = DateTime.Parse(model.StartDate).AddMinutes(Convert.ToDouble(model.Duration));
+
+            if (model != null && model.Id > 0)
+            {
+                // Update appointment routine
+            }
+            else
+            {
+                // Create appointment routine
+                var appointment = new Appointment()
+                {
+                    Title = model.Title,
+                    Description = model.Description,
+                    StartDate = start_date,
+                    EndDate = end_date,
+                    Duration = model.Duration,
+                    DoctorId = model.DoctorId,
+                    PatientId = model.PatientId,
+                    IsDoctorApproved = false,
+                    AdminId = model.AdminId
+                };
+
+                _db.Appointment.Add(appointment);
+                await _db.SaveChanges();
+
+                return 2;
+            }
+        }
+
         public List<DoctorViewModel> GetDoctorList()
         {
             var doctors = (from user in _db.Users

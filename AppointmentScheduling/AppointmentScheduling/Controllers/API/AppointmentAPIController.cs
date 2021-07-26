@@ -30,25 +30,25 @@ namespace AppointmentScheduling.Controllers
             CommonResponse<int> common_response = new CommonResponse<int>();
             try
             {
-                common_response.status = _appointment_service.AddUpdate(data).Result;
+                common_response.Status = _appointment_service.AddUpdate(data).Result;
 
-                switch (common_response.status)
+                switch (common_response.Status)
                 {
                     case 1:
-                        common_response.message = Helper.appointment_updated;
+                        common_response.Message = Helper.Appointment_updated;
                         break;
                     case 2:
-                        common_response.message = Helper.appointment_added;
+                        common_response.Message = Helper.Appointment_added;
                         break;
                     default:
-                        common_response.message = Helper.something_went_wrong;
+                        common_response.Message = Helper.Something_went_wrong;
                         break;
                 }
             }
             catch (Exception e)
             {
-                common_response.message = e.Message;
-                common_response.status = Helper.failure_code;
+                common_response.Message = e.Message;
+                common_response.Status = Helper.Failure_code;
             }
 
             return Ok(common_response);

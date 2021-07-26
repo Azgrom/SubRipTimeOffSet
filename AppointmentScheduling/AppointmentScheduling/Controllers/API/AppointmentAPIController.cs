@@ -1,6 +1,9 @@
-﻿using AppointmentScheduling.Services;
+﻿using AppointmentScheduling.Models.ViewModels;
+using AppointmentScheduling.Services;
+using AppointmentScheduling.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 
 namespace AppointmentScheduling.Controllers

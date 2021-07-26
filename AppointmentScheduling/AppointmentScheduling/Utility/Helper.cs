@@ -11,19 +11,25 @@ namespace AppointmentScheduling.Utility
         private static string admin = "Admin";
         private static string patient = "Patient";
         private static string doctor = "Doctor";
-        public static string appointment_added = "Appointment added successfully.";
-        public static string appointment_updated = "Appointment updated successfully.";
-        public static string appointment_deleted = "Appointment deleted successfully.";
-        public static string appointment_exists = "Appointment for selected date and time already exists.";
-        public static string appointment_not_exists = "Appointment not exists.";
+        private static string appointment_added = "Appointment added successfully.";
+        private static string appointment_updated = "Appointment updated successfully.";
+        private static string appointment_deleted = "Appointment deleted successfully.";
+        private static string appointment_exists = "Appointment for selected date and time already exists.";
+        private static string appointment_not_exists = "Appointment not exists.";
 
-        public static string appointment_add_error = "Sometring went wrong, please try again.";
-        public static string appointment_update_error = "Sometring went wrong, please try again.";
-        public static string something_went_wrong = "Sometring went wrong, please try again.";
+        private static string something_went_wrong = "Sometring went wrong, please try again.";
 
         public static string Admin { get => admin; set => admin = value; }
         public static string Patient { get => patient; set => patient = value; }
         public static string Doctor { get => doctor; set => doctor = value; }
+        public static string Appointment_added { get => appointment_added; set => appointment_added = value; }
+        public static string Appointment_updated { get => appointment_updated; set => appointment_updated = value; }
+        public static string Appointment_deleted { get => appointment_deleted; set => appointment_deleted = value; }
+        public static string Appointment_exists { get => appointment_exists; set => appointment_exists = value; }
+        public static string Appointment_not_exists { get => appointment_not_exists; set => appointment_not_exists = value; }
+        public static string Appointment_add_error { get => something_went_wrong; set => something_went_wrong = value; }
+        public static string Appointment_update_error { get => something_went_wrong; set => something_went_wrong = value; }
+        public static string Something_went_wrong { get => something_went_wrong; set => something_went_wrong = value; }
 
         public static List<SelectListItem> GetRolesForDropDown()
         {

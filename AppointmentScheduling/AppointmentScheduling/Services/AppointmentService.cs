@@ -42,7 +42,7 @@ namespace AppointmentScheduling.Services
                     AdminId = model.AdminId
                 };
 
-                _db.Appointment.Add(appointment);
+                _db.Appointments.Add(appointment);
                 await _db.SaveChanges();
 
                 return 2;

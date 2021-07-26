@@ -27,7 +27,26 @@ namespace AppointmentScheduling.Controllers
         [Route("SaveCalendarData")]
         public IActionResult SaveCalendarData()
         {
-            return View();
+            CommonResponse<int> common_response = new CommonResponse<int>();
+            try
+            {
+                common_response.status = _appointment_service.AddUpdate(data).Result;
+                if (common_response.status == 1)
+                {
+                    common_response.message = Helper.appointment_updated;
+                }
+                if (common_response.status == 2)
+                {
+                    common_response.message = Helper.appointment_added;
+                }
+            }
+            catch (Exception e)
+            {
+                common_response.message = e.Message;
+                common_response.status = Helper.failure_code;
+            }
+
+            return Ok(common_response);
         }
     }
 }

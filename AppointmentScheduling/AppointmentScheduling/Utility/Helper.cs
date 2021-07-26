@@ -18,6 +18,8 @@ namespace AppointmentScheduling.Utility
         private static string appointment_not_exists = "Appointment not exists.";
 
         private static string something_went_wrong = "Sometring went wrong, please try again.";
+        public static int success_code = 1;
+        public static int failure_code = 0;
 
         public static string Admin { get => admin; set => admin = value; }
         public static string Patient { get => patient; set => patient = value; }

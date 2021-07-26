@@ -11,6 +11,15 @@ namespace AppointmentScheduling.Utility
         private static string admin = "Admin";
         private static string patient = "Patient";
         private static string doctor = "Doctor";
+        public static string appointment_added = "Appointment added successfully.";
+        public static string appointment_updated = "Appointment updated successfully.";
+        public static string appointment_deleted = "Appointment deleted successfully.";
+        public static string appointment_exists = "Appointment for selected date and time already exists.";
+        public static string appointment_not_exists = "Appointment not exists.";
+
+        public static string appointment_add_error = "Sometring went wrong, please try again.";
+        public static string appointment_update_error = "Sometring went wrong, please try again.";
+        public static string something_went_wrong = "Sometring went wrong, please try again.";
 
         public static string Admin { get => admin; set => admin = value; }
         public static string Patient { get => patient; set => patient = value; }

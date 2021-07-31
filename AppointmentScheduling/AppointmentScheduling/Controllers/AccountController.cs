@@ -34,18 +34,16 @@ namespace AppointmentScheduling.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
+            if (result.Succeeded)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Appointment");
-                }
-
-                // In case result is not successful
-                ModelState.AddModelError("", "Invalid login attempt");
+                return RedirectToAction("Index", "Appointment");
             }
+
+            // In case result is not successful
+            ModelState.AddModelError("", "Invalid login attempt");
 
             return View(model);
         }

@@ -33,11 +33,11 @@ namespace AppointmentScheduling.Utility
         }
 
         public static List<SelectListItem> GetTimeDropDown()
-        { 
-            int minute = 60;
+        {
+            var minute = 60;
             List<SelectListItem> duration = new();
 
-            for (int i = 1; i <= 12; i++)
+            for (var i = 1; i <= 12; i++)
             {
                 duration.Add(new SelectListItem { Value = minute.ToString(), Text = i + " Hr" });
                 minute += 30;

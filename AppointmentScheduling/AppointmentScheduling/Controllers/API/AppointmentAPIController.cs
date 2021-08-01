@@ -30,7 +30,7 @@ namespace AppointmentScheduling.Controllers
         [Route(template: "SaveCalendarData")]
         public IActionResult SaveCalendarData(AppointmentViewModel data)
         {
-            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            var commonResponse = new CommonResponse<int>();
             try
             {
                 commonResponse.Status = _appointmentService.AddUpdate(data).Result;

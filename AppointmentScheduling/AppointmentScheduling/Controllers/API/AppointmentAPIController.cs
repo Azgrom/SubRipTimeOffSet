@@ -37,15 +37,15 @@ namespace AppointmentScheduling.Controllers
 
                 common_response.Message = common_response.Status switch
                 {
-                    1 => Helper.Appointment_updated,
-                    2 => Helper.Appointment_added,
-                    _ => Helper.Something_went_wrong,
+                    1 => Helper.AppointmentUpdated,
+                    2 => Helper.AppointmentAdded,
+                    _ => Helper.SomethingWentWrong,
                 };
             }
             catch (Exception e)
             {
                 common_response.Message = e.Message;
-                common_response.Status = Helper.Failure_code;
+                common_response.Status = Helper.FailureCode;
             }
 
             return Ok(common_response);

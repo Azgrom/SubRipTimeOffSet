@@ -35,15 +35,18 @@ namespace AppointmentScheduling.Controllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-
+            var result = await _signInManager // SignInManager<ApplicationUser>
+                                .PasswordSignInAsync(userName: model.Email,
+                                                     password: model.Password,
+                                                     isPersistent: model.RememberMe,
+                                                     lockoutOnFailure: false); // Task<SignInResult>
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Appointment");
+                return RedirectToAction("Index", controllerName: "Appointment");
             }
 
             // In case result is not successful
-            ModelState.AddModelError("", "Invalid login attempt");
+            ModelState.AddModelError(key: "", errorMessage: "Invalid login attempt");
 
             return View(model);
         }
@@ -56,6 +59,7 @@ namespace AppointmentScheduling.Controllers
                 await _roleManager.CreateAsync(new IdentityRole(Helper.Doctor));
                 await _roleManager.CreateAsync(new IdentityRole(Helper.Patient));
             }
+
             return View();
         }
 
@@ -76,12 +80,12 @@ namespace AppointmentScheduling.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, model.RoleName);
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", controllerName: "Home");
                 }
                 foreach (var error in result.Errors)
                 {
                     // model state error passer
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError(key: "", error.Description);
                 }
             }
             return View(model);
@@ -91,7 +95,7 @@ namespace AppointmentScheduling.Controllers
         public async Task<IActionResult> LogOff()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", controllerName: "Account");
         }
     }
 }

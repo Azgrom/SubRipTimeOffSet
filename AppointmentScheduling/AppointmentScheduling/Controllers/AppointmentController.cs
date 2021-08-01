@@ -10,18 +10,18 @@ namespace AppointmentScheduling.Controllers
 {
     public class AppointmentController : Controller
     {
-        private readonly IAppointmentService _appointment_service;
+        private readonly IAppointmentService _appointmentService;
 
-        public AppointmentController(IAppointmentService appointment_service)
+        public AppointmentController(IAppointmentService appointmentService)
         {
-            _appointment_service = appointment_service;
+            _appointmentService = appointmentService;
         }
 
         public IActionResult Index()
         {
             ViewBag.Duration = Helper.GetTimeDropDown();
-            ViewBag.DoctorList = _appointment_service.GetDoctorList();
-            ViewBag.PatientList = _appointment_service.GetPatientList();
+            ViewBag.DoctorList = _appointmentService.GetDoctorList();
+            ViewBag.PatientList = _appointmentService.GetPatientList();
 
             return View();
         }

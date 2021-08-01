@@ -52,30 +52,32 @@ namespace AppointmentScheduling.Services
 
         public List<DoctorViewModel> GetDoctorList()
         {
-            var doctors = (from user in _db.Users
-                           join userRoles in _db.UserRoles on user.Id equals userRoles.UserId
-                           join roles in _db.Roles.Where(x => x.Name == Helper.Doctor) on userRoles.RoleId equals roles.Id
-                           select new DoctorViewModel
-                           {
-                               Id = user.Id,
-                               Name = user.Name
-                           }
-                           ).ToList();
+            List<DoctorViewModel> doctors;
+            doctors = (from user in _db.Users
+                    join userRoles in _db.UserRoles on user.Id equals userRoles.UserId
+                    join roles in _db.Roles.Where(x => x.Name == Helper.Doctor) on userRoles.RoleId equals roles.Id
+                    select new DoctorViewModel
+                    {
+                        Id = user.Id,
+                        Name = user.Name
+                    }
+                ).ToList();
 
             return doctors;
         }
 
         public List<PatientViewModel> GetPatientList()
         {
-            var patients = (from user in _db.Users
-                           join userRoles in _db.UserRoles on user.Id equals userRoles.UserId
-                           join roles in _db.Roles.Where(x => x.Name == Helper.Patient) on userRoles.RoleId equals roles.Id
-                           select new PatientViewModel
-                           {
-                               Id = user.Id,
-                               Name = user.Name
-                           }
-                           ).ToList();
+            List<PatientViewModel> patients;
+            patients = (from user in _db.Users
+                    join userRoles in _db.UserRoles on user.Id equals userRoles.UserId
+                    join roles in _db.Roles.Where(x => x.Name == Helper.Patient) on userRoles.RoleId equals roles.Id
+                    select new PatientViewModel
+                    {
+                        Id = user.Id,
+                        Name = user.Name
+                    }
+                ).ToList();
 
             return patients;
         }

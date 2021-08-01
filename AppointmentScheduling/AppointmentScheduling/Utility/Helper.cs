@@ -11,16 +11,16 @@ namespace AppointmentScheduling.Utility
         public static string Admin { get; set; } = "Admin";
         public static string Patient { get; set; } = "Patient";
         public static string Doctor { get; set; } = "Doctor";
-        public static string Appointment_added { get; set; } = "Appointment added successfully.";
-        public static string Appointment_updated { get; set; } = "Appointment updated successfully.";
-        public static string Appointment_deleted { get; set; } = "Appointment deleted successfully.";
-        public static string Appointment_exists { get; set; } = "Appointment for selected date and time already exists.";
-        public static string Appointment_not_exists { get; set; } = "Appointment not exists.";
-        public static string Appointment_add_error { get; set; } = "Sometring went wrong, please try again.";
-        public static string Appointment_update_error { get; set; } = "Sometring went wrong, please try again.";
-        public static string Something_went_wrong { get; set; } = "Sometring went wrong, please try again.";
-        public static int Success_code { get; set; } = 1;
-        public static int Failure_code { get; set; } = 0;
+        public static string AppointmentAdded { get; set; } = "Appointment added successfully.";
+        public static string AppointmentUpdated { get; set; } = "Appointment updated successfully.";
+        public static string AppointmentDeleted { get; set; } = "Appointment deleted successfully.";
+        public static string AppointmentExists { get; set; } = "Appointment for selected date and time already exists.";
+        public static string AppointmentNotExists { get; set; } = "Appointment not exists.";
+        public static string AppointmentAddError { get; set; } = "Sometring went wrong, please try again.";
+        public static string AppointmentUpdateError { get; set; } = "Sometring went wrong, please try again.";
+        public static string SomethingWentWrong { get; set; } = "Sometring went wrong, please try again.";
+        public static int SuccessCode { get; set; } = 1;
+        public static int FailureCode { get; set; } = 0;
 
         public static List<SelectListItem> GetRolesForDropDown()
         {

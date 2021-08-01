@@ -6,7 +6,7 @@ using AppointmentScheduling.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AppointmentScheduling.Controllers
+namespace AppointmentScheduling.Controllers.API
 {
     [Route(template: "API/Appointment")]
     [ApiController]

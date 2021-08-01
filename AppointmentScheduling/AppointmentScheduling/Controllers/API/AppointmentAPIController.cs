@@ -27,7 +27,7 @@ namespace AppointmentScheduling.Controllers
         }
 
         [HttpPost]
-        [Route("SaveCalendarData")]
+        [Route(template: "SaveCalendarData")]
         public IActionResult SaveCalendarData(AppointmentViewModel data)
         {
             CommonResponse<int> commonResponse = new CommonResponse<int>();

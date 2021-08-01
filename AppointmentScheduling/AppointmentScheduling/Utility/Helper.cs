@@ -8,32 +8,19 @@ namespace AppointmentScheduling.Utility
 {
     public class Helper
     {
-        private static string admin = "Admin";
-        private static string patient = "Patient";
-        private static string doctor = "Doctor";
-        private static string appointment_added = "Appointment added successfully.";
-        private static string appointment_updated = "Appointment updated successfully.";
-        private static string appointment_deleted = "Appointment deleted successfully.";
-        private static string appointment_exists = "Appointment for selected date and time already exists.";
-        private static string appointment_not_exists = "Appointment not exists.";
-
-        private static string something_went_wrong = "Sometring went wrong, please try again.";
-        private static int success_code = 1;
-        private static int failure_code = 0;
-
-        public static string Admin { get => admin; set => admin = value; }
-        public static string Patient { get => patient; set => patient = value; }
-        public static string Doctor { get => doctor; set => doctor = value; }
-        public static string Appointment_added { get => appointment_added; set => appointment_added = value; }
-        public static string Appointment_updated { get => appointment_updated; set => appointment_updated = value; }
-        public static string Appointment_deleted { get => appointment_deleted; set => appointment_deleted = value; }
-        public static string Appointment_exists { get => appointment_exists; set => appointment_exists = value; }
-        public static string Appointment_not_exists { get => appointment_not_exists; set => appointment_not_exists = value; }
-        public static string Appointment_add_error { get => something_went_wrong; set => something_went_wrong = value; }
-        public static string Appointment_update_error { get => something_went_wrong; set => something_went_wrong = value; }
-        public static string Something_went_wrong { get => something_went_wrong; set => something_went_wrong = value; }
-        public static int Success_code { get => success_code; set => success_code = value; }
-        public static int Failure_code { get => failure_code; set => failure_code = value; }
+        public static string Admin { get; set; } = "Admin";
+        public static string Patient { get; set; } = "Patient";
+        public static string Doctor { get; set; } = "Doctor";
+        public static string Appointment_added { get; set; } = "Appointment added successfully.";
+        public static string Appointment_updated { get; set; } = "Appointment updated successfully.";
+        public static string Appointment_deleted { get; set; } = "Appointment deleted successfully.";
+        public static string Appointment_exists { get; set; } = "Appointment for selected date and time already exists.";
+        public static string Appointment_not_exists { get; set; } = "Appointment not exists.";
+        public static string Appointment_add_error { get; set; } = "Sometring went wrong, please try again.";
+        public static string Appointment_update_error { get; set; } = "Sometring went wrong, please try again.";
+        public static string Something_went_wrong { get; set; } = "Sometring went wrong, please try again.";
+        public static int Success_code { get; set; } = 1;
+        public static int Failure_code { get; set; } = 0;
 
         public static List<SelectListItem> GetRolesForDropDown()
         {

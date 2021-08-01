@@ -10,18 +10,18 @@ namespace AppointmentScheduling.Controllers
 {
     [Route("API/Appointment")]
     [ApiController]
-    public class AppointmentAPIController : Controller
+    public class AppointmentApiController : Controller
     {
-        private readonly IAppointmentService _appointment_service;
-        private readonly IHttpContextAccessor _http_context_accessor;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly string _loginUserId;
         private readonly string _role;
 
-        public AppointmentAPIController(IAppointmentService appointment_service, 
-                                        IHttpContextAccessor http_context_accessor)
+        public AppointmentApiController(IAppointmentService appointmentService, 
+                                        IHttpContextAccessor httpContextAccessor)
         {
-            _appointment_service = appointment_service;
-            _http_context_accessor = http_context_accessor;
+            _appointmentService = appointmentService;
+            _httpContextAccessor = httpContextAccessor;
             _loginUserId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
             _role = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Role);
         }
@@ -30,12 +30,12 @@ namespace AppointmentScheduling.Controllers
         [Route("SaveCalendarData")]
         public IActionResult SaveCalendarData(AppointmentViewModel data)
         {
-            CommonResponse<int> common_response = new CommonResponse<int>();
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {
-                common_response.Status = _appointment_service.AddUpdate(data).Result;
+                commonResponse.Status = _appointmentService.AddUpdate(data).Result;
 
-                common_response.Message = common_response.Status switch
+                commonResponse.Message = commonResponse.Status switch
                 {
                     1 => Helper.AppointmentUpdated,
                     2 => Helper.AppointmentAdded,
@@ -44,11 +44,11 @@ namespace AppointmentScheduling.Controllers
             }
             catch (Exception e)
             {
-                common_response.Message = e.Message;
-                common_response.Status = Helper.FailureCode;
+                commonResponse.Message = e.Message;
+                commonResponse.Status = Helper.FailureCode;
             }
 
-            return Ok(common_response);
+            return Ok(commonResponse);
         }
     }
 }

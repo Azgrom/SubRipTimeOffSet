@@ -16,9 +16,9 @@ namespace AppointmentScheduling.Utility
         public static string AppointmentDeleted { get; set; } = "Appointment deleted successfully.";
         public static string AppointmentExists { get; set; } = "Appointment for selected date and time already exists.";
         public static string AppointmentNotExists { get; set; } = "Appointment not exists.";
-        public static string AppointmentAddError { get; set; } = "Sometring went wrong, please try again.";
-        public static string AppointmentUpdateError { get; set; } = "Sometring went wrong, please try again.";
-        public static string SomethingWentWrong { get; set; } = "Sometring went wrong, please try again.";
+        public static string AppointmentAddError { get; set; } = "Something went wrong, please try again.";
+        public static string AppointmentUpdateError { get; set; } = "Something went wrong, please try again.";
+        public static string SomethingWentWrong { get; set; } = "Something went wrong, please try again.";
         public static int SuccessCode { get; set; } = 1;
         public static int FailureCode { get; set; } = 0;
 

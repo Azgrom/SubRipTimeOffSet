@@ -22,8 +22,8 @@ namespace AppointmentScheduling.Controllers.API
         {
             _appointmentService = appointmentService;
             _httpContextAccessor = httpContextAccessor;
-            _loginUserId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _role = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Role);
+            _loginUserId = _httpContextAccessor.HttpContext?.User.FindFirstValue(claimType: ClaimTypes.NameIdentifier);
+            _role = _httpContextAccessor.HttpContext?.User.FindFirstValue(claimType: ClaimTypes.Role);
         }
 
         [HttpPost]

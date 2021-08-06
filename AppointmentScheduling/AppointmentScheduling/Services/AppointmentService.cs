@@ -62,6 +62,10 @@ namespace AppointmentScheduling.Services
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<DoctorViewModel> GetDoctorList()
         {
             List<DoctorViewModel> doctors;

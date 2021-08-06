@@ -2,6 +2,9 @@
 
 namespace AppointmentScheduling.Models.ViewModels
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RegisterViewModel
     {
         [Required]

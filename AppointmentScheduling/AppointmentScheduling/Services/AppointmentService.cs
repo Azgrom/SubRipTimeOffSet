@@ -24,6 +24,11 @@ namespace AppointmentScheduling.Services
             _db = db;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<int> AddUpdate(AppointmentViewModel model)
         {
             var startDate = DateTime.Parse(model.StartDate);

@@ -39,6 +39,10 @@ namespace AppointmentScheduling.Utility
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static List<SelectListItem> GetTimeDropDown()
         {
             var minute = 60;

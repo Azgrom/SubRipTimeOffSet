@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AppointmentScheduling.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

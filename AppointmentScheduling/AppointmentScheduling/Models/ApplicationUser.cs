@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduling.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }

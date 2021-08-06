@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduling.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly ApplicationDbContext _db;

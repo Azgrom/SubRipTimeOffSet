@@ -10,6 +10,9 @@ namespace AppointmentScheduling.Services
 {
     public class AppointmentService : IAppointmentService
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly ApplicationDbContext _db;
 
         public AppointmentService(ApplicationDbContext db)

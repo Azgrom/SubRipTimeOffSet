@@ -24,6 +24,10 @@ namespace AppointmentScheduling.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View();

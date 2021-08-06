@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduling.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AppointmentController : Controller
     {
         /// <summary>

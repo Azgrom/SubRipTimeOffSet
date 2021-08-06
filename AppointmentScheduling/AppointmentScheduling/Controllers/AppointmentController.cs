@@ -23,7 +23,11 @@ namespace AppointmentScheduling.Controllers
         {
             _appointmentService = appointmentService;
         }
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             ViewBag.Duration = Helper.GetTimeDropDown();

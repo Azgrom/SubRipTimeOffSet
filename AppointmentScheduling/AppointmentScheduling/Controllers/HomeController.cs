@@ -5,6 +5,9 @@ using System.Diagnostics;
 
 namespace AppointmentScheduling.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

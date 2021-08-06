@@ -20,6 +20,11 @@ namespace AppointmentScheduling.Controllers.API
         private readonly string _loginUserId;
         private readonly string _role;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appointmentService"></param>
+        /// <param name="httpContextAccessor"></param>
         public AppointmentApiController(IAppointmentService appointmentService, 
                                         IHttpContextAccessor httpContextAccessor)
         {

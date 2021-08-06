@@ -33,7 +33,12 @@ namespace AppointmentScheduling.Controllers.API
             _loginUserId = _httpContextAccessor.HttpContext?.User.FindFirstValue(claimType: ClaimTypes.NameIdentifier);
             _role = _httpContextAccessor.HttpContext?.User.FindFirstValue(claimType: ClaimTypes.Role);
         }
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route(template: "SaveCalendarData")]
         public IActionResult SaveCalendarData(AppointmentViewModel data)

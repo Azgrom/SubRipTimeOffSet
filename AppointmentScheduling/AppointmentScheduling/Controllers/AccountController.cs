@@ -69,7 +69,11 @@ namespace AppointmentScheduling.Controllers
 
             return View(model);
         }
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Register()
         {
             if(!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())

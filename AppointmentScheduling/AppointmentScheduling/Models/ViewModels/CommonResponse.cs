@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduling.Models.ViewModels
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class CommonResponse<T>
     {
         public int Status { get; set; }

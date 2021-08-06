@@ -6,7 +6,7 @@ function InitializeCalendar() {
     try {
 
         var calendarEl = document.getElementById('calendar');
-        if (calendar != null) {
+        if (calendarEl != null) {
             var calendar = new FullCalendar.Calendar(calendarEl, {
               initialView: 'dayGridMonth',
               headerToolbar: {

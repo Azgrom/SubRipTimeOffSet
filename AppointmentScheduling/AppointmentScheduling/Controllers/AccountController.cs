@@ -35,6 +35,10 @@ namespace AppointmentScheduling.Controllers
             _roleManager = roleManager;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Login()
         {
             return View();

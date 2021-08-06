@@ -10,6 +10,9 @@ namespace AppointmentScheduling.Controllers
     /// </summary>
     public class HomeController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)

@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentScheduling.Controllers.API
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route(template: "API/Appointment")]
     [ApiController]
     public class AppointmentApiController : Controller

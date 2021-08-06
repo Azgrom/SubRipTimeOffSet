@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduling.Services
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IAppointmentService
     {
         public List<DoctorViewModel> GetDoctorList();

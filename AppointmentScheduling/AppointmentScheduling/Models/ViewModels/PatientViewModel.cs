@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduling.Models.ViewModels
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PatientViewModel
     {
         public string Id { get; set; }

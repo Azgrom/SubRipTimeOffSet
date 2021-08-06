@@ -15,6 +15,10 @@ namespace AppointmentScheduling.Controllers
         /// </summary>
         private readonly IAppointmentService _appointmentService;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appointmentService"></param>
         public AppointmentController(IAppointmentService appointmentService)
         {
             _appointmentService = appointmentService;

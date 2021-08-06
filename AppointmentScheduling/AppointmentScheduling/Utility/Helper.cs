@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduling.Utility
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class Helper
     {
         public static string Admin { get; set; } = "Admin";

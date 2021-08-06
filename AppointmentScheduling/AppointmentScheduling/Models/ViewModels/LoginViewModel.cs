@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AppointmentScheduling.Models.ViewModels
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LoginViewModel
     {
         [Required]

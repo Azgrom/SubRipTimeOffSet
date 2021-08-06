@@ -10,6 +10,9 @@ namespace AppointmentScheduling.Controllers
 {
     public class AppointmentController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IAppointmentService _appointmentService;
 
         public AppointmentController(IAppointmentService appointmentService)

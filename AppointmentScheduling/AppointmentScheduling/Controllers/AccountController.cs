@@ -119,6 +119,10 @@ namespace AppointmentScheduling.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> LogOff()
         {

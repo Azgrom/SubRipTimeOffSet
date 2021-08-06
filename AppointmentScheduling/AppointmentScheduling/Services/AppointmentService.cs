@@ -15,6 +15,10 @@ namespace AppointmentScheduling.Services
         /// </summary>
         private readonly ApplicationDbContext _db;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="db"></param>
         public AppointmentService(ApplicationDbContext db)
         {
             _db = db;

@@ -25,6 +25,10 @@ namespace AppointmentScheduling.Utility
         public static int SuccessCode { get; set; } = 1;
         public static int FailureCode { get; set; } = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<SelectListItem> GetRolesForDropDown()
         {
             return new List<SelectListItem>

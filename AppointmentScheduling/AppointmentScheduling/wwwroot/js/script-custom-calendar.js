@@ -45,8 +45,8 @@ function onCloseModal() {
 }
 
 function onSubmitForm() {
-    var requestData = {
         Id: parserInt($("#id").val()),
+    let requestData = {
         Title: $("#title").val(),
         Description: $("#description").val(),
         StartDate: $("#appointmentDate").val(),

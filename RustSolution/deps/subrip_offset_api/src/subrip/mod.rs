@@ -41,7 +41,7 @@ impl Time {
         }
     }
 
-    fn convert_units_to_milliseconds(&self) -> u32 {
+    fn convert_units_to_ms(&self) -> u32 {
         let time_fields: Vec<u32> = [
             (self.milliseconds as u32),
             (self.seconds as u32),
@@ -67,16 +67,16 @@ impl Time {
         total_time_milliseconds
     }
 
-    pub fn convert_milliseconds_to_time_units(milliseconds_time_stamp: u32) -> Time {
+    pub fn convert_ms_to_time_info(ms_time_stamp: u32) -> Time {
         let module = |n: u32, d: u32| n - (d * (n / d) as u32);
 
-        let milliseconds = module(milliseconds_time_stamp, 1_000);
-        let seconds = module(milliseconds_time_stamp - milliseconds, 60_000);
+        let milliseconds = module(ms_time_stamp, 1_000);
+        let seconds = module(ms_time_stamp - milliseconds, 60_000);
         let minutes = module(
-            milliseconds_time_stamp - (seconds + milliseconds),
+            ms_time_stamp - (seconds + milliseconds),
             3_600_000,
         );
-        let hours = milliseconds_time_stamp - (minutes + seconds + milliseconds);
+        let hours = ms_time_stamp - (minutes + seconds + milliseconds);
 
         Time {
             milliseconds: milliseconds,
@@ -109,28 +109,28 @@ impl TimeStamp {
         }
 
     fn subtract_fixed_offset(self, offset: u32) -> TimeStamp {
-        let mut start_in_milliseconds = self.start.convert_units_to_milliseconds();
-        let mut end_in_milliseconds = self.end.convert_units_to_milliseconds();
+        let mut start_in_ms = self.start.convert_units_to_ms();
+        let mut end_in_ms = self.end.convert_units_to_ms();
 
-        start_in_milliseconds = start_in_milliseconds.saturating_sub(offset);
-        end_in_milliseconds = end_in_milliseconds.saturating_sub(offset);
+        start_in_ms = start_in_ms.saturating_sub(offset);
+        end_in_ms = end_in_ms.saturating_sub(offset);
 
         TimeStamp {
-            start: Time::convert_milliseconds_to_time_units(start_in_milliseconds),
-            end: Time::convert_milliseconds_to_time_units(end_in_milliseconds),
+            start: Time::convert_ms_to_time_info(start_in_ms),
+            end: Time::convert_ms_to_time_info(end_in_ms),
         }
     }
 
     fn sum_fixed_offset(self, offset: u32) -> TimeStamp {
-        let mut start_in_milliseconds = self.start.convert_units_to_milliseconds();
-        let mut end_in_milliseconds = self.end.convert_units_to_milliseconds();
+        let mut start_in_ms = self.start.convert_units_to_ms();
+        let mut end_in_ms = self.end.convert_units_to_ms();
 
-        start_in_milliseconds = start_in_milliseconds.saturating_add(offset);
-        end_in_milliseconds = end_in_milliseconds.saturating_add(offset);
+        start_in_ms = start_in_ms.saturating_add(offset);
+        end_in_ms = end_in_ms.saturating_add(offset);
 
         TimeStamp {
-            start: Time::convert_milliseconds_to_time_units(start_in_milliseconds),
-            end: Time::convert_milliseconds_to_time_units(end_in_milliseconds),
+            start: Time::convert_ms_to_time_info(start_in_ms),
+            end: Time::convert_ms_to_time_info(end_in_ms),
         }
     }
 }
@@ -152,8 +152,7 @@ impl SubRipFile {
             2
             00:02:20,476 --> 00:02:22,501
             God dammit, Lieutenant!
-            Try uploading again!
-",
+            Try uploading again!",
             ),
         };
 
@@ -322,7 +321,7 @@ mod tests {
             milliseconds: 440,
         };
         let expected_result: u32 = 137_440;
-        let result = time.convert_units_to_milliseconds();
+        let result = time.convert_units_to_ms();
 
         assert_eq!(result, expected_result);
 
@@ -333,32 +332,32 @@ mod tests {
             milliseconds: 440,
         };
         let expected_result: u32 = 25_337_440;
-        let result = time.convert_units_to_milliseconds();
+        let result = time.convert_units_to_ms();
 
         assert_eq!(result, expected_result);
     }
 
     #[test]
     fn milliseconds_to_time() {
-        let milliseconds_timeframe: u32 = 137_440;
+        let ms_timeframe: u32 = 137_440;
         let expected_result = Time {
             hours: 0,
             minutes: 2,
             seconds: 17,
             milliseconds: 440,
         };
-        let result = Time::convert_milliseconds_to_time_units(milliseconds_timeframe);
+        let result = Time::convert_ms_to_time_info(ms_timeframe);
 
         assert_eq!(result, expected_result);
 
-        let milliseconds_timeframe: u32 = 25_337_440;
+        let ms_timeframe: u32 = 25_337_440;
         let expected_result = Time {
             hours: 7,
             minutes: 2,
             seconds: 17,
             milliseconds: 440,
         };
-        let result = Time::convert_milliseconds_to_time_units(milliseconds_timeframe);
+        let result = Time::convert_ms_to_time_info(ms_timeframe);
 
         assert_eq!(result, expected_result);
     }

@@ -20,5 +20,4 @@ WORKDIR /app
 # app and configuration
 COPY --from=builder /app/target/release/subrip_web_api subrip_web_api
 
-EXPOSE 1111
 ENTRYPOINT [ "./subrip_web_api" ]

@@ -1,6 +1,17 @@
 version: "3"
 services:
-    rust_solution:
-        build: .
-        ports:
-            - "8000:5000"
+  rust_solution:
+    container_name: Rust_SubRip_Offset_Time_API
+    build:
+      context: ./
+      cache_from:
+        - rust:slim-buster
+        - debian:buster-slim
+    command: ./subrip_web_api
+    ports:
+      - "8000:5000"
+    volumes:
+      - cargo_metadata:/app
+
+volumes:
+  cargo_metadata:

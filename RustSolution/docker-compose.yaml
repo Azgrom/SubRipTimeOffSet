@@ -9,7 +9,7 @@ services:
         - debian:buster-slim
     command: ./subrip_web_api
     ports:
-      - "8000:5000"
+      - "5000:5000"
     volumes:
       - cargo_metadata:/app
 

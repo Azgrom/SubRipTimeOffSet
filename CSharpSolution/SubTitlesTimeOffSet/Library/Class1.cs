@@ -52,8 +52,33 @@ internal struct TimeData
 
 internal struct TimeStamp
 {
+    private TimeStamp(TimeData start, TimeData end)
+    {
+        Start = start;
+        End = end;
+    }
+
     public TimeData Start { get; set; }
+
     public TimeData End { get; set; }
+
+    public static TimeStamp Parser(List<string> patternsWrapper)
+    {
+        if (patternsWrapper.Count != 2) throw new Exception("Panic");
+        
+        var startEndTimes = patternsWrapper[1].Split(SplitParameter);
+        return new TimeStamp(TimeData.TimeSplitter(startEndTimes[0]), TimeData.TimeSplitter(startEndTimes[1]));
+    }
+
+    public TimeStamp Offset(UInt32 offset)
+    {
+        var startInMilliseconds = Start.ConvertUnitsToMilliseconds() + offset;
+        var endInMilliseconds = End.ConvertUnitsToMilliseconds() + offset;
+        
+        return new TimeStamp(TimeData.ConvertMillisecondsToTimeData(startInMilliseconds), TimeData.ConvertMillisecondsToTimeData(endInMilliseconds));
+    }
+
+    private const string SplitParameter = " --> ";
 }
 
 internal struct SubRipContent

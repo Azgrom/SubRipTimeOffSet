@@ -2,6 +2,75 @@
 
 namespace Library;
 
+internal struct SubRipContent
+{
+    private SubRipContent(TimeStamp dialogTiming, string dialogString)
+    {
+        DialogTiming = dialogTiming;
+        DialogString = dialogString;
+    }
+
+    public TimeStamp DialogTiming { get; set; }
+    public string DialogString { get; set; }
+
+    private string DialogParser(IEnumerable<string> patternWrapper) =>
+        patternWrapper.Where(dialogLine => dialogLine != "")
+            .Aggregate<string, string>(null!, (current, dialogLine) =>
+                string.Join(current, dialogLine));
+
+    public List<SubRipContent> SubRipParser(string textfile_content)
+    {
+        var patternWrapper = new List<string>();
+        var subRipVec = new List<SubRipContent>();
+
+        foreach (var subRipLine in Regex.Split(textfile_content, "\r\n|\r|\n"))
+        {
+            patternWrapper.Add(subRipLine);
+
+            if (subRipLine != "") continue;
+            var dialogTiming = TimeStamp.Parser(patternWrapper);
+            var dialogString = DialogParser(patternWrapper);
+            
+            patternWrapper.Clear();
+                
+            subRipVec.Add(new SubRipContent(dialogTiming, dialogString));
+        }
+
+        return subRipVec;
+    }
+}
+
+internal struct TimeStamp
+{
+    private TimeStamp(TimeData start, TimeData end)
+    {
+        Start = start;
+        End = end;
+    }
+
+    public TimeData Start { get; set; }
+
+    public TimeData End { get; set; }
+
+    public static TimeStamp Parser(List<string> patternsWrapper)
+    {
+        if (patternsWrapper.Count != 2) throw new Exception("Panic");
+        
+        var startEndTimes = patternsWrapper[1].Split(SplitParameter);
+        return new TimeStamp(TimeData.TimeSplitter(startEndTimes[0]), TimeData.TimeSplitter(startEndTimes[1]));
+    }
+
+    public TimeStamp Offset(UInt32 offset)
+    {
+        var startInMilliseconds = Start.ConvertUnitsToMilliseconds() + offset;
+        var endInMilliseconds = End.ConvertUnitsToMilliseconds() + offset;
+        
+        return new TimeStamp(TimeData.ConvertMillisecondsToTimeData(startInMilliseconds), TimeData.ConvertMillisecondsToTimeData(endInMilliseconds));
+    }
+
+    private const string SplitParameter = " --> ";
+}
+
 internal struct TimeData
 {
     private TimeData(ushort hours, ushort minutes, ushort seconds, ushort milliseconds)
@@ -50,73 +119,4 @@ internal struct TimeData
     private static uint Module(uint n, uint d) => n - d * (n / d);
 
     private static readonly char[] SplitParameter = {':', ','};
-}
-
-internal struct TimeStamp
-{
-    private TimeStamp(TimeData start, TimeData end)
-    {
-        Start = start;
-        End = end;
-    }
-
-    public TimeData Start { get; set; }
-
-    public TimeData End { get; set; }
-
-    public static TimeStamp Parser(List<string> patternsWrapper)
-    {
-        if (patternsWrapper.Count != 2) throw new Exception("Panic");
-        
-        var startEndTimes = patternsWrapper[1].Split(SplitParameter);
-        return new TimeStamp(TimeData.TimeSplitter(startEndTimes[0]), TimeData.TimeSplitter(startEndTimes[1]));
-    }
-
-    public TimeStamp Offset(UInt32 offset)
-    {
-        var startInMilliseconds = Start.ConvertUnitsToMilliseconds() + offset;
-        var endInMilliseconds = End.ConvertUnitsToMilliseconds() + offset;
-        
-        return new TimeStamp(TimeData.ConvertMillisecondsToTimeData(startInMilliseconds), TimeData.ConvertMillisecondsToTimeData(endInMilliseconds));
-    }
-
-    private const string SplitParameter = " --> ";
-}
-
-internal struct SubRipContent
-{
-    private SubRipContent(TimeStamp dialogTiming, string dialogString)
-    {
-        DialogTiming = dialogTiming;
-        DialogString = dialogString;
-    }
-
-    public TimeStamp DialogTiming { get; set; }
-    public string DialogString { get; set; }
-
-    private string DialogParser(IEnumerable<string> patternWrapper) =>
-        patternWrapper.Where(dialogLine => dialogLine != "")
-            .Aggregate<string, string>(null!, (current, dialogLine) =>
-                string.Join(current, dialogLine));
-
-    public List<SubRipContent> SubRipParser(string textfile_content)
-    {
-        var patternWrapper = new List<string>();
-        var subRipVec = new List<SubRipContent>();
-
-        foreach (var subRipLine in Regex.Split(textfile_content, "\r\n|\r|\n"))
-        {
-            patternWrapper.Add(subRipLine);
-
-            if (subRipLine != "") continue;
-            var dialogTiming = TimeStamp.Parser(patternWrapper);
-            var dialogString = DialogParser(patternWrapper);
-            
-            patternWrapper.Clear();
-                
-            subRipVec.Add(new SubRipContent(dialogTiming, dialogString));
-        }
-
-        return subRipVec;
-    }
 }

@@ -1,9 +1,16 @@
 ﻿namespace Library;
 
-
-public struct TimeData
+internal struct TimeData
 {
-    public TimeData(IReadOnlyList<string> timeVec)
+    private TimeData(ushort hours, ushort minutes, ushort seconds, ushort milliseconds)
+    {
+        Hours = hours;
+        Minutes = minutes;
+        Seconds = seconds;
+        Milliseconds = milliseconds;
+    }
+
+    private TimeData(IReadOnlyList<string> timeVec)
     {
         Hours = Convert.ToUInt16(timeVec[0]);
         Minutes = Convert.ToUInt16(timeVec[1]);
@@ -16,7 +23,7 @@ public struct TimeData
     public ushort Seconds { get; set; }
     public ushort Milliseconds { get; set; }
 
-    public TimeData TimeSplitter(string timeStr) =>
+    public static TimeData TimeSplitter(string timeStr) =>
         new TimeData(timeStr.Split(SplitParameter));
 
     public uint ConvertUnitsToMilliseconds()
@@ -28,24 +35,17 @@ public struct TimeData
         return totalTimeMilliseconds;
     }
 
-    public void ConvertMillisecondsToTimeData(uint millisecondsTimeData)
+    public static TimeData ConvertMillisecondsToTimeData(uint millisecondsTimeData)
     {
-        var timeSpan = TimeSpan.FromMilliseconds(millisecondsTimeData);
-        Hours;
+        var milliseconds = Module(millisecondsTimeData, 1_000);
+        var seconds = Module(millisecondsTimeData - milliseconds, 60_000) / 1_000;
+        var minutes = Module(milliseconds - (seconds + milliseconds), 3_600_000) / 60_000;
+        var hours = millisecondsTimeData - (minutes + seconds + milliseconds) / 3_600_000;
+
+        return new TimeData((ushort) hours, (ushort) minutes, (ushort) seconds, (ushort) milliseconds);
     }
 
-    public void Set(TimeSpan? timeSpan = null,
-        ushort? hours = null,
-        ushort? minutes = null,
-        ushort? seconds = null,
-        ushort? milliseconds = null)
-    {
-        if (timeSpan != null)
-        {
-            Hours = timeSpan.Hours;
-
-        }
-    }
+    private static uint Module(uint n, uint d) => n - d * (n / d);
 
     private static readonly char[] SplitParameter = {':', ','};
 }

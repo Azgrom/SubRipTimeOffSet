@@ -1,4 +1,6 @@
-﻿namespace Library;
+﻿using System.Text.RegularExpressions;
+
+namespace Library;
 
 internal struct TimeData
 {
@@ -83,6 +85,38 @@ internal struct TimeStamp
 
 internal struct SubRipContent
 {
+    private SubRipContent(TimeStamp dialogTiming, string dialogString)
+    {
+        DialogTiming = dialogTiming;
+        DialogString = dialogString;
+    }
+
     public TimeStamp DialogTiming { get; set; }
     public string DialogString { get; set; }
+
+    private string DialogParser(IEnumerable<string> patternWrapper) =>
+        patternWrapper.Where(dialogLine => dialogLine != "")
+            .Aggregate<string, string>(null!, (current, dialogLine) =>
+                string.Join(current, dialogLine));
+
+    public List<SubRipContent> SubRipParser(string textfile_content)
+    {
+        var patternWrapper = new List<string>();
+        var subRipVec = new List<SubRipContent>();
+
+        foreach (var subRipLine in Regex.Split(textfile_content, "\r\n|\r|\n"))
+        {
+            patternWrapper.Add(subRipLine);
+
+            if (subRipLine != "") continue;
+            var dialogTiming = TimeStamp.Parser(patternWrapper);
+            var dialogString = DialogParser(patternWrapper);
+            
+            patternWrapper.Clear();
+                
+            subRipVec.Add(new SubRipContent(dialogTiming, dialogString));
+        }
+
+        return subRipVec;
+    }
 }
